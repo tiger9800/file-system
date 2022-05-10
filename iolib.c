@@ -1,8 +1,34 @@
 #include <comp421/iolib.h>
 #include <comp421/yalnix.h>
 
+struct file_info {
+    short inode_num;
+    unsigned int pos;
+}
+
+struct my_msg { 
+    int type; 
+    int numeric; 
+    char string[16]; 
+    void * ptr; 
+};
+
+struct file_info open_files[MAX_OPEN_FILES];
+
 int Open(char *pathname) {
-    (void)pathname;
+    //pick the file descriptor
+    int i;
+    int curr_fd = -1;
+    for(i = 0; i < MAX_OPEN_FILES; i++) {
+        if(open_files[i].inode_num == 0) {
+            curr_fd = i;
+        }
+    }
+    if(curr_fd == -1) {
+        return ERROR;
+    }
+    Send()
+
     return 0;
 }
 
