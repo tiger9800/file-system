@@ -1,5 +1,6 @@
 #include <comp421/yalnix.h>
 #include <comp421/iolib.h>
+#include <stdio.h>
 
 int
 main()
@@ -7,8 +8,10 @@ main()
 	int fd;
 
 	fd = Create("a");
-	Write(fd, "aaaaaaaaaaaaaaaa", 16);
+	printf("Here is fd %d\n", fd);
+Write(fd, "aaaaaaaaaaaaaaaa", 16);
 	Close(fd);
+	
 
 	fd = Create("b");
 	Write(fd, "bbbbbbbbbbbbbbbb", 16);
