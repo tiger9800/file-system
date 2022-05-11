@@ -6,6 +6,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 char buf[SECTORSIZE];
 
@@ -17,6 +18,13 @@ static int getFreeInodes(int num_inodes);
 static int getFreeBlocks(struct inode* currNode);
 static void getTakenBlocks(int num_inodes);
 static int init();
+static void handleMsg(struct my_msg *msg, int pid);
+static void open(struct my_msg *msg, int pid);
+static int getInodeNumber(int curr_dir, char *pathname);
+static int search(int start_inode, char *pathname);
+static struct inode findInode(int curr_num);
+static int searchInDirectory(struct inode *curr_inode, char *token);
+static int find_entry_in_block(int block, char *token, int num_entries_left);
 
 int main(int argc, char *argv[]) {
     
@@ -62,10 +70,11 @@ int main(int argc, char *argv[]) {
             continue;
         } else if (pid == 0) {
             fprintf(stderr, "Recieve() failed to avoid deadlock\n");
-            continue;
+            
+            break;
         }
 
-        handle_msg(&msg, pid);
+        handleMsg(&msg, pid);
         Reply((void *)&msg, pid);
     }
     return 0;
@@ -182,12 +191,11 @@ static int init() {
     return 0;
 }
 
-static void handle_msg(struct my_msg *msg, int pid) {
+static void handleMsg(struct my_msg *msg, int pid) {
     switch(msg->type) {
         case OPEN:
             open(msg, pid);
             break;
-        default:
     }
 }
 
@@ -198,50 +206,102 @@ static void open(struct my_msg *msg, int pid) {
     }
     char pathname[MAXPATHNAMELEN];
     CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN);
-    msg->numeric = getInode(pathname, pid);
+    msg->numeric = getInodeNumber(msg->numeric, pathname);
 }
 
-static int getInode(char *pathname, int pid) {
-    int dir_inode = find_parent_dir(pathname, pid);
-
-}
-
-static int find_parent_dir(char *pathname, int pid) {
-    
+static int getInodeNumber(int curr_dir, char *pathname) {
     if (pathname[0] == '/') {
         // Pathname is absolute.
-        return searchParent(ROOTINODE, pathname + 1, pid);
+        // Remove leading /'s.
+        while (pathname[0] == '/') {
+            pathname++;
+        }
+        return search(ROOTINODE, pathname);
     } else {
         // Pathname is relative.
-        return searchParent(msg->numeric, pathname, pid);
+        return search(curr_dir, pathname);
     }
 }
 
-static int searchParent(int start_inode, char *pathname, int pid) {
+static int search(int start_inode, char *pathname) {
     int curr_num = start_inode;
-    char *token = strtok(pathname, '/');
+    char *token = strtok(pathname, "/");
     while (token != NULL) {
-
-        struct inode curr_inode = find_inode(curr_num);
-        if (curr_inode->type != INODE_DIRECTORY) {
+        struct inode curr_inode = findInode(curr_num);
+        // Find a directory entry with name = token.
+        curr_num = searchInDirectory(&curr_inode, token);
+        if (curr_num == ERROR) {
             return ERROR;
         }
-
-
-
-
-
-        token = strtok(NULL, '/');
+        token = strtok(NULL, "/");
     }
+    return curr_num;
 }
 
-static struct inode find_inode(int curr_num) {
-    int block = (INODESIZE*curr_num / BLOCKSIZE) + 1;
-    struct inode inode_buf[SECTORSIZE/INODESIZE];
-    if (ReadSector(block, inode_buf) == ERROR) {
-            printf("Error\n");
-            return ERROR;
-    }
-    int index = (INODESIZE * curr_num) % BLOCKSIZE;
+static struct inode findInode(int curr_num) {
+    int inodes_per_block = BLOCKSIZE / INODESIZE;
+    int block = (curr_num / inodes_per_block) + 1;
+    struct inode inode_buf[inodes_per_block];
+    ReadSector(block, inode_buf);
+    int index = curr_num % inodes_per_block;
     return inode_buf[index];
+}
+
+static int searchInDirectory(struct inode *curr_inode, char *token) {
+    if (curr_inode == NULL || curr_inode->type != INODE_DIRECTORY) {
+        return ERROR;
+    }
+    int num_entries_left = curr_inode->size / sizeof(struct dir_entry);
+    int entries_per_block = BLOCKSIZE / sizeof(struct dir_entry);
+    int num_blocks = curr_inode->size / BLOCKSIZE;
+    if (curr_inode->size % BLOCKSIZE != 0) {
+        num_blocks++;
+    }
+    int i;
+    for (i = 0; i < MIN(NUM_DIRECT, num_blocks); i++) {
+        int out_inode = find_entry_in_block(curr_inode->direct[i], token, num_entries_left);
+        if (out_inode != ERROR) {
+            return out_inode;
+        } 
+        num_entries_left -= entries_per_block;
+    }
+    if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
+        int block_to_read = curr_inode->indirect;
+        int indirect_buf[BLOCKSIZE/sizeof(int)];
+        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+            return ERROR;
+        }
+        int j;
+        for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
+            int out_inode = find_entry_in_block(indirect_buf[j], token, num_entries_left);
+            if (out_inode != ERROR) {
+                return out_inode;
+            }
+            num_entries_left -= entries_per_block;
+        }
+    }
+    return ERROR;
+}
+
+static int find_entry_in_block(int block, char *token, int num_entries_left) {
+    if (strlen(token) > DIRNAMELEN) {
+        fprintf(stderr, "Entry name %s is too long.\n", token);
+        return ERROR;
+    }
+    char entry_name[DIRNAMELEN];
+    memset(entry_name, '\0', DIRNAMELEN);
+    memcpy(entry_name, token, strlen(token));
+
+    int entries_per_block = BLOCKSIZE/sizeof(struct dir_entry);
+    struct dir_entry dir_buf[entries_per_block];
+    if (ReadSector(block, dir_buf) == ERROR) {
+        return ERROR;
+    }
+    int i;
+    for (i = 0; i < MIN(entries_per_block, num_entries_left); i++) {
+        if (dir_buf[i].inum != 0 && strncmp(dir_buf[i].name, entry_name, DIRNAMELEN) == 0) {
+            return dir_buf[i].inum;
+        }
+    }
+    return ERROR;
 }
