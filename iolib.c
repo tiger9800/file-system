@@ -26,14 +26,8 @@ int Open(char *pathname) {
     if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
         return ERROR;
     }
-    int i;
-    int curr_fd = -1;
-    for(i = 0; i < MAX_OPEN_FILES; i++) {
-        if(open_files[i].inode_num == 0) {
-            curr_fd = i;
-        }
-    }
-    if(curr_fd == -1) {
+    int curr_fd = getSmallestFD()
+    if(curr_fd == ERROR) {
         return ERROR;
     }
     struct my_msg new_msg = {OPEN, curr_dir, 0, "", &pathname};
@@ -45,7 +39,6 @@ int Open(char *pathname) {
     if(new_msg->numeric == ERROR) {
         return ERROR;
     }
-    int fd = getSmallestFD();
     open_files[fd].inode_num = new_msg->numeric1;
     open_files[fd].pos = 0;
     //we need to return reuse count, so we can compare on subseqeuent reads/writes
