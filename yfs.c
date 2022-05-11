@@ -12,11 +12,13 @@ char buf[SECTORSIZE];
 
 static bool* inodemap;
 static bool* blockmap;
+static int num_blocks;
+static int num_inodes;
 
 static void start_user_program(char *argv[]);
-static int getFreeInodes(int num_inodes);
+static int getFreeInodes();
 static int getFreeBlocks(struct inode* currNode);
-static void getTakenBlocks(int num_inodes);
+static void getTakenBlocks();
 static int init();
 static void handleMsg(struct my_msg *msg, int pid);
 static void open(struct my_msg *msg, int pid);
@@ -39,8 +41,8 @@ int main(int argc, char *argv[]) {
     printf("Read first sector\n");
     struct fs_header *header = (struct fs_header*)buf;
     //Now we can get the number of inodes
-    int num_inodes = header->num_inodes;
-    int num_blocks = header->num_blocks;
+    num_inodes = header->num_inodes;
+    num_blocks = header->num_blocks;
     inodemap = malloc(sizeof(bool) * (num_inodes + 1));
     blockmap = malloc(sizeof(bool) * num_blocks);
     if (init() == ERROR) {
@@ -88,7 +90,7 @@ static void start_user_program(char *argv[]) {
         }
 }
 
-static int getFreeInodes(int num_inodes) {
+static int getFreeInodes() {
     printf("In getFree\n");
     int inodes_per_block = BLOCKSIZE / INODESIZE;
 
@@ -149,7 +151,7 @@ static int getFreeBlocks(struct inode *currNode) {
     }
     return 0;
 }
-static void getTakenBlocks(int num_inodes) {
+static void getTakenBlocks() {
     // Boot block.
     blockmap[0] = false;
     // Inodes' blocks.
@@ -207,12 +209,17 @@ static void handleMsg(struct my_msg *msg, int pid) {
  */
 static void open(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
-        msg->numeric = ERROR;
+        msg->numeric1 = ERROR;
         return;
     }
     char pathname[MAXPATHNAMELEN];
     CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN);
-    msg->numeric = getInodeNumber(msg->numeric, pathname);
+    msg->numeric1 = getInodeNumber(msg->numeric1, pathname);
+    if(msg->numeric1 != ERROR) {
+        msg->numeric2 = findInode(msg->numeric1).reuse;
+    }
+   
+    
 }
 
 static int getInodeNumber(int curr_dir, char *pathname) {

@@ -1,7 +1,8 @@
 struct my_msg { 
     int type; 
-    int numeric; 
-    char string[16]; 
+    int numeric1; 
+    int numeric2;
+    char string[12]; 
     void * ptr; 
 };
 
