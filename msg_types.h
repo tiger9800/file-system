@@ -4,5 +4,6 @@ struct my_msg {
     char string[16]; 
     void * ptr; 
 };
+
 #define MSG_SIZE 32
 #define OPEN 0

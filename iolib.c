@@ -12,11 +12,14 @@
 struct file_info {
     short inode_num;
     unsigned int pos;
+    int reuse;
 };
 
 struct file_info open_files[MAX_OPEN_FILES];
 
 int curr_dir = ROOTINODE;
+
+static int getSmallestFD();
 
 int Open(char *pathname) {
     //pick the file descriptor
@@ -38,7 +41,14 @@ int Open(char *pathname) {
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
     }
-
+    //now new_msg has numeric changed
+    if(new_msg->numeric == ERROR) {
+        return ERROR;
+    }
+    int fd = getSmallestFD();
+    open_files[fd].inode_num = new_msg->numeric;
+    open_files[fd].pos = 0;
+    //we need to return reuse count, so we can compare on subseqeuent reads/writes
     return 0;
 }
 
@@ -119,4 +129,14 @@ int Sync() {
 
 int Shutdown() {
     return 0;   
+}
+
+static int getSmallestFD() {
+    int i;
+    for(int i = 0; i < MAX_OPEN_FILES; i++) {
+        if(open_files[i].inode_num == 0) {
+            return i;
+        }
+    }
+    return ERROR;//no available file descriptors.
 }

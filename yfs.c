@@ -199,9 +199,15 @@ static void handleMsg(struct my_msg *msg, int pid) {
     }
 }
 
+/**
+ * @brief Open the file/directory and modii fy the message to return the inode number.
+ * 
+ * @param msg 
+ * @param pid 
+ */
 static void open(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
-        msg->numeric = -1;
+        msg->numeric = ERROR;
         return;
     }
     char pathname[MAXPATHNAMELEN];
