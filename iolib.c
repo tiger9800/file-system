@@ -26,7 +26,7 @@ int Open(char *pathname) {
     if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
         return ERROR;
     }
-    int curr_fd = getSmallestFD()
+    int curr_fd = getSmallestFD();
     if(curr_fd == ERROR) {
         return ERROR;
     }
@@ -52,7 +52,23 @@ int Close(int fd) {
 }
 
 int Create(char *pathname) {
-    (void)pathname;
+    if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
+        return ERROR;
+    }
+    int curr_fd = getSmallestFD();
+    if(curr_fd == ERROR) {
+        return ERROR;
+    }
+
+    struct my_msg new_msg = {CREATE, curr_dir, 0, "", &pathname};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    open_files[fd].inode_num = new_msg->numeric1;
+    open_files[fd].pos = 0;
+    //we need to return reuse count, so we can compare on subseqeuent reads/writes
+    open_files[fd].reuse = new_msg->numeric2;
     return 0;    
 }
 

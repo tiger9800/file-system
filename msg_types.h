@@ -8,3 +8,4 @@ struct my_msg {
 
 #define MSG_SIZE 32
 #define OPEN 0
+#define CREATE 1
