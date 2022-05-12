@@ -1,134 +1,61 @@
 ** User     level 1 tracing enabled **
 ** YFS      level 1 tracing enabled **
-YFS      Root node type 1
-YFS      Root node size 96
-YFS      sizeof dir_entry 32
-User     Numeric 1 before send 1
-YFS      Message type 1
-YFS      Numeric1 1
-YFS      Numeric2 0
-YFS      Addr of path (ptr) 0x151e0
-YFS      Handling CREATE Message
-YFS      PathName after copyFrom hah
-YFS      Location of the last slash: -1
-YFS      No slash
-YFS      Entry name hah
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      Inode num after the search in directory 2
-YFS      Block 1 for inode_num 2
-YFS      Index 2 for inode_num 2
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 2 is 2
-YFS      File exists, so we are erasing it !!!!!
-YFS      Block 1 for inode_num 2
-YFS      Index 2 for inode_num 2
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 2 is 2
-User     Send is completed
-User     Inode num 2
-User     Reuse 1
-User     Numeric 1 before send 1
-YFS      Message type 1
-YFS      Numeric1 1
-YFS      Numeric2 0
-YFS      Addr of path (ptr) 0x151f3
-YFS      Handling CREATE Message
-YFS      PathName after copyFrom hah1
-YFS      Location of the last slash: -1
-YFS      No slash
-YFS      Entry name hah1
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      Inode num after the search in directory -1
-YFS      There is no file like this
-YFS      free inode num 3
-YFS      NUM_INODES: 47
-YFS      Here is the free_inode_num 3
-YFS      dir_inode_num in CreateNewDirEntry: 1
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      inode type of curr_dir_inode 1
-YFS      Positive last block 7
-YFS      Here is the inode_num of the newly created file 3
-YFS      Block 1 for inode_num 3
-YFS      Index 3 for inode_num 3
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 3 is 2
-User     Send is completed
-User     Inode num 3
-User     Reuse 1
-User     Numeric 1 before send 1
-YFS      Message type 1
-YFS      Numeric1 1
-YFS      Numeric2 0
-YFS      Addr of path (ptr) 0x151f8
-YFS      Handling CREATE Message
-YFS      PathName after copyFrom hah2
-YFS      Location of the last slash: -1
-YFS      No slash
-YFS      Entry name hah2
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      Inode num after the search in directory -1
-YFS      There is no file like this
-YFS      free inode num 4
-YFS      NUM_INODES: 47
-YFS      Here is the free_inode_num 4
-YFS      dir_inode_num in CreateNewDirEntry: 1
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      inode type of curr_dir_inode 1
-YFS      Positive last block 7
-YFS      Here is the inode_num of the newly created file 4
-YFS      Block 1 for inode_num 4
-YFS      Index 4 for inode_num 4
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 4 is 2
-User     Send is completed
-User     Inode num 4
-User     Reuse 1
-User     Numeric 1 before send 1
-YFS      Message type 1
-YFS      Numeric1 1
-YFS      Numeric2 0
-YFS      Addr of path (ptr) 0x151fd
-YFS      Handling CREATE Message
-YFS      PathName after copyFrom hah3
-YFS      Location of the last slash: -1
-YFS      No slash
-YFS      Entry name hah3
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      Inode num after the search in directory -1
-YFS      There is no file like this
-YFS      free inode num 5
-YFS      NUM_INODES: 47
-YFS      Here is the free_inode_num 5
-YFS      dir_inode_num in CreateNewDirEntry: 1
-YFS      Block 1 for inode_num 1
-YFS      Index 1 for inode_num 1
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 1 is 1
-YFS      inode type of curr_dir_inode 1
-YFS      Positive last block 7
-YFS      Here is the inode_num of the newly created file 5
-YFS      Block 1 for inode_num 5
-YFS      Index 5 for inode_num 5
-YFS      INODES_PER_BLOCK 8
-YFS      Type of the inode with num 5 is 2
-User     Send is completed
-User     Inode num 5
-User     Reuse 1
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 4
+YFS      new_file_inode_num is 4
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 5
+YFS      new_file_inode_num is 5
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 6
+YFS      new_file_inode_num is 6
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 7
+YFS      new_file_inode_num is 7
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 8
+YFS      new_file_inode_num is 8
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 9
+YFS      new_file_inode_num is 9
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 10
+YFS      new_file_inode_num is 10
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 11
+YFS      new_file_inode_num is 11
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 12
+YFS      new_file_inode_num is 12
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 13
+YFS      new_file_inode_num is 13
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 14
+YFS      new_file_inode_num is 14
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 15
+YFS      new_file_inode_num is 15
+YFS      Allocate a new block!!!!!!!!!
+YFS      free_block_num: 8
+YFS      fillFreeEntry is successful
+YFS      num_blocks: 1
+YFS      Direct block to be used
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 16
+YFS      new_file_inode_num is 16
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 17
+YFS      new_file_inode_num is 17
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 18
+YFS      new_file_inode_num is 18
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 19
+YFS      new_file_inode_num is 19
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 20
+YFS      new_file_inode_num is 20
+YFS      createNewDirEntry is successful
+YFS      create_new_file is successfull, free_inode_num is 21
+YFS      new_file_inode_num is 21

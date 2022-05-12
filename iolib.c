@@ -30,7 +30,7 @@ int Open(char *pathname) {
     if(curr_fd == ERROR) {
         return ERROR;
     }
-    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, "", &pathname};
+    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, "", pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -47,7 +47,16 @@ int Open(char *pathname) {
 }
 
 int Close(int fd) {
-    (void)fd;
+    if (fd < 0 || fd >= MAX_OPEN_FILES) {
+        return ERROR;
+    }
+    // Set all fields of file_indo to 0.
+    if (open_files[fd].inode_num == 0) {
+        return ERROR;
+    }
+    open_files[fd].inode_num = 0;
+    open_files[fd].pos = 0;
+    open_files[fd].reuse = 0;
     return 0;
 }
 
@@ -57,25 +66,22 @@ int Create(char *pathname) {
     }
     int curr_fd = getSmallestFD();
     if(curr_fd == ERROR) {
+        TracePrintf(0, "MAX is achieved: %i\n", MAX_OPEN_FILES);
         return ERROR;
     }
 
     struct my_msg new_msg = {CREATE, curr_dir_inode, 0, "", pathname};
-    TracePrintf(0, "Numeric 1 before send %i\n", new_msg.numeric1);
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
     }
-    TracePrintf(0, "Send is completed\n");
     if(new_msg.numeric1 == ERROR) {
         return ERROR;
     }
     open_files[curr_fd].inode_num = new_msg.numeric1;
-    TracePrintf(0, "Inode num %i\n", new_msg.numeric1);
     open_files[curr_fd].pos = 0;
     //we need to return reuse count, so we can compare on subseqeuent reads/writes
     open_files[curr_fd].reuse = new_msg.numeric2;
-    TracePrintf(0, "Reuse %i\n", new_msg.numeric2);
     return curr_fd;    
 }
 
