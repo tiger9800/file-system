@@ -36,13 +36,13 @@ int Open(char *pathname) {
         return ERROR;
     }
     //now new_msg has numeric changed
-    if(new_msg->numeric == ERROR) {
+    if(new_msg.numeric1 == ERROR) {
         return ERROR;
     }
-    open_files[fd].inode_num = new_msg->numeric1;
-    open_files[fd].pos = 0;
+    open_files[curr_fd].inode_num = new_msg.numeric1;
+    open_files[curr_fd].pos = 0;
     //we need to return reuse count, so we can compare on subseqeuent reads/writes
-    open_files[fd].reuse = new_msg->numeric2;
+    open_files[curr_fd].reuse = new_msg.numeric2;
     return 0;
 }
 
@@ -65,10 +65,10 @@ int Create(char *pathname) {
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
     }
-    open_files[fd].inode_num = new_msg->numeric1;
-    open_files[fd].pos = 0;
+    open_files[curr_fd].inode_num = new_msg.numeric1;
+    open_files[curr_fd].pos = 0;
     //we need to return reuse count, so we can compare on subseqeuent reads/writes
-    open_files[fd].reuse = new_msg->numeric2;
+    open_files[curr_fd].reuse = new_msg.numeric2;
     return 0;    
 }
 
@@ -143,7 +143,7 @@ int Shutdown() {
 
 static int getSmallestFD() {
     int i;
-    for(int i = 0; i < MAX_OPEN_FILES; i++) {
+    for(i = 0; i < MAX_OPEN_FILES; i++) {
         if(open_files[i].inode_num == 0) {
             return i;
         }

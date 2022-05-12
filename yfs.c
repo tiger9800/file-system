@@ -9,7 +9,7 @@
 #include <string.h>
 
 #define INODES_PER_BLOCK BLOCKSIZE/INODESIZE
-#define ENTRIES_PER_BLOCK BLOCKSIZE/sizeof(struct dir_entry)
+const int ENTRIES_PER_BLOCK =  BLOCKSIZE/sizeof(struct dir_entry);
 
 char buf[SECTORSIZE];
 

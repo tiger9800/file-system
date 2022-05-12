@@ -9,7 +9,7 @@ main()
 
 	fd = Create("a");
 	printf("Here is fd %d\n", fd);
-Write(fd, "aaaaaaaaaaaaaaaa", 16);
+	Write(fd, "aaaaaaaaaaaaaaaa", 16);
 	Close(fd);
 	
 
