@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define INODES_PER_BLOCK BLOCKSIZE/INODESIZE
+const int INODES_PER_BLOCK =  BLOCKSIZE/INODESIZE;
 const int ENTRIES_PER_BLOCK =  BLOCKSIZE/sizeof(struct dir_entry);
 
 char buf[SECTORSIZE];
@@ -104,6 +104,10 @@ static int getFreeInodes() {
     inodemap[0] = false;
     int node_count = 1;
     int sector = 1;
+    TracePrintf(0, "Root node type %i\n", currNode->type);
+    TracePrintf(0, "Root node size %i\n", currNode->size);
+    TracePrintf(0, "sizeof dir_entry %i\n", sizeof(struct dir_entry));
+
     while(node_count <= NUM_INODES) {
         printf("Before second while_loop: node_count is %d\n", node_count);
         while (node_count / INODES_PER_BLOCK != sector) {
@@ -170,8 +174,8 @@ static int init() {
     }
     struct fs_header *header = (struct fs_header*)buf;
     //Now we can get the number of inodes
-    int NUM_INODES = header->num_inodes;
-    int NUM_BLOCKS = header->num_blocks;
+    NUM_INODES = header->num_inodes;
+    NUM_BLOCKS = header->num_blocks;
     inodemap = malloc(sizeof(bool) * (NUM_INODES + 1));
     blockmap = malloc(sizeof(bool) * NUM_BLOCKS);
 
@@ -183,15 +187,23 @@ static int init() {
     if (getFreeInodes() == ERROR) {
         return ERROR;
     }
+
+    //initalize root struct
     return 0;
 }
 
 static void handleMsg(struct my_msg *msg, int pid) {
+    TracePrintf(0, "Message type %i\n", msg->type);
+    TracePrintf(0, "Numeric1 %i\n", msg->numeric1);
+    TracePrintf(0, "Numeric2 %i\n", msg->numeric2);
+    TracePrintf(0, "Addr of path (ptr) %p\n", msg->ptr);
     switch(msg->type) {
         case OPEN:
+            TracePrintf(0, "Handling OPEN  Message\n");
             open(msg, pid);
             break;
         case CREATE:
+            TracePrintf(0, "Handling CREATE Message\n");
             create(msg, pid);
             break;
     }
@@ -221,6 +233,7 @@ static void create(struct my_msg *msg, int pid) {
     }
     char pathname[MAXPATHNAMELEN];
     CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN);
+    TracePrintf(0, "PathName after copyFrom %s\n", pathname);
     //find the position of the last /
     int i;
     int last_slash = -1;
@@ -230,14 +243,17 @@ static void create(struct my_msg *msg, int pid) {
             break;
         }
     }
+    TracePrintf(0, "Location of the last slash: %i\n", last_slash);
     int new_file_inode_num;
     if(last_slash == -1) { 
         // We are trying to create a file in the curret directory.
         // msg->numeric1 contains an inode_num of a current directory.
+        TracePrintf(0, "No slash\n");
         new_file_inode_num = createFileInDir(msg->numeric1, pathname);
     } else if(last_slash == 0) {
         // We are trying to create in the root directory.
         new_file_inode_num = createFileInDir(ROOTINODE, pathname+1);
+        TracePrintf(0, "Parent\n");
     } else {
         // We need to locate the parent direcorty inode.
         char* file_name = pathname + i + 1;
@@ -263,6 +279,7 @@ static void create(struct my_msg *msg, int pid) {
 static int createFileInDir(int dir_inode_num, char* file_name) {
     if (strcmp(file_name, ".") == 0 || strcmp(file_name, "..") == 0) {
         // Can't create such directory entries manually.
+        TracePrintf(0, "Tried to create an invalid file\n");
         return ERROR;
     }
     if (strlen(file_name) > DIRNAMELEN) {
@@ -273,10 +290,12 @@ static int createFileInDir(int dir_inode_num, char* file_name) {
     char entry_name[DIRNAMELEN];
     memset(entry_name, '\0', DIRNAMELEN);
     memcpy(entry_name, file_name, strlen(file_name));
-
+    TracePrintf(0, "Entry name %s\n", entry_name);
     struct inode dir_inode = findInode(dir_inode_num);
+
     // Look through entries and find an empty entry. If it does not exist, then create a new one.
     int inode_num = searchInDirectory(&dir_inode, entry_name);
+    TracePrintf(0, "Inode num after the search in directory %i\n", inode_num);
     if (inode_num != ERROR) {
         // File with this name already exists in the directory.
         // Erase file contents and return.
@@ -285,6 +304,7 @@ static int createFileInDir(int dir_inode_num, char* file_name) {
             return ERROR;
         }
         else {//the file is not a directory
+            TracePrintf(0, "File exists, so we are erasing it !!!!!\n");
             if(eraseFile(inode_num) == ERROR) {
                 return ERROR;
             }    
@@ -292,7 +312,14 @@ static int createFileInDir(int dir_inode_num, char* file_name) {
         
     } else {
         // File does not exist in the directory, so we create it from scratch.
+        TracePrintf(0, "There is no file like this\n");
         inode_num = create_new_file(dir_inode_num, entry_name);
+        if(inode_num == ERROR) {
+            TracePrintf(0, "Receive an error from create_new_file\n");
+            fprintf(stderr, "Could not create a new file\n");
+            return ERROR;
+        }
+        TracePrintf(0, "Here is the inode_num of the newly created file %i\n", inode_num);
     }
     return inode_num;
 }
@@ -301,11 +328,13 @@ static int create_new_file(int dir_inode_num, char* file_name) {
     // Storage for a new inode.
     struct inode new_node;
     int free_inode_num = findFreeInodeNum(&new_node);
+    TracePrintf(0, "Here is the free_inode_num %i\n", free_inode_num);
     if(free_inode_num == ERROR) {
         return ERROR;
     }
     // Create a new directory entry with inum = free_inode_num, name == file_name.
     if(createNewDirEntry(file_name, free_inode_num, dir_inode_num) == ERROR) {
+        TracePrintf(0, "Create new dir entry returned an error\n");
         return ERROR;
     }
     // We set inodemap[free_inode_num] to false in this function.
@@ -340,6 +369,8 @@ static int findFreeInodeNum(struct inode* new_inode) {
             break;
         }
     }
+    TracePrintf(0, "free inode num %i\n", free_inode_num);
+    TracePrintf(0,"NUM_INODES: %i\n", NUM_INODES);
     if (free_inode_num == -1) {
         return ERROR;
     }
@@ -359,16 +390,22 @@ static int findFreeInodeNum(struct inode* new_inode) {
 
 // Returns 0 on SUCCESS, -1 on ERROR
 static int createNewDirEntry(char* file_name, int file_inode_num, int dir_inode_num) {
+    TracePrintf(0, "dir_inode_num in CreateNewDirEntry: %i\n", dir_inode_num);
     struct inode curr_dir_inode = findInode(dir_inode_num);
+    TracePrintf(0, "inode type of curr_dir_inode %i\n", curr_dir_inode.type);
     if (curr_dir_inode.type != INODE_DIRECTORY) {
+        TracePrintf(0, "dir_inode_num is not a directory\n");
         return ERROR;
     }
 
     int last_block;
     if ((last_block = updateFreeEntry(&curr_dir_inode, file_name, file_inode_num)) <= 0) {
         // Either SUCCESS (we found a free entry and modified it) or ERROR.
+        TracePrintf(0, "There was a free entry found in a existing block, so we update it\n");
+        TracePrintf(0, "Last block: %i\n", last_block);
         return last_block;
     }
+    TracePrintf(0, "Positive last block %i\n", last_block);
 
     // There are no free directory entries in the directory dir_inode_num.
     int max_size = (NUM_DIRECT + BLOCKSIZE/sizeof(int)) * BLOCKSIZE;
@@ -537,11 +574,16 @@ static int search(int start_inode, char *pathname) {
     return curr_num;
 }
 
+
 static struct inode findInode(int inode_num) {
     int block = (inode_num / INODES_PER_BLOCK) + 1;
+    TracePrintf(0, "Block %i for inode_num %i\n", block, inode_num);
     struct inode inode_buf[INODES_PER_BLOCK];
     ReadSector(block, inode_buf);
     int index = inode_num % INODES_PER_BLOCK;
+    TracePrintf(0, "Index %i for inode_num %i\n", index, inode_num);
+    TracePrintf(0, "INODES_PER_BLOCK %i\n", INODES_PER_BLOCK);
+    TracePrintf(0, "Type of the inode with num %i is %i\n", inode_num, inode_buf[index].type);
     return inode_buf[index];
 }
 

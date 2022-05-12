@@ -17,7 +17,7 @@ struct file_info {
 
 struct file_info open_files[MAX_OPEN_FILES];
 
-int curr_dir = ROOTINODE;
+int curr_dir_inode = ROOTINODE;
 
 static int getSmallestFD();
 
@@ -30,7 +30,7 @@ int Open(char *pathname) {
     if(curr_fd == ERROR) {
         return ERROR;
     }
-    struct my_msg new_msg = {OPEN, curr_dir, 0, "", &pathname};
+    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, "", &pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -43,7 +43,7 @@ int Open(char *pathname) {
     open_files[curr_fd].pos = 0;
     //we need to return reuse count, so we can compare on subseqeuent reads/writes
     open_files[curr_fd].reuse = new_msg.numeric2;
-    return 0;
+    return curr_fd;
 }
 
 int Close(int fd) {
@@ -60,16 +60,23 @@ int Create(char *pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {CREATE, curr_dir, 0, "", &pathname};
+    struct my_msg new_msg = {CREATE, curr_dir_inode, 0, "", pathname};
+    TracePrintf(0, "Numeric 1 before send %i\n", new_msg.numeric1);
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
     }
+    TracePrintf(0, "Send is completed\n");
+    if(new_msg.numeric1 == ERROR) {
+        return ERROR;
+    }
     open_files[curr_fd].inode_num = new_msg.numeric1;
+    TracePrintf(0, "Inode num %i\n", new_msg.numeric1);
     open_files[curr_fd].pos = 0;
     //we need to return reuse count, so we can compare on subseqeuent reads/writes
     open_files[curr_fd].reuse = new_msg.numeric2;
-    return 0;    
+    TracePrintf(0, "Reuse %i\n", new_msg.numeric2);
+    return curr_fd;    
 }
 
 
