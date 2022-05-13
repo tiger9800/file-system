@@ -4,8 +4,16 @@ struct my_msg {
     int numeric2;
     int numeric3;
     int numeric4;
-    char string[4]; 
-    void * ptr; 
+    char padding[4]; 
+    void *ptr; 
+};
+
+struct link_msg { 
+    int type; 
+    int numeric1; 
+    char padding[8]; 
+    void *oldname;
+    void *newname; 
 };
 
 #define MSG_SIZE 32
@@ -13,3 +21,5 @@ struct my_msg {
 #define OPEN 0
 #define CREATE 1
 #define READ 2
+#define LINK 3
+#define UNLINK 4

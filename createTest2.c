@@ -13,9 +13,25 @@ main()
     printf("Here is fd %d\n", fd);
     fd = Create("///hah2");
     printf("Here is fd %d\n", fd);
+
+
     fd = Create("/");
     printf("Here is fd %d\n", fd);
+    fd = Create("//");
+    printf("Here is fd %d\n", fd);
+    fd = Create("/.");
+    printf("Here is fd %d\n", fd);
+    fd = Create("/..");
+    printf("Here is fd %d\n", fd);
     fd = Create("");
+    printf("Here is fd %d\n", fd);
+    fd = Create(".");
+    printf("Here is fd %d\n", fd);
+    fd = Create("..");
+    printf("Here is fd %d\n", fd);
+    fd = Create("qwe/");
+    printf("Here is fd %d\n", fd);
+    fd = Create("qwe/.");
     printf("Here is fd %d\n", fd);
     return (0);
 }

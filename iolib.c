@@ -137,9 +137,20 @@ int Seek(int fd, int offset, int whence) {
 }
 
 int Link(char * oldname, char * newname) {
-    (void)oldname;
-    (void)newname;
-    return 0;    
+    if(oldname == NULL || strlen(oldname) == 0 || strlen(oldname) > MAXPATHNAMELEN - 1) {
+        return ERROR;
+    }
+    if(newname == NULL || strlen(newname) == 0 || strlen(newname) > MAXPATHNAMELEN - 1) {
+        return ERROR;
+    }
+
+    struct link_msg new_msg = {LINK, curr_dir_inode, "", oldname, newname};
+    assert(sizeof(struct link_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    // new_msg.numeric1 contains a return status.
+    return new_msg.numeric1;    
 }
 
 int Unlink(char * pathname) {

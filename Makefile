@@ -24,7 +24,7 @@
 #	For example, the Makefile will make test1 out of test1.c,
 #	if you have a file named test1.c in this directory.
 #
-TEST = sample1 sample2 createTest createTest2 createTest3 tcreate tcreate2 topen2 read_Dir_test
+TEST = sample1 sample2 createTest createTest2 createTest3 tcreate tcreate2 topen2 read_Dir_test readRootTest badLinkTest
 
 #
 #	Define the list of everything to be made by this Makefile.
