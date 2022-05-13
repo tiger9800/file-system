@@ -44,6 +44,9 @@ static int updateFreeEntry(struct inode *curr_dir_inode, char *file_name, int fi
 static int updateFreeEntryInBlock(int blockNum, char* entry_name, int file_inode_num, int num_entries_left);
 static int find_free_block();
 static int eraseFile(int inode_num);
+static int readFromInode(struct inode inode_to_read, int size, int start_pos, char* buf_to_read);
+static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read);
+static void read(struct my_msg *msg, int pid);
 
 
 int main(int argc, char *argv[]) {
@@ -207,6 +210,9 @@ static void handleMsg(struct my_msg *msg, int pid) {
             //TracePrintf(0, "Handling CREATE Message\n");
             create(msg, pid);
             break;
+        case READ:
+            read(msg, pid);
+            break;
     }
 }
 
@@ -285,6 +291,84 @@ static void create(struct my_msg *msg, int pid) {
     if(msg->numeric1 != ERROR) {
         msg->numeric2 = findInode(msg->numeric1).reuse;
     }
+}
+
+static void read(struct my_msg *msg, int pid) {
+    int file_inode_num = msg->numeric1;
+    int start_pos = msg->numeric2;
+    int reuse_count = msg->numeric3;
+    int size_to_read = msg->numeric4;
+    
+    if(inodemap[file_inode_num] == true) {
+        fprintf(stderr, "The inode is free, so we can't read from it\n");
+        msg->numeric1 = ERROR;
+        return;
+    }
+    struct inode file_inode = findInode(file_inode_num);
+    if(file_inode.reuse != reuse_count) {
+        fprintf(stderr, "Reuse is different: someone else created a different file in the same inode\n");
+        msg->numeric1 = ERROR;
+        return;
+    }
+
+    char buf_to_read[size_to_read];
+    int sizeRead = readFromInode(file_inode, size_to_read, start_pos, buf_to_read);
+    if(sizeRead == ERROR) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    
+    CopyTo(pid, msg->ptr, buf_to_read, sizeRead);
+    msg->numeric1 = sizeRead;
+
+}
+
+//returns how much was actually read from the file
+static int readFromInode(struct inode inode_to_read, int size, int start_pos, char* buf_to_read) {
+    int size_to_read = MIN(inode_to_read.size - start_pos, size);
+
+    int bytes_left = size_to_read;
+    int num_blocks = get_num_blocks(inode_to_read.size);
+    
+    int starting_block = start_pos/BLOCKSIZE;
+    int start_within_block = start_pos % BLOCKSIZE;
+
+    int i;
+    for (i = starting_block; i < MIN(NUM_DIRECT, num_blocks) && bytes_left > 0; i++) {
+        buf_to_read = ReadBlock(inode_to_read.direct[i], start_within_block, bytes_left, buf_to_read);
+        if(buf_to_read == NULL){
+            return ERROR;
+        }
+        bytes_left -= (BLOCKSIZE - start_within_block);
+        start_within_block = 0;
+    }
+
+    if (num_blocks > NUM_DIRECT && bytes_left > 0) {//then we need to search in the indirect block
+        int block_to_read = inode_to_read.indirect;
+        int indirect_buf[BLOCKSIZE/sizeof(int)];
+        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+            return ERROR;
+        }
+        int j;
+        for (j = 0; j < (num_blocks - NUM_DIRECT) && bytes_left > 0; j++) {
+            buf_to_read = ReadBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_read);
+            if(buf_to_read == NULL) {
+                return ERROR;
+            }
+            bytes_left -= (BLOCKSIZE - start_within_block);
+            start_within_block = 0;
+        }
+    }
+
+    return size_to_read;
+}
+
+static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read) {
+    if(ReadSector(block_num, buf)) {
+        return NULL;
+    }
+    memcpy(buf_to_read, buf+start_pos, MIN(bytes_left, SECTORSIZE));
+    return buf_to_read;
 }
 
 // Returns an inode number of the newly-created or existing file; returns ERROR if failure.

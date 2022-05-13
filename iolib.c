@@ -30,7 +30,7 @@ int Open(char *pathname) {
     if(curr_fd == ERROR) {
         return ERROR;
     }
-    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, "", pathname};
+    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, 0, 0, "", pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -70,7 +70,7 @@ int Create(char *pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {CREATE, curr_dir_inode, 0, "", pathname};
+    struct my_msg new_msg = {CREATE, curr_dir_inode, 0, 0, 0, "", pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -90,7 +90,36 @@ int Read(int fd, void * buf, int size) {
     (void)fd;
     (void)buf;
     (void)size;
-    return 0;    
+    //send fd and address of the buf as 
+    if(fd < 0 || fd >= MAX_OPEN_FILES) {
+        return ERROR;
+    }
+    struct file_info file_to_read = open_files[fd];
+    if(file_to_read.inode_num == 0) {//if file is not open
+        return ERROR;
+    }
+    if(buf == NULL) {
+        return ERROR;
+    }
+    if(size < 0) {
+        return ERROR;
+    }
+    if(size == 0) {
+        return 0;
+    }
+
+    struct my_msg new_msg = {READ, file_to_read.inode_num, file_to_read.pos, file_to_read.reuse, size, "", buf};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    if(new_msg.numeric1 == ERROR) {
+        return ERROR;
+    }
+    open_files[fd].pos += new_msg.numeric1;
+    //numeric1 is going to be size
+    //position should be moved by numeric1
+    return new_msg.numeric1;    
 }
 
 int Write(int fd, void * buf, int size) {
