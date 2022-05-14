@@ -1,2 +1,41 @@
 ** User     level 1 tracing enabled **
 ** YFS      level 1 tracing enabled **
+YFS      Start of search with pathname = abc5!!!!!!!!
+YFS      curr_num = 1
+YFS      token = abc5
+YFS      Error in searchInDirectory!!!
+YFS      Start of search with pathname = !!!!!!!!
+YFS      Start of search with pathname = hah6!!!!!!!!
+YFS      curr_num = 1
+YFS      token = hah6
+YFS      In createFileInDir
+YFS      filename is abc5
+YFS      Number of links is 2
+YFS      Start of search with pathname = hah7!!!!!!!!
+YFS      curr_num = 1
+YFS      token = hah7
+YFS      Start of search with pathname = abc!!!!!!!!
+YFS      curr_num = 1
+YFS      token = abc
+YFS      Error in searchInDirectory!!!
+YFS      Start of search with pathname = hah6!!!!!!!!
+YFS      curr_num = 1
+YFS      token = hah6
+YFS      In createFileInDir
+YFS      filename is abc
+YFS      Number of links is 3
+YFS      Start of search with pathname = abcd!!!!!!!!
+YFS      curr_num = 1
+YFS      token = abcd
+YFS      Error in searchInDirectory!!!
+YFS      Start of search with pathname = hah6!!!!!!!!
+YFS      curr_num = 1
+YFS      token = hah6
+YFS      In createFileInDir
+YFS      filename is abcd
+YFS      Number of links is 4
+YFS      Start of search with pathname = xyz!!!!!!!!
+YFS      curr_num = 1
+YFS      token = xyz
+YFS      Error in searchInDirectory!!!
+YFS      Start of search with pathname = !!!!!!!!

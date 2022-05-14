@@ -23,3 +23,4 @@ struct link_msg {
 #define READ 2
 #define LINK 3
 #define UNLINK 4
+#define WRITE 5

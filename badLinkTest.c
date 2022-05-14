@@ -14,7 +14,7 @@ main()
     int status = Link("hah6", "///abc5");
     printf("Return status is %i\n", status);
 
-    status = Link("hah6", "abc");
+    status = Link("hah6", "hah7");
     printf("Return status is %i\n", status);
 
     status = Link("hah6", "abc");

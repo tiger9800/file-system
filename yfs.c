@@ -52,7 +52,12 @@ static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_t
 static int linkInodes(int curr_dir, char *oldname, char *newname);
 static int createRegFile(struct inode* new_inode);
 static int getParentDir(int curr_dir, char **pathname);
-
+static void unlink(struct my_msg *msg, int pid);
+static int unlinkInode(int curr_dir, char *pathname);
+static int removeDirEntry(int dir, char *file_name);
+static int removeEntryInBlock(int blockNum, char *entry_name, int file_inode_num, int num_entries_left);
+static int freeDirEntry(int blockNum, int index);
+static int deleteInode(int inode_num);
 
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
@@ -128,7 +133,9 @@ static int getFreeInodes() {
                 inodemap[node_count] = true;
             } else {
                 inodemap[node_count] = false;
-                changeStateBlocks(currNode, false);
+                if (changeStateBlocks(currNode, false) == ERROR) {
+                    return ERROR;
+                }
             }
             currNode++;
             node_count++;
@@ -218,8 +225,14 @@ static void handleMsg(struct my_msg *msg, int pid) {
         case READ:
             read(msg, pid);
             break;
+        case WRITE:
+            write(msg, pid);
+            break;
         case LINK:
             link((struct link_msg *)msg, pid);
+            break;
+        case UNLINK:
+            unlink(msg, pid);
             break;
     }
 }
@@ -278,7 +291,6 @@ static void create(struct my_msg *msg, int pid) {
 }
 
 static int createDirEntry(int curr_dir, char *pathname, int pref_inum) {
-
     int parent_dir = getParentDir(curr_dir, &pathname);
     if (parent_dir == ERROR) {
         return ERROR;
@@ -470,7 +482,9 @@ static int createNewDirEntry(int dir_inode_num, char* file_name, int pref_inum) 
     inode_struct.nlink++;
     TracePrintf(0, "Number of links is %i\n", inode_struct.nlink);
     // We set inodemap[pref_inum] to false in this function.
-    writeInodeToDisc(pref_inum, inode_struct);
+    if (writeInodeToDisc(pref_inum, inode_struct) == ERROR) {
+        return ERROR;
+    }
     return pref_inum;
 }
 
@@ -578,7 +592,9 @@ static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_n
     }
     // Must increment a size of the directory.
     curr_dir_inode.size += sizeof(struct dir_entry);//we should have existed if we reused the old free dir_entry
-    writeInodeToDisc(dir_inode_num, curr_dir_inode);
+    if (writeInodeToDisc(dir_inode_num, curr_dir_inode) == ERROR) {
+        return ERROR;
+    }
     return 0;
 }
 
@@ -656,7 +672,9 @@ static int eraseFile(int curr_num) {
     int index = curr_num % INODES_PER_BLOCK;
     struct inode *fileInode = &inode_buf[index];
 
-    changeStateBlocks(fileInode, true);
+    if (changeStateBlocks(fileInode, true) == ERROR) {
+        return ERROR;
+    }
     fileInode->size = 0;
     if(WriteSector(block, inode_buf) == ERROR) {
         return ERROR;
@@ -681,13 +699,17 @@ static int getInodeNumber(int curr_dir, char *pathname) {
 }
 
 static int search(int start_inode, char *pathname) {
+    TracePrintf(0, "Start of search with pathname = %s!!!!!!!!\n", pathname);
     int curr_num = start_inode;
     char *token = strtok(pathname, "/");
     while (token != NULL) {
         struct inode curr_inode = findInode(curr_num);
         // Find a directory entry with name = token.
+        TracePrintf(0, "curr_num = %i\n", curr_num);
+        TracePrintf(0, "token = %s\n", token);
         curr_num = searchInDirectory(&curr_inode, token);
         if (curr_num == ERROR) {
+            TracePrintf(0, "Error in searchInDirectory!!!\n");
             return ERROR;
         }
         token = strtok(NULL, "/");
@@ -802,17 +824,16 @@ static void link(struct link_msg *msg, int pid) {
 }
 
 static int linkInodes(int curr_dir, char *oldname, char *newname) {
+    int inode_num = getInodeNumber(curr_dir, newname);
+    if (inode_num != ERROR) {
+        fprintf(stderr, "File with newname already exists.\n");
+        return ERROR;
+    }
     // Get parent directories.
     int old_dir = getParentDir(curr_dir, &oldname);
     int new_dir = getParentDir(curr_dir, &newname);
     if (old_dir == ERROR || new_dir == ERROR) {
         fprintf(stderr, "Either oldname or newname has an invalid parent directory.\n");
-        return ERROR;
-    }
-
-    if (old_dir == new_dir) {
-        fprintf(stderr, "oldname and newname are in the same directory.\n");
-        // Comment this return if want to test in the root directory.
         return ERROR;
     }
     int old_inode_num = getInodeNumber(old_dir, oldname);
@@ -827,8 +848,6 @@ static int linkInodes(int curr_dir, char *oldname, char *newname) {
         return ERROR;
     }
 
-    // Check that oldname and newname are not in the same directory.
-
     int ret_inode_num = createDirEntry(new_dir, newname, old_inode_num);
     if (ret_inode_num != old_inode_num) {
         TracePrintf(0, "createDirEntry returned %i\n", ret_inode_num);
@@ -837,4 +856,261 @@ static int linkInodes(int curr_dir, char *oldname, char *newname) {
     } else {
         return 0;
     }
+}
+
+static void unlink(struct my_msg *msg, int pid) {
+    if (msg->ptr == NULL) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    int curr_dir = msg->numeric1;
+    if (inodemap[curr_dir]) {
+        // This inode number is free.
+        msg->numeric1 = ERROR;
+        return;
+    }
+    char pathname[MAXPATHNAMELEN];
+    CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN);
+    // Reply with a message that contains return status.
+    msg->numeric1 = unlinkInode(curr_dir, pathname);
+}
+
+static int unlinkInode(int curr_dir, char *pathname) {
+    TracePrintf(0, "================\n");
+    TracePrintf(0, "About to unlink: %s in directory#%i\n", pathname, curr_dir);
+    // Get parent directory.
+    int parent_dir = getParentDir(curr_dir, &pathname);
+    if (parent_dir == ERROR) {
+        fprintf(stderr, "File has an invalid parent directory.\n");
+        return ERROR;
+    }
+    TracePrintf(0, "parent_dir = %i\n", parent_dir);
+    TracePrintf(0, "pathname = %s\n", pathname);
+    int inode_num = getInodeNumber(parent_dir, pathname);
+    TracePrintf(0, "inode_num = %i\n", inode_num);
+    if (inode_num == ERROR) {
+        fprintf(stderr, "This file does not exists.\n");
+        return ERROR;
+    }
+
+    struct inode inode_struct = findInode(inode_num);
+    TracePrintf(0, "A type of inode is %i\n", inode_struct.type);
+    if (inode_struct.type != INODE_REGULAR) {
+        fprintf(stderr, "File has a wrong type.\n");
+        return ERROR;
+    }
+    TracePrintf(0, "About to do removeDirEntry\n");
+    int nlink = removeDirEntry(parent_dir, pathname);
+    TracePrintf(0, "nlink = %i\n", nlink);
+    if (nlink == ERROR) {
+        return ERROR;
+    } else if (nlink == 0) {
+        TracePrintf(0, "About to do deleteInode\n");
+        if (deleteInode(inode_num) == ERROR) {
+            return ERROR;
+        }
+        TracePrintf(0, "Success for deleteInode :)\n");
+    }
+    return 0;
+}
+
+static int removeDirEntry(int dir, char *file_name) {
+    int file_inode_num = getInodeNumber(dir, file_name);
+    if (file_inode_num == ERROR) {
+        fprintf(stderr, "This file does not exists.\n");
+        return ERROR;
+    }
+    struct inode inode_struct = findInode(file_inode_num);
+    TracePrintf(0, "Before removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
+    struct inode curr_dir_inode = findInode(dir);
+
+    int num_entries_left = curr_dir_inode.size / sizeof(struct dir_entry);
+
+    int num_blocks = get_num_blocks(curr_dir_inode.size);
+
+    int i;
+    for (i = 0; i < MIN(NUM_DIRECT, num_blocks); i++) {
+        int return_val = removeEntryInBlock(curr_dir_inode.direct[i], file_name, file_inode_num, num_entries_left);
+        if(return_val == ERROR) {
+            return ERROR;
+        } else if (return_val == 0) {
+            inode_struct.nlink--;
+            if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
+                return ERROR;
+            }
+            TracePrintf(0, "After removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
+            return inode_struct.nlink;
+        }
+        num_entries_left -= ENTRIES_PER_BLOCK;
+    }
+    if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
+        int block_to_read = curr_dir_inode.indirect;
+        int indirect_buf[BLOCKSIZE/sizeof(int)];
+        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+            return ERROR;
+        }
+        int j;
+        for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
+            int return_val = removeEntryInBlock(indirect_buf[j], file_name, file_inode_num, num_entries_left);
+            if(return_val == ERROR) {
+                return ERROR;
+            } else if (return_val == 0) {
+                inode_struct.nlink--;
+                if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
+                    return ERROR;
+                }
+                TracePrintf(0, "After removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
+                return inode_struct.nlink;
+            }
+            num_entries_left -= ENTRIES_PER_BLOCK;
+        }
+    }
+    return ERROR;
+}
+
+// Returns 0 if SUCCESS, -1 if ERROR, -2 if not found
+static int removeEntryInBlock(int blockNum, char *entry_name, int file_inode_num, int num_entries_left) {
+    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    if (ReadSector(blockNum, dir_buf) == ERROR) {
+        return ERROR;
+    }
+    int i;
+    for (i = 0; i < MIN(ENTRIES_PER_BLOCK, num_entries_left); i++) {
+        if (dir_buf[i].inum == file_inode_num && strncmp(dir_buf[i].name, entry_name, DIRNAMELEN) == 0) {
+            if (freeDirEntry(blockNum, i) == ERROR) {
+                return ERROR;
+            }
+            return 0;
+        }
+    }
+    return -2;//returns -2 when no free entries were found.
+}
+
+static int freeDirEntry(int blockNum, int index) {
+    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    if (ReadSector(blockNum, dir_buf) == ERROR) {
+        return ERROR;
+    }
+    dir_buf[index].inum = 0;
+    memset(dir_buf[index].name, '\0', DIRNAMELEN);
+    if (WriteSector(blockNum, dir_buf) == ERROR) {
+        return ERROR;
+    }
+    return 0;
+}
+
+static int deleteInode(int inode_num) {
+    struct inode inode_struct = findInode(inode_num);
+    inode_struct.type = INODE_FREE;
+    inode_struct.size = 0;
+    if (changeStateBlocks(&inode_struct, true) == ERROR) {
+        return ERROR;
+    }
+    if (writeInodeToDisc(inode_num, inode_struct) == ERROR) {
+        return ERROR;
+    }
+    inodemap[inode_num] = true;
+    return 0;
+}
+
+static void write(struct my_msg *msg, int pid) {
+    if (msg->ptr == NULL) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    int file_inode_num = msg->numeric1;
+    int start_pos = msg->numeric2;
+    int reuse_count = msg->numeric3;
+    int size_to_write = msg->numeric4;
+    if(inodemap[file_inode_num] == true) {
+        fprintf(stderr, "The inode is free, so we can't read from it\n");
+        msg->numeric1 = ERROR;
+        return;
+    }
+    struct inode file_inode = findInode(file_inode_num);
+    if(file_inode.reuse != reuse_count) {
+        fprintf(stderr, "Reuse is different: someone else created a different file in the same inode\n");
+        msg->numeric1 = ERROR;
+        return;
+    }
+    if(file_inode.type != INODE_REGULAR) {
+        fprintf(stderr, "Wrong type of file.\n");
+        msg->numeric1 = ERROR;
+        return;
+    }
+    char buf_to_write[size_to_write];
+    CopyFrom(pid, buf_to_write, msg->ptr, size_to_write);
+
+    int sizeWrite = fillAndWrite(file_inode, size_to_write, start_pos, buf_to_write);
+    if(sizeWrite == ERROR) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    msg->numeric1 = sizeWrite;
+}
+
+static int writeToInode(struct inode inode_to_write, int size, int start_pos, char* buf_to_write) {
+    int size_to_read = MIN(inode_to_read.size - start_pos, size);
+
+    int bytes_left = size_to_read;
+    int num_blocks = get_num_blocks(inode_to_read.size);
+    
+    int starting_block = start_pos/BLOCKSIZE;
+    int start_within_block = start_pos % BLOCKSIZE;
+    int i;
+    for (i = starting_block; i < MIN(NUM_DIRECT, num_blocks) && bytes_left > 0; i++) {
+        buf_to_read = ReadBlock(inode_to_read.direct[i], start_within_block, bytes_left, buf_to_read);
+        if(buf_to_read == NULL){
+            return ERROR;
+        }
+        bytes_left -= (BLOCKSIZE - start_within_block);
+        start_within_block = 0;
+    }
+
+    if (num_blocks > NUM_DIRECT && bytes_left > 0) {//then we need to search in the indirect block
+        int block_to_read = inode_to_read.indirect;
+        int indirect_buf[BLOCKSIZE/sizeof(int)];
+        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+            return ERROR;
+        }
+        int j;
+        for (j = starting_block - NUM_DIRECT; j < (num_blocks - NUM_DIRECT) && bytes_left > 0; j++) {
+            buf_to_read = ReadBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_read);
+            if(buf_to_read == NULL) {
+                return ERROR;
+            }
+            bytes_left -= (BLOCKSIZE - start_within_block);
+            start_within_block = 0;
+        }
+    }
+    return size_to_read;
+}
+
+//returns how much was actually write to the file
+static int fillAndWrite(struct inode inode_to_write, int size, int start_pos, char* buf_to_write) {
+    // Fill the holes.
+    int bytes_to_fill = start_pos - inode_to_write.size;
+    if (bytes_to_fill > 0) {
+        char hole_buf[bytes_to_fill];
+        memset(hole_buf, '\0', bytes_to_fill);
+        if (writeToInode(inode_to_write, bytes_to_fill, inode_to_write.size, hole_buf) == ERROR) {
+            return ERROR;
+        }
+    }
+    int sizeWritten = -1;
+    // Write a buffer.
+    if ((sizeWritten = writeToInode(inode_to_write, size, start_pos, buf_to_write)) == ERROR) {
+        return ERROR;
+    }
+    return sizeWritten;
+}
+
+static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read) {
+    if(ReadSector(block_num, buf)) {
+        return NULL;
+    }
+    int bytes_to_read = MIN(bytes_left, SECTORSIZE - start_pos);
+    memcpy(buf_to_read, buf+start_pos, bytes_to_read);
+    // Advance a buffer by bytes_to_read bytes.
+    return buf_to_read + bytes_to_read;
 }
