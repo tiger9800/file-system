@@ -1255,7 +1255,7 @@ static int createDirectory(struct inode* new_inode, int parent_inum) {
     struct inode inode_struct = findInode(free_inode_num);
     // Initialize an inode fields.
     inode_struct.type = INODE_DIRECTORY;
-    inode_struct.size = 0;
+    inode_struct.size = 2 * sizeof(struct dir_entry); // Contains dir_entries for "." and ".."
     inode_struct.reuse++;
     inode_struct.nlink = 1; // Contains link to "."
     if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
