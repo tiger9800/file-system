@@ -87,9 +87,6 @@ int Create(char *pathname) {
 
 
 int Read(int fd, void * buf, int size) {
-    (void)fd;
-    (void)buf;
-    (void)size;
     if(fd < 0 || fd >= MAX_OPEN_FILES) {
         return ERROR;
     }
@@ -154,10 +151,31 @@ int Write(int fd, void * buf, int size) {
 }
 
 int Seek(int fd, int offset, int whence) {
-    (void)fd;
-    (void)offset;
-    (void)whence;
-    return 0;    
+    if(fd < 0 || fd >= MAX_OPEN_FILES) {
+        return ERROR;
+    }
+    struct file_info file_to_seek = open_files[fd];
+    if(file_to_seek.inode_num == 0) {//if file is not occupied
+        return ERROR;
+    }
+
+    if(whence != SEEK_SET && whence != SEEK_CUR && whence != SEEK_END) {
+        return ERROR;
+    }
+
+    struct my_msg new_msg = {SEEK, file_to_seek.inode_num, file_to_seek.pos, whence, offset, "", NULL};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    if(new_msg.numeric1 == ERROR) {
+        return ERROR;
+    }
+    
+    open_files[fd].pos = new_msg.numeric1;
+    //numeric1 is going to be size
+    //position should be moved by numeric1
+    return new_msg.numeric1; 
 }
 
 int Link(char * oldname, char * newname) {

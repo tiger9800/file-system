@@ -26,3 +26,5 @@ struct link_msg {
 #define WRITE 5
 #define MKDIR 6
 #define RMDIR 7
+#define SEEK 8
+#define CHDIR 9

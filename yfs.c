@@ -33,6 +33,7 @@ static void read(struct my_msg *msg, int pid);
 static void write(struct my_msg *msg, int pid);
 static void mkdir(struct my_msg *msg, int pid);
 static void rmdir(struct my_msg *msg, int pid);
+static void seek(struct my_msg *msg, int pid);
 
 static int getInodeNumber(int curr_dir, char *pathname);
 static int search(int start_inode, char *pathname);
@@ -68,6 +69,7 @@ static int createDirectory(struct inode* new_inode, int parent_inum);
 static int removeDirectory(int curr_dir, char *pathname);
 static bool dirIsEmpty(struct inode curr_dir_inode);
 static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_entry);
+
 
 
 
@@ -249,7 +251,43 @@ static void handleMsg(struct my_msg *msg, int pid) {
         case RMDIR:
             rmdir(msg, pid);
             break;
+        case SEEK:
+            seek(msg, pid);
+            break;
+        case CHDIR:
+            chdir(msg, pid);
+            break;
     }
+}
+
+static void seek(struct my_msg *msg, int pid) {
+    (void)pid;
+    int file_inode_num = msg->numeric1;
+    int curr_pos = msg->numeric2;
+    int whence = msg->numeric3;
+    int offset = msg->numeric4;
+
+    struct inode file_inode = findInode(file_inode_num);
+
+    int size = file_inode.size;
+
+    int rel_pos;
+    if(whence == SEEK_SET) {
+        rel_pos = 0;
+    }
+    else if(whence == SEEK_CUR) {
+        rel_pos = curr_pos;
+    }
+    else {
+        rel_pos = MAX(size - 1, curr_pos);//the position may be further than then size because of a previous seek
+    }
+    
+    if(rel_pos + offset < 0) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    
+    msg->numeric1 = rel_pos + offset;
 }
 
 static void open(struct my_msg *msg, int pid) {
@@ -278,6 +316,9 @@ static void open(struct my_msg *msg, int pid) {
     } 
 }
 
+static void chdir() {
+    
+}
 
 static void create(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
@@ -391,6 +432,7 @@ static void read(struct my_msg *msg, int pid) {
 
 //returns how much was actually read from the file
 static int readFromInode(struct inode inode_to_read, int size, int start_pos, char* buf_to_read) {
+    //What if start_pos > inode_to_read.size?
     int size_to_read = MIN(inode_to_read.size - start_pos, size);
 
     int bytes_left = size_to_read;
