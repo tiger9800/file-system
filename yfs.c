@@ -58,6 +58,10 @@ static int removeDirEntry(int dir, char *file_name);
 static int removeEntryInBlock(int blockNum, char *entry_name, int file_inode_num, int num_entries_left);
 static int freeDirEntry(int blockNum, int index);
 static int deleteInode(int inode_num);
+static void write(struct my_msg *msg, int pid);
+static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_write);
+static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write);
+static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write);
 
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
@@ -386,7 +390,7 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
             return ERROR;
         }
         int j;
-        for (j = starting_block - NUM_DIRECT; j < (num_blocks - NUM_DIRECT) && bytes_left > 0; j++) {
+        for (j = i - NUM_DIRECT; j < (num_blocks - NUM_DIRECT) && bytes_left > 0; j++) {
             buf_to_read = ReadBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_read);
             if(buf_to_read == NULL) {
                 return ERROR;
@@ -1040,17 +1044,13 @@ static void write(struct my_msg *msg, int pid) {
     }
     char buf_to_write[size_to_write];
     CopyFrom(pid, buf_to_write, msg->ptr, size_to_write);
-
-    int sizeWrite = fillAndWrite(file_inode_num, file_inode, size_to_write, start_pos);
-    if(sizeWrite == ERROR) {
-        msg->numeric1 = ERROR;
-        return;
-    }
-    msg->numeric1 = sizeWrite;
+    TracePrintf(0, "%s\n", buf_to_write);
+    msg->numeric1 = fillAndWrite(file_inode_num, file_inode, size_to_write, start_pos, buf_to_write);
 }
 
-static int writeToInode(struct inode* inode_to_write, int size, int start_pos, char* buf_to_write) {
+static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_write) {
 
+    struct inode inode_to_write = findInode(inode_num);
     int max_size = (NUM_DIRECT + BLOCKSIZE/(sizeof(int)))*BLOCKSIZE;
     //determine how much we can write by subtracting what we have written from what we can write
     int left_to_write = max_size - inode_to_write.size;
@@ -1060,59 +1060,74 @@ static int writeToInode(struct inode* inode_to_write, int size, int start_pos, c
 
     int bytes_left = size_to_write;
 
-    int num_blocks = get_num_blocks(inode_to_read.size);
+    int num_blocks = get_num_blocks(inode_to_write.size);
     
     int starting_block = start_pos/BLOCKSIZE;
     int start_within_block = start_pos % BLOCKSIZE;
     int i;
     for (i = starting_block; i < NUM_DIRECT && bytes_left > 0; i++) {
 
-        if(starting_block >= num_blocks) {//then we do not need to allocate a new block
-               
+        if (i >= num_blocks) {//then we do not need to allocate a new block
+            int free_block_num = find_free_block();
+            if(free_block_num == ERROR) {
+                return size_to_write - bytes_left;
+            }
+            inode_to_write.direct[i] = free_block_num;
         }
-        
-        int bytes_written -= WriteBlock(inode_to_write.direct[i], start_within_block, bytes_left, buf_to_write);
-        if(bytes_written == ERROR) {
+        TracePrintf(0, "Block Index %i ==================\n", i);
+        int bytes_written = WriteBlock(inode_to_write.direct[i], start_within_block, bytes_left, buf_to_write);
+        if (bytes_written == ERROR) {
             return size_to_write - bytes_left;
         }
-        inode_to_write.size += bytes_written;
-
-        buf_to_write+=bytes_written;
-
+        buf_to_write += bytes_written;
         bytes_left -= bytes_written;
-        
         start_within_block = 0;
+        inode_to_write.size += bytes_written;
+        writeInodeToDisc(inode_num, inode_to_write);
+        blockmap[inode_to_write.direct[i]] = false;
     }
 
     if (bytes_left > 0) {//then we need to search in the indirect block
-        
-        int indirect_buf[BLOCKSIZE/sizeof(int)];
         if(num_blocks <= NUM_DIRECT) {
             inode_to_write.indirect = find_free_block();
             if(inode_to_write.indirect == ERROR) {
                 return size_to_write - bytes_left;
             }
         }
+        int indirect_buf[BLOCKSIZE/sizeof(int)];
         //now we definetely have the indirect block, so we can start writing into it
-        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        if (ReadSector(inode_to_write.indirect, indirect_buf) == ERROR) {
             return size_to_write - bytes_left;
         }
         int j;
-        for (j = starting_block - NUM_DIRECT; bytes_left > 0; j++) {
+        for (j = i - NUM_DIRECT; bytes_left > 0; j++) {
             
-            if(starting_block >= num_blocks) {
+            if(j + NUM_DIRECT >= num_blocks) {
                 //we need to allocate a new block
                 //and put it into indirect_buf[j]
+                int free_block_num = find_free_block();
+                if (free_block_num == ERROR) {
+                    return size_to_write - bytes_left;
+                }
+                indirect_buf[j] = free_block_num;
             } 
-            buf_to_read = ReadBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_read);
-            if(buf_to_read == NULL) {
-                return ERROR;
+            int bytes_written = WriteBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_write);
+            if (bytes_written == ERROR) {
+                return size_to_write - bytes_left;
             }
-            bytes_left -= (BLOCKSIZE - start_within_block);
+            buf_to_write += bytes_written;
+            bytes_left -= bytes_written;
             start_within_block = 0;
+            inode_to_write.size += bytes_written;
+            writeInodeToDisc(inode_num, inode_to_write);
+            if (WriteSector(inode_to_write.indirect, indirect_buf) == ERROR) {
+                return size_to_write - bytes_left;
+            }
+            blockmap[indirect_buf[j]] = false;
+            blockmap[inode_to_write.indirect] = false;
         }
     }
-    return size_to_read;
+    return size_to_write;
 }
 
 static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write) {
@@ -1126,38 +1141,32 @@ static int WriteBlock(int block_num, int start_within_block, int bytes_left, cha
     if(WriteSector(block_num, buf) == ERROR) {
         return ERROR;
     }
+    char buffer[bytes_to_write + 1];
+    snprintf(buffer, bytes_to_write, "%s", buf + start_within_block);
+    buffer[bytes_to_write] = '\0';
+    TracePrintf(0, "Block#%i ==================\n", block_num);
+    TracePrintf(0, "%s\n", buffer);
     return bytes_to_write;
 }
 
 
 
-//returns how much was actually write to the file
+//returns how much was actually write to the file or ERROR
 static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write) {
     // Fill the holes.
     int bytes_to_fill = start_pos - inode_to_write.size;
     if (bytes_to_fill > 0) {
         char hole_buf[bytes_to_fill];
         memset(hole_buf, '\0', bytes_to_fill);
-        if (writeToInode(inode_to_write, bytes_to_fill, inode_to_write.size, hole_buf) == ERROR) {
+        int bytes_filled = writeToInode(inode_num, bytes_to_fill, inode_to_write.size, hole_buf);
+        if (bytes_filled != bytes_to_fill) {
             return ERROR;
         }
     }
     int sizeWritten = -1;
     // Write a buffer.
-    if ((sizeWritten = writeToInode(inode_to_write, size, start_pos, buf_to_write)) == ERROR) {
+    if ((sizeWritten = writeToInode(inode_num, size, start_pos, buf_to_write)) == ERROR) {
         return ERROR;
     }
-    inode_to_write.size+=sizeWritten;
-    writeInodeToDisc(inode_num, inode_to_write);
     return sizeWritten;
-}
-
-static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read) {
-    if(ReadSector(block_num, buf)) {
-        return NULL;
-    }
-    int bytes_to_read = MIN(bytes_left, SECTORSIZE - start_pos);
-    memcpy(buf_to_read, buf+start_pos, bytes_to_read);
-    // Advance a buffer by bytes_to_read bytes.
-    return buf_to_read + bytes_to_read;
 }

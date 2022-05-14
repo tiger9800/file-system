@@ -106,7 +106,7 @@ int Read(int fd, void * buf, int size) {
     if(size == 0) {
         return 0;
     }
-
+    TracePrintf(0, "pos = %i\n", file_to_read.pos);
     struct my_msg new_msg = {READ, file_to_read.inode_num, file_to_read.pos, file_to_read.reuse, size, "", buf};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
