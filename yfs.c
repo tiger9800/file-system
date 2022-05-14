@@ -32,6 +32,7 @@ static void unlink(struct my_msg *msg, int pid);
 static void read(struct my_msg *msg, int pid);
 static void write(struct my_msg *msg, int pid);
 static void mkdir(struct my_msg *msg, int pid);
+static void rmdir(struct my_msg *msg, int pid);
 
 static int getInodeNumber(int curr_dir, char *pathname);
 static int search(int start_inode, char *pathname);
@@ -64,6 +65,11 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
 static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write);
 static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write);
 static int createDirectory(struct inode* new_inode, int parent_inum);
+static int removeDirectory(int curr_dir, char *pathname);
+static bool dirIsEmpty(struct inode curr_dir_inode);
+static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_entry);
+
+
 
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
@@ -161,6 +167,7 @@ static int changeStateBlocks(struct inode *currNode, bool state) {
     int i;
     for (i = 0; i < MIN(NUM_DIRECT, num_blocks); i++) {
         blockmap[currNode->direct[i]] = state;
+        if (state == true) currNode->direct[i] = 0;
     }
     if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
         int block_to_read = currNode->indirect;
@@ -171,8 +178,10 @@ static int changeStateBlocks(struct inode *currNode, bool state) {
         int j;
         for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
             blockmap[indirect_buf[j]] = state;
+            if (state == true) indirect_buf[j] = 0;
         }
         blockmap[block_to_read] = state;
+        if (state == true) block_to_read = 0;
     }
     return 0;
 }
@@ -215,17 +224,11 @@ static int init() {
 }
 
 static void handleMsg(struct my_msg *msg, int pid) {
-    //TracePrintf(0, "Message type %i\n", msg->type);
-    //TracePrintf(0, "Numeric1 %i\n", msg->numeric1);
-    //TracePrintf(0, "Numeric2 %i\n", msg->numeric2);
-    //TracePrintf(0, "Addr of path (ptr) %p\n", msg->ptr);
     switch(msg->type) {
         case OPEN:
-            //TracePrintf(0, "Handling OPEN  Message\n");
             open(msg, pid);
             break;
         case CREATE:
-            //TracePrintf(0, "Handling CREATE Message\n");
             create(msg, pid);
             break;
         case READ:
@@ -242,6 +245,9 @@ static void handleMsg(struct my_msg *msg, int pid) {
             break;
         case MKDIR:
             mkdir(msg, pid);
+            break;
+        case RMDIR:
+            rmdir(msg, pid);
             break;
     }
 }
@@ -753,17 +759,13 @@ static int getInodeNumber(int curr_dir, char *pathname) {
 }
 
 static int search(int start_inode, char *pathname) {
-    TracePrintf(0, "Start of search with pathname = %s!!!!!!!!\n", pathname);
     int curr_num = start_inode;
     char *token = strtok(pathname, "/");
     while (token != NULL) {
         struct inode curr_inode = findInode(curr_num);
         // Find a directory entry with name = token.
-        TracePrintf(0, "curr_num = %i\n", curr_num);
-        TracePrintf(0, "token = %s\n", token);
         curr_num = searchInDirectory(&curr_inode, token);
         if (curr_num == ERROR) {
-            TracePrintf(0, "Error in searchInDirectory!!!\n");
             return ERROR;
         }
         token = strtok(NULL, "/");
@@ -977,42 +979,42 @@ static int removeDirEntry(int dir, char *file_name) {
 
     int num_blocks = get_num_blocks(curr_dir_inode.size);
 
+    bool removed = false;
     int i;
-    for (i = 0; i < MIN(NUM_DIRECT, num_blocks); i++) {
+    for (i = 0; i < MIN(NUM_DIRECT, num_blocks) && removed == false; i++) {
         int return_val = removeEntryInBlock(curr_dir_inode.direct[i], file_name, file_inode_num, num_entries_left);
         if(return_val == ERROR) {
             return ERROR;
         } else if (return_val == 0) {
-            inode_struct.nlink--;
-            if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
-                return ERROR;
-            }
-            TracePrintf(0, "After removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
-            return inode_struct.nlink;
+            removed = true;
         }
         num_entries_left -= ENTRIES_PER_BLOCK;
     }
-    if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
+    if (num_blocks > NUM_DIRECT && removed == false) {//then we need to search in the indirect block
         int block_to_read = curr_dir_inode.indirect;
         int indirect_buf[BLOCKSIZE/sizeof(int)];
         if (ReadSector(block_to_read, indirect_buf) == ERROR) {
             return ERROR;
         }
         int j;
-        for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
+        for (j = 0; j < (num_blocks - NUM_DIRECT) && removed == false; j++) {
             int return_val = removeEntryInBlock(indirect_buf[j], file_name, file_inode_num, num_entries_left);
             if(return_val == ERROR) {
                 return ERROR;
             } else if (return_val == 0) {
-                inode_struct.nlink--;
-                if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
-                    return ERROR;
-                }
-                TracePrintf(0, "After removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
-                return inode_struct.nlink;
+                removed = true;
             }
             num_entries_left -= ENTRIES_PER_BLOCK;
         }
+    }
+    if (removed == true) {
+        // We succesfully removed a dir_entry.
+        // Decrement a number of nlinks to the given file_inode_num.
+        inode_struct.nlink--;
+        if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
+            return ERROR;
+        }
+        return inode_struct.nlink;
     }
     return ERROR;
 }
@@ -1051,6 +1053,7 @@ static int freeDirEntry(int blockNum, int index) {
 static int deleteInode(int inode_num) {
     struct inode inode_struct = findInode(inode_num);
     inode_struct.type = INODE_FREE;
+    inode_struct.nlink = 0;
     inode_struct.size = 0;
     if (changeStateBlocks(&inode_struct, true) == ERROR) {
         return ERROR;
@@ -1283,4 +1286,125 @@ static int createDirectory(struct inode* new_inode, int parent_inum) {
     *new_inode = inode_struct;
     inodemap[free_inode_num] = false;
     return free_inode_num;
+}
+
+static void rmdir(struct my_msg *msg, int pid) {
+    if (msg->ptr == NULL) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    int curr_dir = msg->numeric1;
+    if (inodemap[curr_dir]) {
+        // This inode number is free.
+        msg->numeric1 = ERROR;
+        return;
+    }
+    char pathname[MAXPATHNAMELEN];
+    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    // Function returns 0 or ERROR.
+    msg->numeric1 = removeDirectory(curr_dir, pathname);
+}
+
+// Returns 0 on SUCCESS or ERROR.
+static int removeDirectory(int curr_dir, char *pathname) {
+    // Get parent directory.
+    int parent_dir = getParentDir(curr_dir, &pathname);
+    if (parent_dir == ERROR) {
+        fprintf(stderr, "File has an invalid parent directory.\n");
+        return ERROR;
+    }
+    int inode_num = getInodeNumber(parent_dir, pathname);
+    if (inode_num == ERROR) {
+        fprintf(stderr, "This directory does not exists.\n");
+        return ERROR;
+    }
+
+    // Check that it's not a root directory.
+    if (inode_num == ROOTINODE) {
+        fprintf(stderr, "Root directory cannot be deleted.\n");
+        return ERROR;
+    }
+    // It must be a directory.
+    struct inode inode_struct = findInode(inode_num);
+    if (inode_struct.type != INODE_DIRECTORY) {
+        fprintf(stderr, "File has a wrong type.\n");
+        return ERROR;
+    }
+
+    // Check that there are no entries in the directory other than "." and ".."
+    if (!dirIsEmpty(inode_struct)) {
+        fprintf(stderr, "Directory is not empty.\n");
+        return ERROR;
+    }
+
+    struct inode parent_dir_struct = findInode(parent_dir);
+    // "." and corresponding link will be removed when we call deleteInode
+    // ".." entry will be removed automatically. We need to decrement a link to parent directory manually.
+    parent_dir_struct.nlink--;
+    if (writeInodeToDisc(parent_dir, parent_dir_struct) == ERROR) {
+        TracePrintf(0, "writeInodeToDisc failed\n");
+        return ERROR;
+    }
+
+    // Must remove dir_entry from parent directory.
+    if (removeDirEntry(parent_dir, pathname) == ERROR) {
+        return ERROR;
+    }
+    // Free inode and its blocks.
+    if (deleteInode(inode_num) == ERROR) {
+        return ERROR;
+    }
+    return 0;
+}
+
+static bool dirIsEmpty(struct inode curr_dir_inode) {
+    TracePrintf(0, "In dirIsEmpty ==========\n");
+    int num_entries_left = curr_dir_inode.size / sizeof(struct dir_entry);
+    int num_blocks = get_num_blocks(curr_dir_inode.size);
+    int i;
+    // All dir_entries must have inum = 0 (except for the first two entries: "." and "..")
+    // Start iteration from 2 (skip 0, 1)
+    int start_dir_entry = 2;
+    for (i = 0; i < MIN(NUM_DIRECT, num_blocks); i++) {
+        if (dirBlockIsEmpty(curr_dir_inode.direct[i], num_entries_left, start_dir_entry) == false) {
+            return false;
+        }
+        num_entries_left -= ENTRIES_PER_BLOCK;
+        start_dir_entry = 0;
+    }
+    if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
+        int block_to_read = curr_dir_inode.indirect;
+        int indirect_buf[BLOCKSIZE/sizeof(int)];
+        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+            return ERROR;
+        }
+        int j;
+        for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
+            if (dirBlockIsEmpty(indirect_buf[j], num_entries_left, start_dir_entry) == false) {
+                return false;
+            }
+            num_entries_left -= ENTRIES_PER_BLOCK;
+        }
+    }
+    return true;
+}
+
+static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_entry) {
+    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    if (ReadSector(blockNum, dir_buf) == ERROR) {
+        return ERROR;
+    }
+    int i;
+    for (i = start_dir_entry; i < MIN(ENTRIES_PER_BLOCK, num_entries_left); i++) {
+        if (dir_buf[i].inum != 0) {
+            TracePrintf(0, "There is a non-empty entry#%i in block %i\n", i, blockNum);
+            TracePrintf(0, "inum = %i\n", dir_buf[i].inum);
+            TracePrintf(0, "name = %s\n", dir_buf[i].name);
+            return false;
+        }
+    }
+    return true;
 }
