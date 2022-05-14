@@ -199,8 +199,17 @@ int ReadLink(char * pathname, char * buf, int len) {
 }
 
 int MkDir(char * pathname) {
-    (void)pathname;
-    return 0;    
+    if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
+        return ERROR;
+    }
+
+    struct my_msg new_msg = {MKDIR, curr_dir_inode, 0, 0, 0, "", pathname};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    // new_msg.numeric1 contains a return status.
+    return new_msg.numeric1;     
 }
 
 int RmDir(char * pathname) {

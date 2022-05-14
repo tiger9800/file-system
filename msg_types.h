@@ -24,3 +24,4 @@ struct link_msg {
 #define LINK 3
 #define UNLINK 4
 #define WRITE 5
+#define MKDIR 6
