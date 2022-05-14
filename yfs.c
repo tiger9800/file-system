@@ -34,6 +34,7 @@ static void write(struct my_msg *msg, int pid);
 static void mkdir(struct my_msg *msg, int pid);
 static void rmdir(struct my_msg *msg, int pid);
 static void seek(struct my_msg *msg, int pid);
+static void chdir(struct my_msg *msg, int pid);
 
 static int getInodeNumber(int curr_dir, char *pathname);
 static int search(int start_inode, char *pathname);
@@ -316,8 +317,33 @@ static void open(struct my_msg *msg, int pid) {
     } 
 }
 
-static void chdir() {
-    
+static void chdir(struct my_msg *msg, int pid) {
+    if (msg->ptr == NULL) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    int curr_dir = msg->numeric1;
+    if (inodemap[curr_dir]) {
+        // This inode number is free.
+        msg->numeric1 = ERROR;
+        return;
+    }
+    char pathname[MAXPATHNAMELEN];
+    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    // msg->numeric1 initially contains a current directory.
+    // Reply with a message that has an inode number of the opened file or ERROR.
+    msg->numeric1 = getInodeNumber(curr_dir, pathname);
+    TracePrintf(0, "getInodeNumber returns %i\n", msg->numeric1);
+    // Reply message also contains a reuse count.
+    if(msg->numeric1 != ERROR) {
+        if(findInode(msg->numeric1).type != INODE_DIRECTORY) {//there cannot be a file with the same name as the directory, so
+        //if there is, then the directory does not exist.
+            msg->numeric1 = ERROR;
+        }
+    }
 }
 
 static void create(struct my_msg *msg, int pid) {
@@ -1234,11 +1260,11 @@ static int WriteBlock(int block_num, int start_within_block, int bytes_left, cha
     if(WriteSector(block_num, buf) == ERROR) {
         return ERROR;
     }
-    char buffer[bytes_to_write + 1];
-    snprintf(buffer, bytes_to_write, "%s", buf + start_within_block);
-    buffer[bytes_to_write] = '\0';
-    TracePrintf(0, "Block#%i ==================\n", block_num);
-    TracePrintf(0, "%s\n", buffer);
+    //char buffer[bytes_to_write + 1];
+    // snprintf(buffer, bytes_to_write, "%s", buf + start_within_block);
+    // buffer[bytes_to_write] = '\0';
+    // TracePrintf(0, "Block#%i ==================\n", block_num);
+    // TracePrintf(0, "%s\n", buffer);
     return bytes_to_write;
 }
 

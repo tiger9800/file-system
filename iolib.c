@@ -171,7 +171,7 @@ int Seek(int fd, int offset, int whence) {
     if(new_msg.numeric1 == ERROR) {
         return ERROR;
     }
-    
+
     open_files[fd].pos = new_msg.numeric1;
     //numeric1 is going to be size
     //position should be moved by numeric1
@@ -245,7 +245,21 @@ int RmDir(char * pathname) {
 }
 
 int ChDir(char * pathname) {
-    (void)pathname;
+
+    if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
+        return ERROR;
+    }
+
+    struct my_msg new_msg = {CHDIR, curr_dir_inode, 0, 0, 0, "", pathname};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    // new_msg.numeric1 contains a return status.
+    if(new_msg.numeric1 == ERROR) {
+        return ERROR;
+    }
+    curr_dir_inode = new_msg.numeric1;
     return 0;    
 }
 
