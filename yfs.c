@@ -56,7 +56,7 @@ static int eraseFile(int inode_num);
 static int readFromInode(struct inode inode_to_read, int size, int start_pos, char* buf_to_read);
 static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read);
 static int linkInodes(int curr_dir, char *oldname, char *newname);
-static int createRegFile(struct inode* new_inode);
+static int createRegFile();
 static int getParentDir(int curr_dir, char **pathname);
 static int unlinkInode(int curr_dir, char *pathname);
 static int removeDirEntry(int dir, char *file_name);
@@ -66,7 +66,7 @@ static int deleteInode(int inode_num);
 static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_write);
 static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write);
 static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write);
-static int createDirectory(struct inode* new_inode, int parent_inum);
+static int createDirectory(int parent_inum);
 static int removeDirectory(int curr_dir, char *pathname);
 static bool dirIsEmpty(struct inode curr_dir_inode);
 static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_entry);
@@ -461,6 +461,10 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
     //What if start_pos > inode_to_read.size?
     int size_to_read = MIN(inode_to_read.size - start_pos, size);
 
+    if (size_to_read <= 0) {
+        return 0;
+    }
+
     int bytes_left = size_to_read;
     int num_blocks = get_num_blocks(inode_to_read.size);
     
@@ -559,28 +563,26 @@ static int createFileInDir(int dir_inode_num, char* file_name, int pref_inum, in
 }
 // Returns an inode number of the newly-created file or ERROR.
 static int createNewDirEntry(int dir_inode_num, char* file_name, int pref_inum, int type) {
-    // Storage for a new inode.
-    struct inode inode_struct;
+    // // Storage for a new inode.
+    // struct inode inode_struct;
     if (pref_inum == -1) {
         // We want to find a new unique inode_num.
         if (type == INODE_REGULAR) {
             // Create a regular file.
             TracePrintf(0, "Is about to create a new file!!\n");
-            pref_inum = createRegFile(&inode_struct);
+            pref_inum = createRegFile();
         } else {
             // Create a directory.
             TracePrintf(0, "Is about to create a directory!!\n");
-            pref_inum = createDirectory(&inode_struct, dir_inode_num);
+            pref_inum = createDirectory(dir_inode_num);
             TracePrintf(0, "pref_inum = %i\n", pref_inum);
         }
         if (pref_inum == ERROR) {
             TracePrintf(0, "pref_inum = -1!!\n");
             return ERROR;
         }
-    } else {
-        // We already have an inode we want to store in the dir_entry.
-        inode_struct = findInode(pref_inum);
     }
+    struct inode inode_struct = findInode(pref_inum);
 
     // Write a new directory entry with inum = pref_inum, name == file_name.
     if(writeNewDirEntry(file_name, pref_inum, dir_inode_num) == ERROR) {
@@ -612,7 +614,7 @@ static int writeInodeToDisc(int inode_num, struct inode inode_struct) {
     return 0;
 }
 
-static int createRegFile(struct inode* new_inode) {
+static int createRegFile() {
     int free_inode_num = findFreeInodeNum();
     if (free_inode_num == -1) {
         return ERROR;
@@ -627,7 +629,6 @@ static int createRegFile(struct inode* new_inode) {
     if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
         return ERROR;
     }
-    *new_inode = inode_struct;
     inodemap[free_inode_num] = false;
     return free_inode_num;
 }
@@ -1317,7 +1318,7 @@ static void mkdir(struct my_msg *msg, int pid) {
     }
 }
 
-static int createDirectory(struct inode* new_inode, int parent_inum) {
+static int createDirectory(int parent_inum) {
     int free_inode_num = findFreeInodeNum();
     if (free_inode_num == -1) {
         TracePrintf(0, "No enough free inodes\n");
@@ -1351,7 +1352,6 @@ static int createDirectory(struct inode* new_inode, int parent_inum) {
         TracePrintf(0, "writeInodeToDisc failed\n");
         return ERROR;
     }
-    *new_inode = inode_struct;
     inodemap[free_inode_num] = false;
     return free_inode_num;
 }

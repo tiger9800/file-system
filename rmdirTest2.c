@@ -43,7 +43,7 @@ main()
     }
 
     // Delete 50 files in foo directory.
-    for (j = 0; j < 43; j++) {
+    for (j = 0; j < 42; j++) {
         snprintf(name, 50, "/foo/abc%i\n", j);
         st = Unlink(name);
 	    printf("Status of unlink is %d\n", st);

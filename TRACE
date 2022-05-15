@@ -1,14 +1,5 @@
+** User     level 1 tracing enabled **
 ** YFS      level 1 tracing enabled **
-YFS      Want to create a file with pathname hah0
-YFS      In createDirEntry (before getParent): curr_dir = 1
-YFS      In createDirEntry (before getParent): pathname = hah0
-YFS      In createDirEntry (after getParent): parent_dir = 1
-YFS      In createDirEntry (after getParent): pathname = hah0
-YFS      A directory entry does not exist in the directory, so we create it from scratch.
-YFS      Is about to create a new file!!
-YFS      Start of writeNewDirEntry
-YFS      In updateFreeEntry!!!!!!!!!
-YFS      Number of links is 1
 YFS      In createDirEntry (before getParent): curr_dir = 1
 YFS      In createDirEntry (before getParent): pathname = /foo
 YFS      In createDirEntry (after getParent): parent_dir = 1
@@ -17,31 +8,618 @@ YFS      A directory entry does not exist in the directory, so we create it from
 YFS      Is about to create a directory!!
 YFS      Start of writeNewDirEntry
 YFS      In updateFreeEntry!!!!!!!!!
-YFS      updateFreeEntryInBlock returned -2 for i=0
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      pref_inum = 2
 YFS      Start of writeNewDirEntry
 YFS      In updateFreeEntry!!!!!!!!!
 YFS      updateFreeEntryInBlock returned -2 for i=0
-YFS      pref_inum = 3
-YFS      Start of writeNewDirEntry
-YFS      In updateFreeEntry!!!!!!!!!
 YFS      Number of links is 2
-YFS      Want to create a file with pathname /foo/abc
+YFS      Want to create a file with pathname /foo/abc0
+
 YFS      In createDirEntry (before getParent): curr_dir = 1
-YFS      In createDirEntry (before getParent): pathname = /foo/abc
-YFS      In createDirEntry (after getParent): parent_dir = 3
-YFS      In createDirEntry (after getParent): pathname = abc
+YFS      In createDirEntry (before getParent): pathname = /foo/abc0
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc0
+
 YFS      A directory entry does not exist in the directory, so we create it from scratch.
 YFS      Is about to create a new file!!
 YFS      Start of writeNewDirEntry
 YFS      In updateFreeEntry!!!!!!!!!
 YFS      Number of links is 1
-YFS      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non viverra nulla, in sollicitudin tortor. Curabitur vulputate sit amet enim vel posuere. Nunc consequat pulvinar neque, quis consequat nibh pellentesque sed. Nam maximus sem sed quam scelerisque rutrum. Aliquam vitae volutpat elit. Donec at lorem tincidunt, fermentum erat a, volutpat quam. Nunc gravida consequat egestas. Sed sed sem et ante fringilla faucibus eget ut turpis. Suspendisse id vulputate leo. Donec vel rhoncus nisl, interdum molestie erat. Praesent sagittis purus ut interdum blandit. Pellentesque feugiat tellus libero, in semper ex mattis vitae. Sed fermentum sem ac faucibus porta. Ut finibus gravida ligula, sit amet vulputate ex tempor ac. Aenean maximus lacinia ante et scelerisque. Fusce pretium vitae purus at pellentesque. Cras a eleifend odio. Suspendisse fringilla id odio in auctor. Nulla dignissim porttitor massa ut hendrerit. Curabitur posuere augue et facilisis dictum. Nullam et tempus nisl. Donec nec lobortis sapien. Proin fermentum elit commodo lacus fermentum, in porttitor lectus iaculis. Nullam condimentum turpis ac rutrum finibus. Mauris sodales ut nisi vel rutrum. Duis vel ipsum lacus. Integer efficitur ut ante id blandit. Curabitur luctus lectus eget tortor gravida, in venenatis sem eleifend. Nulla sit amet nisi gravida, posuere nibh nec, ullamcorper neque. Mauris dui erat, semper a nisl vitae, laoreet consectetur ante. Cras sed nulla varius ipsum dapibus placerat id dapibus enim. Nulla tempus erat et leo aliquet, sit amet pulvinar mauris iaculis. Ut vel ornare urna, eu commodo augue. Integer sed venenatis libero, vel posuere nulla. Phasellus non lacus in justo elementum faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id bibendum risus, nec rhoncus velit. Vivamus facilisis elit accumsan odio volutpat, eget feugiat nunc euismod. Nullam vitae libero efficitur, scelerisque mauris non, accumsan libero. Phasellus ut semper leo. Cras ullamcorper, elit tincidunt aliquet dignissim, mauris tellus efficitur urna, id condimentum est libero in neque. Vestibulum laoreet neque eget nibh iaculis, in congue felis molestie. Duis volutpat at turpis id euismod. Phasellus massa augue, tempor quis urna sed, aliquet finibus dolor. Maecenas rhoncus vehicula justo, vel auctor libero lacinia vitae. In diam enim, elementum at enim vel, iaculis consequat nisl. Duis iaculis ligula in urna ultricies dignissim. Proin erat ipsum, elementum at quam id, ullamcorper iaculis nulla. Fusce pharetra turpis in nibh mattis, nec scelerisque elit pretium. Nulla purus nisi, ornare porta viverra ut, aliquam vitae libero. Aenean dolor arcu, varius vitae lorem vitae, dictum hendrerit sapien. Sed id velit sodales, varius tellus a, convallis est. Vestibulum rhoncus at orci luctus tincidunt. Pellentesque id odio aliquam, maximus lorem ac, scelerisque dui. Aliquam tincidunt nibh vel augue rhoncus, et semper purus maximus. Nullam et feugiat est. Nullam sed sollicitudin mi. Integer eleifend aliquam turpis non elementum. Etiam malesuada tellus.
-YFS      Block Index 0 ==================
-YFS      Block Index 1 ==================
-YFS      Block Index 2 ==================
-YFS      Block Index 3 ==================
-YFS      Block Index 4 ==================
-YFS      Block Index 5 ==================
-YFS      getInodeNumber returns 4
-YFS      getInodeNumber returns 1
-YFS      getInodeNumber returns 3
+YFS      Want to create a file with pathname /foo/abc1
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc1
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc1
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc2
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc2
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc2
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc3
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc3
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc3
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc4
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc4
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc4
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc5
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc5
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc5
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc6
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc6
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc6
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc7
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc7
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc7
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc8
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc8
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc8
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc9
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc9
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc9
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc10
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc10
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc10
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc11
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc11
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc11
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc12
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc12
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc12
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc13
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc13
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc13
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc14
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc14
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc14
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc15
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc15
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc15
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc16
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc16
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc16
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc17
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc17
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc17
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc18
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc18
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc18
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc19
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc19
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc19
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc20
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc20
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc20
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc21
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc21
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc21
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc22
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc22
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc22
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc23
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc23
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc23
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc24
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc24
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc24
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc25
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc25
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc25
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc26
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc26
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc26
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc27
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc27
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc27
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc28
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc28
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc28
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc29
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc29
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc29
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc30
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc30
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc30
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc31
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc31
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc31
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc32
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc32
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc32
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc33
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc33
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc33
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc34
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc34
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc34
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc35
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc35
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc35
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc36
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc36
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc36
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc37
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc37
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc37
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc38
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc38
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc38
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc39
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc39
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc39
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc40
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc40
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc40
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc41
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc41
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc41
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      Want to create a file with pathname /foo/abc42
+
+YFS      In createDirEntry (before getParent): curr_dir = 1
+YFS      In createDirEntry (before getParent): pathname = /foo/abc42
+
+YFS      In createDirEntry (after getParent): parent_dir = 2
+YFS      In createDirEntry (after getParent): pathname = abc42
+
+YFS      A directory entry does not exist in the directory, so we create it from scratch.
+YFS      Is about to create a new file!!
+YFS      Start of writeNewDirEntry
+YFS      In updateFreeEntry!!!!!!!!!
+YFS      Number of links is 1
+YFS      getInodeNumber returns 2
+User     pos = 0
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      Before removal:  inode_struct.nlink = 1
+YFS      In dirIsEmpty ==========
+YFS      There is a non-empty entry#2 in block 0
+YFS      inum = 2
+YFS      name = .
+YFS      getInodeNumber returns 2
