@@ -1094,6 +1094,11 @@ static int unlinkInode(int curr_dir, char *pathname) {
 }
 
 static int removeDirEntry(int dir, char *file_name) {
+     if (strlen(file_name) == 0 || strcmp(file_name, ".") == 0 || strcmp(file_name, "..") == 0) {
+        // Can't delete such directory entries manually.
+        TracePrintf(0, "Can't delete this directory entry.\n");
+        return ERROR;
+    }
     int file_inode_num = getInodeNumber(dir, file_name);
     if (file_inode_num == ERROR) {
         fprintf(stderr, "This file does not exists.\n");
