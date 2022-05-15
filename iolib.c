@@ -264,9 +264,17 @@ int ChDir(char * pathname) {
 }
 
 int Stat(char * pathname, struct Stat * statbuf) {
-    (void)pathname;
-    (void)statbuf;
-    return 0;    
+     if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
+        return ERROR;
+    }
+    struct stat_msg new_msg = {STAT, curr_dir_inode, "", pathname, statbuf};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
+    // new_msg.numeric1 contains a return status.
+
+    return new_msg.numeric1;    
 }
 
 int Sync() {

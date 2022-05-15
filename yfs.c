@@ -1,5 +1,6 @@
 #include <comp421/filesystem.h>
 #include <comp421/yalnix.h>
+#include <comp421/iolib.h>
 #include "msg_types.h"
 
 #include <stdio.h>
@@ -35,6 +36,8 @@ static void mkdir(struct my_msg *msg, int pid);
 static void rmdir(struct my_msg *msg, int pid);
 static void seek(struct my_msg *msg, int pid);
 static void chdir(struct my_msg *msg, int pid);
+static void stat(struct stat_msg *msg, int pid);
+
 
 static int getInodeNumber(int curr_dir, char *pathname);
 static int search(int start_inode, char *pathname);
@@ -70,6 +73,7 @@ static int createDirectory(int parent_inum);
 static int removeDirectory(int curr_dir, char *pathname);
 static bool dirIsEmpty(struct inode curr_dir_inode);
 static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_entry);
+static struct Stat* getStat(int curr_dir, char * pathname);
 
 
 
@@ -258,7 +262,62 @@ static void handleMsg(struct my_msg *msg, int pid) {
         case CHDIR:
             chdir(msg, pid);
             break;
+        case STAT:
+            stat((struct stat_msg*)msg, pid);
+            break;
     }
+}
+
+static void stat(struct stat_msg *msg, int pid) {
+    if (msg->pathname == NULL || msg->statbuf == NULL) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    int curr_dir = msg->numeric1;
+    if (inodemap[curr_dir]) {
+        // This inode number is free.
+        msg->numeric1 = ERROR;
+        return;
+    }
+
+    char pathname[MAXPATHNAMELEN];
+    if (CopyFrom(pid, pathname, msg->pathname, MAXPATHNAMELEN) == ERROR) {
+        msg->numeric1 = ERROR;
+        return;
+    }
+    // msg->numeric1 initially contains a current directory.
+    // Reply with a message that has an inode number of the opened file or ERROR.
+
+    struct Stat* stats = getStat(curr_dir, pathname);
+    if(stats == NULL) {
+        msg->numeric1 = ERROR;
+    }
+
+    CopyTo(pid, msg->statbuf, stats, sizeof(struct Stat));
+    msg->numeric1 = 0;
+
+    free(stats);
+    
+}
+
+static struct Stat* getStat(int curr_dir, char * pathname) {
+    int inode_num = getInodeNumber(curr_dir, pathname);
+    if(inode_num == ERROR) {
+        return NULL;
+    }
+    struct inode statInode = findInode(inode_num);
+
+    struct Stat* stats = malloc(sizeof(struct Stat));
+    if(stats == NULL) {
+        return NULL;
+    }
+
+    stats->type = statInode.type;
+    stats->inum = inode_num;
+    stats->size = statInode.size;
+    stats->nlink = statInode.nlink;
+
+    return stats;
 }
 
 static void seek(struct my_msg *msg, int pid) {
@@ -280,7 +339,7 @@ static void seek(struct my_msg *msg, int pid) {
         rel_pos = curr_pos;
     }
     else {
-        rel_pos = MAX(size - 1, curr_pos);//the position may be further than then size because of a previous seek
+        rel_pos = MAX(size, curr_pos);//the position may be further than then size because of a previous seek
     }
     
     if(rel_pos + offset < 0) {

@@ -11,7 +11,7 @@ int
 main()
 {
 	
-    int fd = Open("/newdir");
+    int fd = Open("/");
     char buf[sizeof(struct dir_entry)*20];
     int size_read = Read(fd,buf,sizeof(struct dir_entry)*10);
     printf("Size that was read is %i\n", size_read);

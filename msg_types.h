@@ -16,6 +16,14 @@ struct link_msg {
     void *newname; 
 };
 
+struct stat_msg {
+    int type;
+    int numeric1;
+    char padding[8]; 
+    void *pathname;
+    void *statbuf; 
+};
+
 #define MSG_SIZE 32
 
 #define OPEN 0
@@ -28,3 +36,4 @@ struct link_msg {
 #define RMDIR 7
 #define SEEK 8
 #define CHDIR 9
+#define STAT 10
