@@ -13,7 +13,7 @@ int
 main()
 {
     int fd;
-    // int fd3;
+    int fd3;
 	// fd = Create("hah0");
     // printf("Here is fd %d\n", fd);
     fd = MkDir("/foo");
@@ -34,7 +34,7 @@ main()
     // printf("%s\n", read_buf);
     // printf("bytes_written = %i\n", bytes_written);
     // printf("bytes_read = %i\n", bytes_read);
-    // char buf2[sizeof(struct dir_entry)*20];
+    char buf2[sizeof(struct dir_entry)*20];
     // int size_read = Read(fd2, buf2, sizeof(struct dir_entry)*10);
     // printf("Size that was read is %i\n", size_read);
     // int i;
@@ -43,21 +43,22 @@ main()
     //     printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
     // }
 
-    // fd2 = Open("/");
-    // printf("Here is fd2 for open = %d\n", fd2);
-    // size_read = Read(fd2, buf2, sizeof(struct dir_entry)*10);
-    // printf("Size that was read is %i\n", size_read);
-    // for (i = 0; i < (int)(size_read/sizeof(struct dir_entry)); i++) {
-    //     printf("%i. Inode is %i\n", i, (((struct dir_entry *)buf2) + i)->inum);
-    //     printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
-    // }
+    int fd2 = Open("/");
+    printf("Here is fd2 for open = %d\n", fd2);
+    int size_read = Read(fd2, buf2, sizeof(struct dir_entry)*10);
+    printf("Size that was read is %i\n", size_read);
+    int i;
+    for (i = 0; i < (int)(size_read/sizeof(struct dir_entry)); i++) {
+        printf("%i. Inode is %i\n", i, (((struct dir_entry *)buf2) + i)->inum);
+        printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
+    }
 
-    // fd3 = Open("foo");
-    // size_read = Read(fd3, buf2, sizeof(struct dir_entry)*10);
-    // printf("Size that was read is %i\n", size_read); 
-    // for (i = 0; i < (int)(size_read/sizeof(struct dir_entry)); i++) {
-    //     printf("%i. Inode is %i\n", i, (((struct dir_entry *)buf2) + i)->inum);
-    //     printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
-    // }
+    fd3 = Open("foo");
+    size_read = Read(fd3, buf2, sizeof(struct dir_entry)*10);
+    printf("Size that was read is %i\n", size_read); 
+    for (i = 0; i < (int)(size_read/sizeof(struct dir_entry)); i++) {
+        printf("%i. Inode is %i\n", i, (((struct dir_entry *)buf2) + i)->inum);
+        printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
+    }
     return (0);
 }

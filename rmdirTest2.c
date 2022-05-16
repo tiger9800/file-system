@@ -43,7 +43,7 @@ main()
     }
 
     // Delete 50 files in foo directory.
-    for (j = 0; j < 42; j++) {
+    for (j = 0; j < 43; j++) {
         snprintf(name, 50, "/foo/abc%i\n", j);
         st = Unlink(name);
 	    printf("Status of unlink is %d\n", st);
@@ -53,9 +53,15 @@ main()
     st = RmDir("/foo");
     printf("Status of rmdir is %d\n", st);
 
-    // Try to open foo.
     fd3 = Open("foo");
     printf("Here is fd %d\n", fd3);
+    size_read = Read(fd3, buf2, sizeof(struct dir_entry)*52);
+    printf("Size that was read is %i\n", size_read); 
+    for (i = 0; i < (int)(size_read/sizeof(struct dir_entry)); i++) {
+        printf("%i. Inode is %i\n", i, (((struct dir_entry *)buf2) + i)->inum);
+        printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
+    }
+
 
     return (0);
 }
