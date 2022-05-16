@@ -45,7 +45,7 @@ static void stat(struct stat_msg *msg, int pid);
 
 static int getInodeNumber(int curr_dir, char *pathname);
 static int search(int start_inode, char *pathname);
-static struct inode findInode(int curr_num);
+static struct inode accessInode(int curr_num);
 static int searchInDirectory(struct inode *curr_inode, char *token);
 static int find_entry_in_block(int block, char *token, int num_entries_left);
 static int get_num_blocks(int size);
@@ -81,10 +81,10 @@ static struct Stat* getStat(int curr_dir, char * pathname);
 static void initCaches();
 static int getHashcode(int num, int size);
 static int evictBlock();
-// static int evictInode();
+static int evictInode();
 static int insertBlock(int num);
-// static int insertInode(int num);
-// static struct inode_cache_entry *searchInode(int num);
+static int insertInode(int num);
+static struct inode_cache_entry *searchInode(int num);
 static struct block_cache_entry *searchBlock(int num);
 static char * accessBlock(int num);
 static int modifyBlock(int num, char *block_buf);
@@ -96,6 +96,16 @@ static void removeBlockFromLRU(struct block_cache_entry *block);
 static void insertBlockToLRU(struct block_cache_entry *block);
 static void insertBlockToHash(struct block_cache_entry *block, int hashcode);
 static void updateBlockLRU(struct block_cache_entry *block);
+
+static void printInodeHashQueue(int hashcode);
+static void printInodeLRUQueue();
+static void printInodeQueues();
+static void removeInodeFromHash(struct inode_cache_entry *inode);
+static void removeInodeFromLRU(struct inode_cache_entry *inode);
+static void insertInodeToLRU(struct inode_cache_entry *inode);
+static void insertInodeToHash(struct inode_cache_entry *inode, int hashcode);
+static void updateInodeLRU(struct inode_cache_entry *inode);
+static int modifyInode(int num, struct inode new_inode_struct);
 
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
@@ -167,9 +177,9 @@ static int getFreeInodes() {
     inodemap[0] = false;
     int node_count = 1;
     int sector = 1;
-    //TracePrintf(0, "Root node type %i\n", currNode->type);
-    //TracePrintf(0, "Root node size %i\n", currNode->size);
-    //TracePrintf(0, "sizeof dir_entry %i\n", sizeof(struct dir_entry));
+    //// TracePrintf(0, "Root node type %i\n", currNode->type);
+    //// TracePrintf(0, "Root node size %i\n", currNode->size);
+    //// TracePrintf(0, "sizeof dir_entry %i\n", sizeof(struct dir_entry));
 
     while(node_count <= NUM_INODES) {
         printf("Before second while_loop: node_count is %d\n", node_count);
@@ -351,7 +361,7 @@ static struct Stat* getStat(int curr_dir, char * pathname) {
     if(inode_num == ERROR) {
         return NULL;
     }
-    struct inode statInode = findInode(inode_num);
+    struct inode statInode = accessInode(inode_num);
 
     struct Stat* stats = malloc(sizeof(struct Stat));
     if(stats == NULL) {
@@ -373,7 +383,7 @@ static void seek(struct my_msg *msg, int pid) {
     int whence = msg->numeric3;
     int offset = msg->numeric4;
 
-    struct inode file_inode = findInode(file_inode_num);
+    struct inode file_inode = accessInode(file_inode_num);
 
     int size = file_inode.size;
 
@@ -415,10 +425,10 @@ static void open(struct my_msg *msg, int pid) {
     // msg->numeric1 initially contains a current directory.
     // Reply with a message that has an inode number of the opened file or ERROR.
     msg->numeric1 = getInodeNumber(curr_dir, pathname);
-    TracePrintf(0, "getInodeNumber returns %i\n", msg->numeric1);
+    // TracePrintf(0, "getInodeNumber returns %i\n", msg->numeric1);
     // Reply message also contains a reuse count.
     if(msg->numeric1 != ERROR) {
-        msg->numeric2 = findInode(msg->numeric1).reuse;
+        msg->numeric2 = accessInode(msg->numeric1).reuse;
     } 
 }
 
@@ -441,10 +451,10 @@ static void chdir(struct my_msg *msg, int pid) {
     // msg->numeric1 initially contains a current directory.
     // Reply with a message that has an inode number of the opened file or ERROR.
     msg->numeric1 = getInodeNumber(curr_dir, pathname);
-    TracePrintf(0, "getInodeNumber returns %i\n", msg->numeric1);
+    // TracePrintf(0, "getInodeNumber returns %i\n", msg->numeric1);
     // Reply message also contains a reuse count.
     if(msg->numeric1 != ERROR) {
-        if(findInode(msg->numeric1).type != INODE_DIRECTORY) {//there cannot be a file with the same name as the directory, so
+        if(accessInode(msg->numeric1).type != INODE_DIRECTORY) {//there cannot be a file with the same name as the directory, so
         //if there is, then the directory does not exist.
             msg->numeric1 = ERROR;
         }
@@ -467,7 +477,7 @@ static void create(struct my_msg *msg, int pid) {
         msg->numeric1 = ERROR;
         return;
     }
-    TracePrintf(0, "Want to create a file with pathname %s\n", pathname);
+    // TracePrintf(0, "Want to create a file with pathname %s\n", pathname);
     // Check that last char of pathname is not "/"
     if (pathname[strlen(pathname) - 1] == '/') {
         msg->numeric1 = ERROR;
@@ -480,19 +490,19 @@ static void create(struct my_msg *msg, int pid) {
     
     // Reply message also contains a reuse count.
     if(msg->numeric1 != ERROR) {
-        msg->numeric2 = findInode(msg->numeric1).reuse;
+        msg->numeric2 = accessInode(msg->numeric1).reuse;
     }
 }
 
 static int createDirEntry(int curr_dir, char *pathname, int pref_inum, int type) {
-    TracePrintf(0, "In createDirEntry (before getParent): curr_dir = %i\n", curr_dir);
-    TracePrintf(0, "In createDirEntry (before getParent): pathname = %s\n", pathname);
+    // TracePrintf(0, "In createDirEntry (before getParent): curr_dir = %i\n", curr_dir);
+    // TracePrintf(0, "In createDirEntry (before getParent): pathname = %s\n", pathname);
     int parent_dir = getParentDir(curr_dir, &pathname);
     if (parent_dir == ERROR) {
         return ERROR;
     }
-    TracePrintf(0, "In createDirEntry (after getParent): parent_dir = %i\n", parent_dir);
-    TracePrintf(0, "In createDirEntry (after getParent): pathname = %s\n", pathname);
+    // TracePrintf(0, "In createDirEntry (after getParent): parent_dir = %i\n", parent_dir);
+    // TracePrintf(0, "In createDirEntry (after getParent): pathname = %s\n", pathname);
     int new_file_inode_num = createFileInDir(parent_dir, pathname, pref_inum, type);
     return new_file_inode_num;
 }
@@ -542,7 +552,7 @@ static void read(struct my_msg *msg, int pid) {
         msg->numeric1 = ERROR;
         return;
     }
-    struct inode file_inode = findInode(file_inode_num);
+    struct inode file_inode = accessInode(file_inode_num);
     if(file_inode.reuse != reuse_count) {
         fprintf(stderr, "Reuse is different: someone else created a different file in the same inode\n");
         msg->numeric1 = ERROR;
@@ -627,7 +637,7 @@ static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_t
 static int createFileInDir(int dir_inode_num, char* file_name, int pref_inum, int type) {
     if (strlen(file_name) == 0 || strcmp(file_name, ".") == 0 || strcmp(file_name, "..") == 0) {
         // Can't create such directory entries manually.
-        TracePrintf(0, "Tried to create an invalid file\n");
+        // TracePrintf(0, "Tried to create an invalid file\n");
         return ERROR;
     }
     if (strlen(file_name) > DIRNAMELEN) {
@@ -638,18 +648,18 @@ static int createFileInDir(int dir_inode_num, char* file_name, int pref_inum, in
     char entry_name[DIRNAMELEN];
     memset(entry_name, '\0', DIRNAMELEN);
     memcpy(entry_name, file_name, strlen(file_name));
-    struct inode dir_inode = findInode(dir_inode_num);
+    struct inode dir_inode = accessInode(dir_inode_num);
 
     // Look for this file in the directory.
     int inode_num = searchInDirectory(&dir_inode, entry_name);
     if (inode_num != ERROR) {
         // File with this name already exists in the directory.
-        TracePrintf(0, "File with this name already exists in the directory.\n");
+        // TracePrintf(0, "File with this name already exists in the directory.\n");
         if (pref_inum == -1 && type == INODE_REGULAR) {
             // Our goal is to create a new file, but it already exists.
             // We need to erase the contents of this existing file.
             // Erase file contents and return.
-            struct inode exist_inode = findInode(inode_num);
+            struct inode exist_inode = accessInode(inode_num);
             if(exist_inode.type == INODE_DIRECTORY) {
                 return ERROR;
             } else {//the file is not a directory
@@ -665,7 +675,7 @@ static int createFileInDir(int dir_inode_num, char* file_name, int pref_inum, in
         }
         
     } else {
-        TracePrintf(0, "A directory entry does not exist in the directory, so we create it from scratch.\n");
+        // TracePrintf(0, "A directory entry does not exist in the directory, so we create it from scratch.\n");
         // A directory entry does not exist in the directory, so we create it from scratch.
         inode_num = createNewDirEntry(dir_inode_num, entry_name, pref_inum, type);
         if(inode_num == ERROR) {
@@ -683,20 +693,20 @@ static int createNewDirEntry(int dir_inode_num, char* file_name, int pref_inum, 
         // We want to find a new unique inode_num.
         if (type == INODE_REGULAR) {
             // Create a regular file.
-            TracePrintf(0, "Is about to create a new file!!\n");
+            // TracePrintf(0, "Is about to create a new file!!\n");
             pref_inum = createRegFile();
         } else {
             // Create a directory.
-            TracePrintf(0, "Is about to create a directory!!\n");
+            // TracePrintf(0, "Is about to create a directory!!\n");
             pref_inum = createDirectory(dir_inode_num);
-            TracePrintf(0, "pref_inum = %i\n", pref_inum);
+            // TracePrintf(0, "pref_inum = %i\n", pref_inum);
         }
         if (pref_inum == ERROR) {
-            TracePrintf(0, "pref_inum = -1!!\n");
+            // TracePrintf(0, "pref_inum = -1!!\n");
             return ERROR;
         }
     }
-    struct inode inode_struct = findInode(pref_inum);
+    struct inode inode_struct = accessInode(pref_inum);
 
     // Write a new directory entry with inum = pref_inum, name == file_name.
     if(writeNewDirEntry(file_name, pref_inum, dir_inode_num) == ERROR) {
@@ -704,37 +714,15 @@ static int createNewDirEntry(int dir_inode_num, char* file_name, int pref_inum, 
     }
     // Increment a number of hard links to this inode_struct.
     inode_struct.nlink++;
-    TracePrintf(0, "Number of links is %i\n", inode_struct.nlink);
+    // TracePrintf(0, "Number of links is %i\n", inode_struct.nlink);
     // We set inodemap[pref_inum] to false in this function.
-    if (writeInodeToDisc(pref_inum, inode_struct) == ERROR) {
+    if (modifyInode(pref_inum, inode_struct) == ERROR) {
         return ERROR;
     }
+    // if (writeInodeToDisc(pref_inum, inode_struct) == ERROR) {
+    //     return ERROR;
+    // }
     return pref_inum;
-}
-
-static int writeInodeToDisc(int inode_num, struct inode inode_struct) {
-    int block_num = inode_num/INODES_PER_BLOCK + 1;
-    int index = inode_num % INODES_PER_BLOCK;
-    // TODO: will remove this access!!!
-    struct inode *buf = (struct inode*)accessBlock(block_num);
-    if(buf == NULL) {
-        return ERROR;
-    }
-    // struct inode buf[INODES_PER_BLOCK];
-    // if(ReadSector(block_num, buf) == ERROR) {
-    //     return ERROR;
-    // }
-    // TODO: will remove this modify!!!
-    buf[index] = inode_struct;
-    if(modifyBlock(block_num, (char *)buf) == ERROR) {
-        return ERROR;
-    }
-    // if(WriteSector(block_num, buf) == ERROR) {
-    //     return ERROR;
-    // }
-    // Make sure that this inode is "occupied" and won't ve overwritten.
-    inodemap[inode_num] = false;
-    return 0;
 }
 
 static int createRegFile() {
@@ -742,16 +730,19 @@ static int createRegFile() {
     if (free_inode_num == -1) {
         return ERROR;
     }
-    struct inode inode_struct = findInode(free_inode_num);
+    struct inode inode_struct = accessInode(free_inode_num);
     // Initialize an inode fields.
     inode_struct.type = INODE_REGULAR;
     inode_struct.size = 0;
     inode_struct.reuse++;
     // Will increment this field when we create a dir_entry. 
     inode_struct.nlink = 0;
-    if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
+    if (modifyInode(free_inode_num, inode_struct) == ERROR) {
         return ERROR;
     }
+    // if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
+    //     return ERROR;
+    // }
     inodemap[free_inode_num] = false;
     return free_inode_num;
 }
@@ -769,16 +760,16 @@ static int findFreeInodeNum() {
 
 // Returns 0 on SUCCESS, -1 on ERROR
 static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_num) {
-    TracePrintf(0, "Start of writeNewDirEntry\n");
-    struct inode curr_dir_inode = findInode(dir_inode_num);
+    // TracePrintf(0, "Start of writeNewDirEntry\n");
+    struct inode curr_dir_inode = accessInode(dir_inode_num);
     if (curr_dir_inode.type != INODE_DIRECTORY) {
-        TracePrintf(0, "The wrong type of parent directory.\n");
+        // TracePrintf(0, "The wrong type of parent directory.\n");
         return ERROR;
     }
 
     int last_block;
     if ((last_block = updateFreeEntry(&curr_dir_inode, file_name, file_inode_num)) < 0) {
-        TracePrintf(0, "Update an existing free entry for filename=%s of directory#%i.\n", file_name, dir_inode_num);
+        // TracePrintf(0, "Update an existing free entry for filename=%s of directory#%i.\n", file_name, dir_inode_num);
         // Either SUCCESS (-2) (we found a free entry and modified it) or ERROR (-1).
         if (last_block == -2) {
             // We found a free entry and successfully updated it.
@@ -793,27 +784,27 @@ static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_n
     int max_size = (NUM_DIRECT + BLOCKSIZE/sizeof(int)) * BLOCKSIZE;
     if (max_size == curr_dir_inode.size) {
         // Directory reached its maximum size.
-        TracePrintf(0, "Directory reached its maximum size.\n");
+        // TracePrintf(0, "Directory reached its maximum size.\n");
         return ERROR;
     } else if(curr_dir_inode.size % BLOCKSIZE != 0){
-        TracePrintf(0, "Creating a new entry for filename=%s in existing block of directory#%i.\n", file_name, dir_inode_num);
+        // TracePrintf(0, "Creating a new entry for filename=%s in existing block of directory#%i.\n", file_name, dir_inode_num);
         // There is still space in the last block that we can use.
         int index = (curr_dir_inode.size % BLOCKSIZE)/(sizeof(struct dir_entry));
         if (fillFreeEntry(last_block, index, file_inode_num, file_name) == ERROR) {
-            TracePrintf(0, "fillFreeEntry failed.\n");
+            // TracePrintf(0, "fillFreeEntry failed.\n");
             return ERROR;
         }
     } else {
-        TracePrintf(0, "Allocate a new block and create anb entry for filename=%s of directory#%i.\n", file_name, dir_inode_num);
+        // TracePrintf(0, "Allocate a new block and create anb entry for filename=%s of directory#%i.\n", file_name, dir_inode_num);
         // Allocate a new block.
         int free_block_num = find_free_block();
         if(free_block_num == ERROR) {
-            TracePrintf(0, "No enough free blocks\n");
+            // TracePrintf(0, "No enough free blocks\n");
             return ERROR;
         }
         // Fill the first entry in this newly-allocated block.
         if (fillFreeEntry(free_block_num, 0, file_inode_num, file_name) == ERROR) {
-            TracePrintf(0, "fillFreeEntry failed.\n");
+            // TracePrintf(0, "fillFreeEntry failed.\n");
             return ERROR;
         }
         int num_blocks = get_num_blocks(curr_dir_inode.size);
@@ -849,15 +840,18 @@ static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_n
     }
     // Must increment a size of the directory.
     curr_dir_inode.size += sizeof(struct dir_entry);//we should have existed if we reused the old free dir_entry
-    if (writeInodeToDisc(dir_inode_num, curr_dir_inode) == ERROR) {
+    if (modifyInode(dir_inode_num, curr_dir_inode) == ERROR) {
         return ERROR;
     }
+    // if (writeInodeToDisc(dir_inode_num, curr_dir_inode) == ERROR) {
+    //     return ERROR;
+    // }
     return 0;
 }
 
 // Returns -2 if such free enty is found; ERROR if some error occured; a number of existing last block in the directory if no free entry was found.
 static int updateFreeEntry(struct inode *curr_dir_inode, char *file_name, int file_inode_num) {
-    TracePrintf(0, "In updateFreeEntry!!!!!!!!!\n");
+    // TracePrintf(0, "In updateFreeEntry!!!!!!!!!\n");
     int num_entries_left = curr_dir_inode->size / sizeof(struct dir_entry);
     int num_blocks = get_num_blocks(curr_dir_inode->size);
     int i;
@@ -866,7 +860,7 @@ static int updateFreeEntry(struct inode *curr_dir_inode, char *file_name, int fi
         last_block = curr_dir_inode->direct[i];
         int return_val = updateFreeEntryInBlock(last_block, file_name, file_inode_num, num_entries_left);
         if(return_val != -3) {
-            TracePrintf(0, "updateFreeEntryInBlock returned %i for i=%i\n", return_val, i);
+            // TracePrintf(0, "updateFreeEntryInBlock returned %i for i=%i\n", return_val, i);
             return return_val;
         }
         num_entries_left -= ENTRIES_PER_BLOCK;
@@ -886,7 +880,7 @@ static int updateFreeEntry(struct inode *curr_dir_inode, char *file_name, int fi
             last_block = indirect_buf[j];
             int return_val = updateFreeEntryInBlock(last_block, file_name, file_inode_num, num_entries_left);
             if(return_val != -3) {
-                TracePrintf(0, "updateFreeEntryInBlock returned %i for j=%i\n", return_val, j);
+                // TracePrintf(0, "updateFreeEntryInBlock returned %i for j=%i\n", return_val, j);
                 return return_val;
             }
             num_entries_left -= ENTRIES_PER_BLOCK;
@@ -932,14 +926,17 @@ static int updateFreeEntryInBlock(int blockNum, char* entry_name, int file_inode
 
 
 static int eraseFile(int inum) {
-    struct inode fileInode = findInode(inum);
+    struct inode fileInode = accessInode(inum);
     if (changeStateBlocks(&fileInode, true) == ERROR) {
         return ERROR;
     }
     fileInode.size = 0;
-    if(writeInodeToDisc(inum, fileInode) == ERROR) {
+    if(modifyInode(inum, fileInode) == ERROR) {
        return ERROR;
     }
+    // if(writeInodeToDisc(inum, fileInode) == ERROR) {
+    //    return ERROR;
+    // }
     return 0;
 }
 
@@ -963,7 +960,7 @@ static int search(int start_inode, char *pathname) {
     int curr_num = start_inode;
     char *token = strtok(pathname, "/");
     while (token != NULL) {
-        struct inode curr_inode = findInode(curr_num);
+        struct inode curr_inode = accessInode(curr_num);
         // Find a directory entry with name = token.
         curr_num = searchInDirectory(&curr_inode, token);
         if (curr_num == ERROR) {
@@ -972,17 +969,6 @@ static int search(int start_inode, char *pathname) {
         token = strtok(NULL, "/");
     }
     return curr_num;
-}
-
-
-static struct inode findInode(int inode_num) {
-    int block = (inode_num / INODES_PER_BLOCK) + 1;
-    // TODO: change later.
-    struct inode *inode_buf = (struct inode *)accessBlock(block);
-    // struct inode inode_buf[INODES_PER_BLOCK];
-    // ReadSector(block, inode_buf);
-    int index = inode_num % INODES_PER_BLOCK;
-    return inode_buf[index];
 }
 
 // Returns an inode_num of the file we are looking for in the given directory or ERROR if the file is not there.
@@ -1118,7 +1104,7 @@ static int linkInodes(int curr_dir, char *oldname, char *newname) {
         return ERROR;
     }
 
-    struct inode old_inode = findInode(old_inode_num);
+    struct inode old_inode = accessInode(old_inode_num);
     if (old_inode.type != INODE_REGULAR) {
         fprintf(stderr, "Oldname has a wrong type.\n");
         return ERROR;
@@ -1126,8 +1112,8 @@ static int linkInodes(int curr_dir, char *oldname, char *newname) {
 
     int ret_inode_num = createDirEntry(new_dir, newname, old_inode_num, INODE_REGULAR);
     if (ret_inode_num != old_inode_num) {
-        TracePrintf(0, "createDirEntry returned %i\n", ret_inode_num);
-        TracePrintf(0, "but old_inode_num = %i\n", old_inode_num);
+        // TracePrintf(0, "createDirEntry returned %i\n", ret_inode_num);
+        // TracePrintf(0, "but old_inode_num = %i\n", old_inode_num);
         return ERROR;
     } else {
         return 0;
@@ -1167,7 +1153,7 @@ static int unlinkInode(int curr_dir, char *pathname) {
         return ERROR;
     }
 
-    struct inode inode_struct = findInode(inode_num);
+    struct inode inode_struct = accessInode(inode_num);
     if (inode_struct.type != INODE_REGULAR) {
         fprintf(stderr, "File has a wrong type.\n");
         return ERROR;
@@ -1186,7 +1172,7 @@ static int unlinkInode(int curr_dir, char *pathname) {
 static int removeDirEntry(int dir, char *file_name) {
      if (strlen(file_name) == 0 || strcmp(file_name, ".") == 0 || strcmp(file_name, "..") == 0) {
         // Can't delete such directory entries manually.
-        TracePrintf(0, "Can't delete this directory entry.\n");
+        // TracePrintf(0, "Can't delete this directory entry.\n");
         return ERROR;
     }
     int file_inode_num = getInodeNumber(dir, file_name);
@@ -1194,9 +1180,9 @@ static int removeDirEntry(int dir, char *file_name) {
         fprintf(stderr, "This file does not exists.\n");
         return ERROR;
     }
-    struct inode inode_struct = findInode(file_inode_num);
-    TracePrintf(0, "Before removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
-    struct inode curr_dir_inode = findInode(dir);
+    struct inode inode_struct = accessInode(file_inode_num);
+    // TracePrintf(0, "Before removal:  inode_struct.nlink = %i\n", inode_struct.nlink);
+    struct inode curr_dir_inode = accessInode(dir);
 
     int num_entries_left = curr_dir_inode.size / sizeof(struct dir_entry);
 
@@ -1238,9 +1224,12 @@ static int removeDirEntry(int dir, char *file_name) {
         // We succesfully removed a dir_entry.
         // Decrement a number of nlinks to the given file_inode_num.
         inode_struct.nlink--;
-        if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
+        if(modifyInode(file_inode_num, inode_struct) == ERROR) {
             return ERROR;
         }
+        // if(writeInodeToDisc(file_inode_num, inode_struct) == ERROR) {
+        //     return ERROR;
+        // }
         return inode_struct.nlink;
     }
     return ERROR;
@@ -1289,16 +1278,19 @@ static int freeDirEntry(int blockNum, int index) {
 }
 
 static int deleteInode(int inode_num) {
-    struct inode inode_struct = findInode(inode_num);
+    struct inode inode_struct = accessInode(inode_num);
     if (changeStateBlocks(&inode_struct, true) == ERROR) {
         return ERROR;
     }
     inode_struct.type = INODE_FREE;
     inode_struct.nlink = 0;
     inode_struct.size = 0;
-    if (writeInodeToDisc(inode_num, inode_struct) == ERROR) {
+    if (modifyInode(inode_num, inode_struct) == ERROR) {
         return ERROR;
     }
+    // if (writeInodeToDisc(inode_num, inode_struct) == ERROR) {
+    //     return ERROR;
+    // }
     inodemap[inode_num] = true;
     return 0;
 }
@@ -1317,7 +1309,7 @@ static void write(struct my_msg *msg, int pid) {
         msg->numeric1 = ERROR;
         return;
     }
-    struct inode file_inode = findInode(file_inode_num);
+    struct inode file_inode = accessInode(file_inode_num);
     if(file_inode.reuse != reuse_count) {
         fprintf(stderr, "Reuse is different: someone else created a different file in the same inode\n");
         msg->numeric1 = ERROR;
@@ -1333,13 +1325,13 @@ static void write(struct my_msg *msg, int pid) {
         msg->numeric1 = ERROR;
         return;
     }
-    TracePrintf(0, "%s\n", buf_to_write);
+    // TracePrintf(0, "%s\n", buf_to_write);
     msg->numeric1 = fillAndWrite(file_inode_num, file_inode, size_to_write, start_pos, buf_to_write);
 }
 
 static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_write) {
 
-    struct inode inode_to_write = findInode(inode_num);
+    struct inode inode_to_write = accessInode(inode_num);
     int max_size = (NUM_DIRECT + BLOCKSIZE/(sizeof(int)))*BLOCKSIZE;
     //determine how much we can write by subtracting what we have written from what we can write
     int left_to_write = max_size - inode_to_write.size;
@@ -1363,16 +1355,19 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
             }
             inode_to_write.direct[i] = free_block_num;
         }
-        TracePrintf(0, "Block Index %i ==================\n", i);
+        // TracePrintf(0, "Block Index %i ==================\n", i);
         int bytes_written = WriteBlock(inode_to_write.direct[i], start_within_block, bytes_left, buf_to_write);
         if (bytes_written == ERROR) {
             return size_to_write - bytes_left;
         }
+        inode_to_write.size += bytes_written;
+        if (modifyInode(inode_num, inode_to_write) == ERROR) {
+            return size_to_write - bytes_left;
+        }
+        // writeInodeToDisc(inode_num, inode_to_write);
         buf_to_write += bytes_written;
         bytes_left -= bytes_written;
         start_within_block = 0;
-        inode_to_write.size += bytes_written;
-        writeInodeToDisc(inode_num, inode_to_write);
         blockmap[inode_to_write.direct[i]] = false;
     }
 
@@ -1408,11 +1403,14 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
             if (bytes_written == ERROR) {
                 return size_to_write - bytes_left;
             }
+            inode_to_write.size += bytes_written;
+            if (modifyInode(inode_num, inode_to_write) == ERROR) {
+                return size_to_write - bytes_left;
+            }
+            // writeInodeToDisc(inode_num, inode_to_write);
             buf_to_write += bytes_written;
             bytes_left -= bytes_written;
             start_within_block = 0;
-            inode_to_write.size += bytes_written;
-            writeInodeToDisc(inode_num, inode_to_write);
             if (modifyBlock(inode_to_write.indirect, (char *)indirect_buf) == ERROR) {
                 return size_to_write - bytes_left;
             }
@@ -1447,8 +1445,8 @@ static int WriteBlock(int block_num, int start_within_block, int bytes_left, cha
     //char buffer[bytes_to_write + 1];
     // snprintf(buffer, bytes_to_write, "%s", buf + start_within_block);
     // buffer[bytes_to_write] = '\0';
-    // TracePrintf(0, "Block#%i ==================\n", block_num);
-    // TracePrintf(0, "%s\n", buffer);
+    // // TracePrintf(0, "Block#%i ==================\n", block_num);
+    // // TracePrintf(0, "%s\n", buffer);
     return bytes_to_write;
 }
 
@@ -1502,43 +1500,47 @@ static void mkdir(struct my_msg *msg, int pid) {
 }
 
 static int createDirectory(int parent_inum) {
-    TracePrintf(0, "Creating new directory entry in dir#%i\n", parent_inum);
+    // TracePrintf(0, "Creating new directory entry in dir#%i\n", parent_inum);
     int free_inode_num = findFreeInodeNum();
-    TracePrintf(0, "Free inode to be used#%i\n", free_inode_num);
+    // TracePrintf(0, "Free inode to be used#%i\n", free_inode_num);
     if (free_inode_num == -1) {
-        TracePrintf(0, "No enough free inodes\n");
+        // TracePrintf(0, "No enough free inodes\n");
         return ERROR;
     }
-    struct inode inode_struct = findInode(free_inode_num);
+    struct inode inode_struct = accessInode(free_inode_num);
     // Initialize an inode fields.
     inode_struct.type = INODE_DIRECTORY;
     inode_struct.size = 0; // Contains dir_entries for "." and ".."
     inode_struct.reuse++;
     inode_struct.nlink = 1; // Contains link to "."
-    if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
+    if (modifyInode(free_inode_num, inode_struct) == ERROR) {
         return ERROR;
     }
+    // if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
+    //     return ERROR;
+    // }
     // Put "." to a newly-created directory.
     // writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_num)
     if(writeNewDirEntry(".", free_inode_num, free_inode_num) == ERROR) {
-        TracePrintf(0, "writeNewDirEntry for . failed\n");
+        // TracePrintf(0, "writeNewDirEntry for . failed\n");
         return ERROR;
     }
 
     // Put ".." to a newly-created directory.
     if(writeNewDirEntry("..", parent_inum, free_inode_num) == ERROR) {
-        TracePrintf(0, "writeNewDirEntry for .. failed\n");
+        // TracePrintf(0, "writeNewDirEntry for .. failed\n");
         return ERROR;
     }
     // Increase nlink of parent directory because of ".."
-    struct inode parent_dir_struct = findInode(parent_inum);
+    struct inode parent_dir_struct = accessInode(parent_inum);
     parent_dir_struct.nlink++;
-    if (writeInodeToDisc(parent_inum, parent_dir_struct) == ERROR) {
-        TracePrintf(0, "writeInodeToDisc failed\n");
+    if (modifyInode(parent_inum, parent_dir_struct) == ERROR) {
         return ERROR;
     }
-    struct inode new_inode = findInode(free_inode_num);
-    TracePrintf(0, "Size of newly-created directory is %i\n", new_inode.size);
+    // if (writeInodeToDisc(parent_inum, parent_dir_struct) == ERROR) {
+    //     // TracePrintf(0, "writeInodeToDisc failed\n");
+    //     return ERROR;
+    // }
     inodemap[free_inode_num] = false;
     return free_inode_num;
 }
@@ -1583,7 +1585,7 @@ static int removeDirectory(int curr_dir, char *pathname) {
         return ERROR;
     }
     // It must be a directory.
-    struct inode inode_struct = findInode(inode_num);
+    struct inode inode_struct = accessInode(inode_num);
     if (inode_struct.type != INODE_DIRECTORY) {
         fprintf(stderr, "File has a wrong type.\n");
         return ERROR;
@@ -1595,14 +1597,17 @@ static int removeDirectory(int curr_dir, char *pathname) {
         return ERROR;
     }
 
-    struct inode parent_dir_struct = findInode(parent_dir);
+    struct inode parent_dir_struct = accessInode(parent_dir);
     // "." and corresponding link will be removed when we call deleteInode
     // ".." entry will be removed automatically. We need to decrement a link to parent directory manually.
     parent_dir_struct.nlink--;
-    if (writeInodeToDisc(parent_dir, parent_dir_struct) == ERROR) {
-        TracePrintf(0, "writeInodeToDisc failed\n");
+    if (modifyInode(parent_dir, parent_dir_struct) == ERROR) {
         return ERROR;
     }
+    // if (writeInodeToDisc(parent_dir, parent_dir_struct) == ERROR) {
+    //     // TracePrintf(0, "writeInodeToDisc failed\n");
+    //     return ERROR;
+    // }
 
     // Must remove dir_entry from parent directory.
     if (removeDirEntry(parent_dir, pathname) == ERROR) {
@@ -1616,7 +1621,7 @@ static int removeDirectory(int curr_dir, char *pathname) {
 }
 
 static bool dirIsEmpty(struct inode curr_dir_inode) {
-    TracePrintf(0, "In dirIsEmpty ==========\n");
+    // TracePrintf(0, "In dirIsEmpty ==========\n");
     int num_entries_left = curr_dir_inode.size / sizeof(struct dir_entry);
     int num_blocks = get_num_blocks(curr_dir_inode.size);
     int i;
@@ -1663,9 +1668,9 @@ static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_en
     int i;
     for (i = start_dir_entry; i < MIN(ENTRIES_PER_BLOCK, num_entries_left); i++) {
         if (dir_buf[i].inum != 0) {
-            TracePrintf(0, "There is a non-empty entry#%i in block %i\n", i, blockNum);
-            TracePrintf(0, "inum = %i\n", dir_buf[i].inum);
-            TracePrintf(0, "name = %s\n", dir_buf[i].name);
+            // TracePrintf(0, "There is a non-empty entry#%i in block %i\n", i, blockNum);
+            // TracePrintf(0, "inum = %i\n", dir_buf[i].inum);
+            // TracePrintf(0, "name = %s\n", dir_buf[i].name);
             return false;
         }
     }
@@ -1683,6 +1688,7 @@ static int evictBlock() {
     // Delete from hash circular doubly-linked list.
     removeBlockFromHash(to_evict);
     if (to_evict->dirty) {
+        // Write a block to the disk.
         if(WriteSector(to_evict->num, to_evict->data) == ERROR) {
             return ERROR;
         }
@@ -1691,48 +1697,67 @@ static int evictBlock() {
     blockCache.count--;
     return 0;
 }
+static int writeInodeToDisc(int inode_num, struct inode inode_struct) {
+    int block_num = inode_num/INODES_PER_BLOCK + 1;
+    int index = inode_num % INODES_PER_BLOCK;
+    struct inode *buf = (struct inode*)accessBlock(block_num);
+    if(buf == NULL) {
+        return ERROR;
+    }
+    // struct inode buf[INODES_PER_BLOCK];
+    // if(ReadSector(block_num, buf) == ERROR) {
+    //     return ERROR;
+    // }
+    buf[index] = inode_struct;
+    if(modifyBlock(block_num, (char *)buf) == ERROR) {
+        return ERROR;
+    }
+    // if(WriteSector(block_num, buf) == ERROR) {
+    //     return ERROR;
+    // }
+    // Make sure that this inode is "occupied" and won't ve overwritten.
+    inodemap[inode_num] = false;
+    return 0;
+}
 
-// static int evictInode() {
-//     struct inode_cache_entry *to_evict = inodeLRU.lru_prev;
-//     // Delete from LRU circular doubly-linked list.
-//     to_evict->lru_prev->lru_next = &inodeLRU;
-//     inodeLRU.lru_prev = to_evict->lru_prev;
-//     // Delete from hash circular doubly-linked list.
-//     to_evict->hash_prev->hash_next = to_evict->hash_next;
-//     to_evict->hash_next->hash_prev = to_evict->hash_prev;
-//     if (to_evict->dirty) {
-//         int block_num = (to_evict->num / INODES_PER_BLOCK) + 1;
-//         struct block_cache_entry *block_entry = searchBlock(block_num);
-//         if (block_entry == NULL) {
-//             if (insertBlock(block_num) == ERROR) {
-//                 return ERROR;
-//             }
-//             block_entry = searchBlock(block_num);
-//         }
-//         int index = to_evict->num % INODES_PER_BLOCK;
-//         ((struct inode *)block_entry->data)[index] = to_evict->inode_struct;
-//         block_entry->dirty = true;
-//     }
-//     free(to_evict);
-//     inodeCache.count--;
-//     return 0;
-// }
+static int evictInode() {
+    TracePrintf(0, "I about to evict an inode!!\n");
+    TracePrintf(0, "Inode queues before eviction:\n");
+    printInodeQueues();
+    struct inode_cache_entry *to_evict = inodeLRU.lru_prev;
+    TracePrintf(0, "Victim has inum = %i\n", to_evict->num);
+    // Delete from LRU circular doubly-linked list.
+    removeInodeFromLRU(to_evict);
+    // Delete from hash circular doubly-linked list.
+    removeInodeFromHash(to_evict);
+    TracePrintf(0, "Inode queues after eviction:\n");
+    printInodeQueues();
+    if (to_evict->dirty) {
+        TracePrintf(0, "Inode was dirty. Call writeInodeToDisc\n");
+        // Write inode to the cached block.
+        if (writeInodeToDisc(to_evict->num, to_evict->inode_struct) == ERROR) {
+            return ERROR;
+        }
+    }
+    free(to_evict);
+    inodeCache.count--;
+    return 0;
+}
 
 static int insertBlock(int num) {
     // Check that entry is not in a cache.
-    TracePrintf(0, "Block #%i is about to be inserted\n", num);
+    // TracePrintf(0, "Block #%i is about to be inserted\n", num);
     struct block_cache_entry *block_entry = searchBlock(num);
     if (block_entry != NULL) {
-        TracePrintf(0, "Block is already inserted.\n");
+        // TracePrintf(0, "Block is already inserted.\n");
         return ERROR;
     }
     if (blockCache.count >= BLOCK_CACHESIZE) {
-        TracePrintf(0, "Evict!!\n");
+        // TracePrintf(0, "Evict block!!\n");
         if (evictBlock() == ERROR) {
             return ERROR;
         }
     }
-    TracePrintf(0, "No need to evict!!\n");
     int hashcode = getHashcode(num, BLOCK_CACHESIZE);
 
     char block_buf[BLOCKSIZE];
@@ -1748,63 +1773,57 @@ static int insertBlock(int num) {
     insertBlockToHash(block, hashcode);
     // Insert in LRU.
     insertBlockToLRU(block);
-    TracePrintf(0, "Print lru after first insertion\n");
+    // TracePrintf(0, "Print lru after first insertion\n");
     printBlockLRUQueue();
     blockCache.count++;
     return 0;
 }
 
-// static int insertInode(int num) {
-//     // Check that entry is not in a cache.
-//     struct inode_cache_entry *inode_entry = searchInode(num);
-//     if (inode_entry != NULL) {
-//         return ERROR;
-//     }
-//     if (inodeCache.count >= INODE_CACHESIZE) {
-//         if (evictInode() == ERROR) {
-//             return ERROR;
-//         }
-//     }
-//     int hashcode = getHashcode(num, INODE_CACHESIZE);
+static int insertInode(int num) {
+    // TracePrintf(0, "Inode #%i is about to be inserted\n", num);
+    // Check that entry is not in a cache.
+    struct inode_cache_entry *inode_entry = searchInode(num);
+    if (inode_entry != NULL) {
+        // TracePrintf(0, "Inode is already inserted.\n");
+        return ERROR;
+    }
+    if (inodeCache.count >= INODE_CACHESIZE) {
+        TracePrintf(0, "Evict inode when trying to insert inode #%i!!\n", num);
+        if (evictInode() == ERROR) {
+            return ERROR;
+        }
+    } else {
+        TracePrintf(0, "Enough space to insert inode #%i!!\n", num);
+    }
+    int hashcode = getHashcode(num, INODE_CACHESIZE);
+    int block = (num / INODES_PER_BLOCK) + 1;
+    struct inode *inode_buf = (struct inode *)accessBlock(block);
+    int index = num % INODES_PER_BLOCK;
+    inode_entry = malloc(sizeof(struct inode_cache_entry));
+    inode_entry->num = num;
+    inode_entry->inode_struct = inode_buf[index];
+    inode_entry->dirty = false;
+    // Insert inode in hash.
+    insertInodeToHash(inode_entry, hashcode);
+    // Insert in LRU.
+    insertInodeToLRU(inode_entry);
+    // TracePrintf(0, "Print lru after first insertion of inode\n");
+    printInodeLRUQueue();
+    inodeCache.count++;
+    return 0;
+}
 
-//     int block_num = (num / INODES_PER_BLOCK) + 1;
-//     struct block_cache_entry *block_entry = searchBlock(block_num);
-//     if (block_entry == NULL) {
-//         if (insertBlock(block_num) == ERROR) {
-//             return ERROR;
-//         }
-//         block_entry = searchBlock(block_num);
-//     }
-//     int index = num % INODES_PER_BLOCK;
-//     inode_entry = malloc(sizeof(struct inode_cache_entry));
-//     inode_entry->num = num;
-//     inode_entry->inode_struct = ((struct inode *)block_entry->data)[index];
-//     inode_entry->dirty = false;
-//     // Insert block in hash.
-//     inode_entry->hash_next = inodeCache.cache[hashcode].hash_next;
-//     inode_entry->hash_prev = &inodeCache.cache[hashcode];
-//     inodeCache.cache[hashcode].hash_next = inode_entry;
-//     inodeCache.cache[hashcode].hash_next->hash_prev = inode_entry;
-//     // Insert in LRU.
-//     inode_entry->lru_next = inodeLRU.lru_next;
-//     inode_entry->lru_prev = &inodeLRU;
-//     inodeLRU.lru_next = inode_entry;
-//     inodeLRU.lru_next->lru_prev = inode_entry;
-    
-//     inodeCache.count++;
-//     return 0;
-// }
-
-// static struct inode_cache_entry *searchInode(int num) {
-//     int hashcode = getHashcode(num, INODE_CACHESIZE);
-//     struct inode_cache_entry *curr = inodeCache.cache[hashcode].hash_next;
-//     while (curr->num != 0) {
-//         if (num == curr->num) {
-//             return curr;
-//         }
-//     }
-//     return NULL;
-// }
+static struct inode_cache_entry *searchInode(int num) {
+    int hashcode = getHashcode(num, INODE_CACHESIZE);
+    struct inode_cache_entry *curr = inodeCache.cache[hashcode].hash_next;
+    while (curr->num != 0) {
+        if (num == curr->num) {
+            return curr;
+        }
+        curr = curr->hash_next;
+    }
+    return NULL;
+}
 
 static struct block_cache_entry *searchBlock(int num) {
     int hashcode = getHashcode(num, BLOCK_CACHESIZE);
@@ -1813,6 +1832,7 @@ static struct block_cache_entry *searchBlock(int num) {
         if (num == curr->num) {
             return curr;
         }
+        curr = curr->hash_next;
     }
     return NULL;
 }
@@ -1839,14 +1859,15 @@ static void initCaches() {
     inodeLRU.lru_next = &inodeLRU;
     inodeLRU.lru_prev = &inodeLRU;
     printBlockQueues();
+    printInodeQueues();
 }
 
 static void printBlockHashQueue(int hashcode) {
     // Init block hash headers.
     struct block_cache_entry *curr = blockCache.cache[hashcode].hash_next;
-    int i = 1;
+    // int i = 1;
     while (curr->num != 0) {
-        TracePrintf(0, "%i. Block#%i\n", i, curr->num);
+        // TracePrintf(0, "%i. Block#%i\n", i, curr->num);
         curr = curr->hash_next;
     }
 }
@@ -1854,9 +1875,9 @@ static void printBlockHashQueue(int hashcode) {
 static void printBlockLRUQueue() {
     // Init block hash headers.
     struct block_cache_entry *curr = blockLRU.lru_next;
-    int i = 1;
+    // int i = 1;
     while (curr->num != 0) {
-        TracePrintf(0, "%i. Block#%i\n", i, curr->num);
+        // TracePrintf(0, "%i. Block#%i\n", i, curr->num);
         curr = curr->lru_next;
     }
 }
@@ -1864,39 +1885,91 @@ static void printBlockLRUQueue() {
 static void printBlockQueues() {
     int i;
     for (i = 0; i < BLOCK_CACHESIZE; i++) {
-        TracePrintf(0, "Printing block hash queue for hashcode = %i\n", i);
+        // TracePrintf(0, "Printing block hash queue for hashcode = %i\n", i);
         printBlockHashQueue(i);
     }
-    TracePrintf(0, "Printing block lru queue\n");
+    // TracePrintf(0, "Printing block lru queue\n");
     printBlockLRUQueue();
+}
+
+static void printInodeHashQueue(int hashcode) {
+    // Init inode hash headers.
+    struct inode_cache_entry *curr = inodeCache.cache[hashcode].hash_next;
+    int i = 1;
+    while (curr->num != 0) {
+        TracePrintf(0, "%i. Inode#%i\n", i, curr->num);
+        curr = curr->hash_next;
+        i++;
+    }
+}
+
+static void printInodeLRUQueue() {
+    struct inode_cache_entry *curr = inodeLRU.lru_next;
+    int i = 1;
+    while (curr->num != 0) {
+        TracePrintf(0, "%i. Inode#%i\n", i, curr->num);
+        curr = curr->lru_next;
+        i++;
+    }
+}
+
+static void printInodeQueues() {
+    int i;
+    for (i = 0; i < INODE_CACHESIZE; i++) {
+        TracePrintf(0, "Printing inode hash queue for hashcode = %i\n", i);
+        printInodeHashQueue(i);
+    }
+    TracePrintf(0, "Printing inode lru queue\n");
+    printInodeLRUQueue();
+}
+
+static struct inode accessInode(int num) {
+    TracePrintf(0, "===================== accessInode called for inode #%i\n", num);
+    struct inode_cache_entry *inode_entry = searchInode(num);
+    TracePrintf(0, "Search inode is done for #%i\n", num);
+    if (inode_entry == NULL) {
+        TracePrintf(0, "Inode %i is not in the cache. Insert it.\n", num);
+        if (insertInode(num) == ERROR) {
+            // TracePrintf(0, "Some error occured in insertInode.\n");
+        }
+        inode_entry = searchInode(num);
+    } else {
+        TracePrintf(0, "Inode %i is in the cache. Update its LRU position.\n", num);
+        updateInodeLRU(inode_entry);
+        // TracePrintf(0, "Print updated LRU queue\n");
+        // printInodeLRUQueue();
+    }
+    // printInodeQueues();
+    // TracePrintf(0, "===================== accessInode finished for inode #%i\n", num);
+    return inode_entry->inode_struct;
 }
 
 
 static char * accessBlock(int num) {
-    TracePrintf(0, "===================== accessBlock called for block #%i\n", num);
+    // TracePrintf(0, "===================== accessBlock called for block #%i\n", num);
     struct block_cache_entry *block_entry = searchBlock(num);
     if (block_entry == NULL) {
-        TracePrintf(0, "Block is not in the cache. Insert it.\n");
+        // TracePrintf(0, "Block is not in the cache. Insert it.\n");
         if (insertBlock(num) == ERROR) {
             return NULL;
         }
         block_entry = searchBlock(num);
     } else {
-        TracePrintf(0, "Block is in the cache. Update its LRU position.\n");
+        // TracePrintf(0, "Block is in the cache. Update its LRU position.\n");
         updateBlockLRU(block_entry);
-        TracePrintf(0, "Print updated LRU queue after update\n");
+        // TracePrintf(0, "Print updated LRU queue after update\n");
         printBlockLRUQueue();
     }
     printBlockQueues();
-    TracePrintf(0, "===================== accessBlock finished for block #%i\n", num);
+    // TracePrintf(0, "===================== accessBlock finished for block #%i\n", num);
     return block_entry->data;
 }
 
 static int modifyBlock(int num, char *block_buf) {
-    TracePrintf(0, "===================== modifyBlock called for block #%i\n", num);
+    // TracePrintf(0, "===================== modifyBlock called for block #%i\n", num);
     struct block_cache_entry *block_entry = searchBlock(num);
     if (block_entry == NULL) {
-        TracePrintf(0, "Block is not in the cache. Insert it.\n");
+        // TracePrintf(0, "Block is not in the cache. Insert it.\n");
         if (insertBlock(num) == ERROR) {
             return ERROR;
         }
@@ -1907,6 +1980,22 @@ static int modifyBlock(int num, char *block_buf) {
     // No need to do memcpy if block was already in the cache 
     // (the pointers of dest and src would be the same)
     block_entry->dirty = true;
+    return 0;
+}
+
+static int modifyInode(int num, struct inode new_inode_struct) {
+    // TracePrintf(0, "===================== modifyInode called for inode #%i\n", num);
+    struct inode_cache_entry *inode_entry = searchInode(num);
+    if (inode_entry == NULL) {
+        // TracePrintf(0, "Inode is not in the cache. Insert it.\n");
+        if (insertInode(num) == ERROR) {
+            return ERROR;
+        }
+        inode_entry = searchInode(num);
+    }
+    // Now inode_entry is in the cache with malloced memory for struct inode.
+    inode_entry->inode_struct = new_inode_struct;
+    inode_entry->dirty = true;
     return 0;
 }
 
@@ -1940,6 +2029,38 @@ static void updateBlockLRU(struct block_cache_entry *block) {
     removeBlockFromLRU(block);
     // Make this block most recent in LRU.
     insertBlockToLRU(block);
+}
+
+static void removeInodeFromHash(struct inode_cache_entry *inode) {
+    inode->hash_next->hash_prev = inode->hash_prev;
+    inode->hash_prev->hash_next = inode->hash_next;
+}
+
+static void removeInodeFromLRU(struct inode_cache_entry *inode) {
+    inode->lru_next->lru_prev = inode->lru_prev;
+    inode->lru_prev->lru_next = inode->lru_next;
+}
+
+static void insertInodeToLRU(struct inode_cache_entry *inode) {
+    inode->lru_next = inodeLRU.lru_next;
+    inode->lru_prev = &inodeLRU;
+    inodeLRU.lru_next->lru_prev = inode;
+    inodeLRU.lru_next = inode;
+}
+
+static void insertInodeToHash(struct inode_cache_entry *inode, int hashcode) {
+    inode->hash_next = inodeCache.cache[hashcode].hash_next;
+    inode->hash_prev = &inodeCache.cache[hashcode];
+    inodeCache.cache[hashcode].hash_next->hash_prev = inode;
+    inodeCache.cache[hashcode].hash_next = inode;
+}
+
+static void updateInodeLRU(struct inode_cache_entry *inode) {
+    // Know that block_entry was already in the cache.
+    // Remove block from LRU.
+    removeInodeFromLRU(inode);
+    // Make this block most recent in LRU.
+    insertInodeToLRU(inode);
 }
 
 
