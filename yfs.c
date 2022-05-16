@@ -41,7 +41,8 @@ static void rmdir(struct my_msg *msg, int pid);
 static void seek(struct my_msg *msg, int pid);
 static void chdir(struct my_msg *msg, int pid);
 static void stat(struct stat_msg *msg, int pid);
-
+static void sync();
+static void shutdown();
 
 static int getInodeNumber(int curr_dir, char *pathname);
 static int search(int start_inode, char *pathname);
@@ -106,6 +107,9 @@ static void insertInodeToLRU(struct inode_cache_entry *inode);
 static void insertInodeToHash(struct inode_cache_entry *inode, int hashcode);
 static void updateInodeLRU(struct inode_cache_entry *inode);
 static int modifyInode(int num, struct inode new_inode_struct);
+static void writeDirtyInodes();
+static void writeDirtyBlocks();
+static void cleanBlocks(struct inode *inode_struct);
 
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
@@ -142,9 +146,10 @@ int main(int argc, char *argv[]) {
             continue;
         } else if (pid == 0) {
             fprintf(stderr, "Recieve() failed to avoid deadlock\n");
-            break;
+            // break;
             // Change "break" to "continue."
-            // continue;
+            Pause();
+            continue;
         }
         handleMsg(&msg, pid);
         Reply((void *)&msg, pid);
@@ -320,6 +325,12 @@ static void handleMsg(struct my_msg *msg, int pid) {
             break;
         case STAT:
             stat((struct stat_msg*)msg, pid);
+            break;
+        case SYNC:
+            sync();
+            break;
+        case SHUTDOWN:
+            shutdown();
             break;
     }
 }
@@ -734,6 +745,7 @@ static int createRegFile() {
     // Initialize an inode fields.
     inode_struct.type = INODE_REGULAR;
     inode_struct.size = 0;
+    cleanBlocks(&inode_struct);
     inode_struct.reuse++;
     // Will increment this field when we create a dir_entry. 
     inode_struct.nlink = 0;
@@ -1511,6 +1523,7 @@ static int createDirectory(int parent_inum) {
     // Initialize an inode fields.
     inode_struct.type = INODE_DIRECTORY;
     inode_struct.size = 0; // Contains dir_entries for "." and ".."
+    cleanBlocks(&inode_struct);
     inode_struct.reuse++;
     inode_struct.nlink = 1; // Contains link to "."
     if (modifyInode(free_inode_num, inode_struct) == ERROR) {
@@ -1543,6 +1556,15 @@ static int createDirectory(int parent_inum) {
     // }
     inodemap[free_inode_num] = false;
     return free_inode_num;
+}
+
+
+static void cleanBlocks(struct inode *inode_struct) {
+    int i;
+    for (i = 0; i < NUM_DIRECT; i++) {
+        inode_struct->direct[i] = 0;
+    }
+    inode_struct->indirect = 0;
 }
 
 static void rmdir(struct my_msg *msg, int pid) {
@@ -2061,6 +2083,41 @@ static void updateInodeLRU(struct inode_cache_entry *inode) {
     removeInodeFromLRU(inode);
     // Make this block most recent in LRU.
     insertInodeToLRU(inode);
+}
+
+
+static void sync() {
+    // Write all dirty inodes to the block cache.
+    writeDirtyInodes();
+    // Write all dirty blocks to the block cache.
+    writeDirtyBlocks();
+}
+
+static void shutdown() {
+    // Write all dirty inodes and blocks.
+    sync();
+    fprintf(stdout, "Shutting down a server...\n");
+    Exit(0);
+}
+
+static void writeDirtyInodes() {
+    struct inode_cache_entry *curr = inodeLRU.lru_next;
+    while (curr->num != 0) {
+        if (curr->dirty) {
+            writeInodeToDisc(curr->num, curr->inode_struct);
+        }
+        curr = curr->lru_next;
+    }
+}
+
+static void writeDirtyBlocks() {
+    struct block_cache_entry *curr = blockLRU.lru_next;
+    while (curr->num != 0) {
+        if (curr->dirty) {
+            WriteSector(curr->num, curr->data);
+        }
+        curr = curr->lru_next;
+    }
 }
 
 

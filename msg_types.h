@@ -37,3 +37,5 @@ struct stat_msg {
 #define SEEK 8
 #define CHDIR 9
 #define STAT 10
+#define SYNC 11
+#define SHUTDOWN 12

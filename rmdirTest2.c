@@ -22,7 +22,7 @@ main()
     int j;
     // Create 50 files in foo directory.
     for (j = 0; j < 43; j++) {
-        snprintf(name, 50, "/foo/abc%i\n", j);
+        snprintf(name, 50, "/foo/abc%i", j);
         fd = Create(name);
 	    printf("Here is fd %d\n", fd);
         st = Close(fd);
@@ -42,9 +42,11 @@ main()
         printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
     }
 
+    // Sync();
+
     // Delete 50 files in foo directory.
     for (j = 0; j < 43; j++) {
-        snprintf(name, 50, "/foo/abc%i\n", j);
+        snprintf(name, 50, "/foo/abc%i", j);
         st = Unlink(name);
 	    printf("Status of unlink is %d\n", st);
     }
@@ -61,6 +63,8 @@ main()
         printf("%i. Inode is %i\n", i, (((struct dir_entry *)buf2) + i)->inum);
         printf("%i. Name is %s\n", i, (((struct dir_entry *)buf2) + i)->name);
     }
+
+    Shutdown();
 
 
     return (0);

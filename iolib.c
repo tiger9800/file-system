@@ -278,10 +278,20 @@ int Stat(char * pathname, struct Stat * statbuf) {
 }
 
 int Sync() {
+    struct my_msg new_msg = {SYNC, 0, 0, 0, 0, "", NULL};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
     return 0;
 }
 
 int Shutdown() {
+    struct my_msg new_msg = {SHUTDOWN, 0, 0, 0, 0, "", NULL};
+    assert(sizeof(struct my_msg) == 32);
+    if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
+        return ERROR;
+    }
     return 0;   
 }
 

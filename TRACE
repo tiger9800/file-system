@@ -31,15 +31,4374 @@ YFS      2. Inode#1
 YFS      ===================== accessInode called for inode #2
 YFS      Search inode is done for #2
 YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      ===================== accessInode called for inode #1
 YFS      Search inode is done for #1
 YFS      Inode 1 is in the cache. Update its LRU position.
 YFS      ===================== accessInode called for inode #2
 YFS      Search inode is done for #2
 YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
 YFS      ===================== accessInode called for inode #2
 YFS      Search inode is done for #2
 YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #3
+YFS      Search inode is done for #3
+YFS      Inode 3 is not in the cache. Insert it.
+YFS      Enough space to insert inode #3!!
+YFS      1. Inode#3
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      ===================== accessInode called for inode #3
+YFS      Search inode is done for #3
+YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #3
+YFS      Search inode is done for #3
+YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #4
+YFS      Search inode is done for #4
+YFS      Inode 4 is not in the cache. Insert it.
+YFS      Enough space to insert inode #4!!
+YFS      1. Inode#4
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#3
+YFS      ===================== accessInode called for inode #4
+YFS      Search inode is done for #4
+YFS      Inode 4 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #4
+YFS      Search inode is done for #4
+YFS      Inode 4 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #5
+YFS      Search inode is done for #5
+YFS      Inode 5 is not in the cache. Insert it.
+YFS      Enough space to insert inode #5!!
+YFS      1. Inode#5
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#4
+YFS      5. Inode#3
+YFS      ===================== accessInode called for inode #5
+YFS      Search inode is done for #5
+YFS      Inode 5 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #5
+YFS      Search inode is done for #5
+YFS      Inode 5 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #6
+YFS      Search inode is done for #6
+YFS      Inode 6 is not in the cache. Insert it.
+YFS      Enough space to insert inode #6!!
+YFS      1. Inode#6
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#5
+YFS      5. Inode#4
+YFS      6. Inode#3
+YFS      ===================== accessInode called for inode #6
+YFS      Search inode is done for #6
+YFS      Inode 6 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #6
+YFS      Search inode is done for #6
+YFS      Inode 6 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #7
+YFS      Search inode is done for #7
+YFS      Inode 7 is not in the cache. Insert it.
+YFS      Enough space to insert inode #7!!
+YFS      1. Inode#7
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#6
+YFS      5. Inode#5
+YFS      6. Inode#4
+YFS      7. Inode#3
+YFS      ===================== accessInode called for inode #7
+YFS      Search inode is done for #7
+YFS      Inode 7 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #7
+YFS      Search inode is done for #7
+YFS      Inode 7 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #8
+YFS      Search inode is done for #8
+YFS      Inode 8 is not in the cache. Insert it.
+YFS      Enough space to insert inode #8!!
+YFS      1. Inode#8
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#7
+YFS      5. Inode#6
+YFS      6. Inode#5
+YFS      7. Inode#4
+YFS      8. Inode#3
+YFS      ===================== accessInode called for inode #8
+YFS      Search inode is done for #8
+YFS      Inode 8 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #8
+YFS      Search inode is done for #8
+YFS      Inode 8 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #9
+YFS      Search inode is done for #9
+YFS      Inode 9 is not in the cache. Insert it.
+YFS      Enough space to insert inode #9!!
+YFS      1. Inode#9
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#8
+YFS      5. Inode#7
+YFS      6. Inode#6
+YFS      7. Inode#5
+YFS      8. Inode#4
+YFS      9. Inode#3
+YFS      ===================== accessInode called for inode #9
+YFS      Search inode is done for #9
+YFS      Inode 9 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #9
+YFS      Search inode is done for #9
+YFS      Inode 9 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #10
+YFS      Search inode is done for #10
+YFS      Inode 10 is not in the cache. Insert it.
+YFS      Enough space to insert inode #10!!
+YFS      1. Inode#10
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#9
+YFS      5. Inode#8
+YFS      6. Inode#7
+YFS      7. Inode#6
+YFS      8. Inode#5
+YFS      9. Inode#4
+YFS      10. Inode#3
+YFS      ===================== accessInode called for inode #10
+YFS      Search inode is done for #10
+YFS      Inode 10 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #10
+YFS      Search inode is done for #10
+YFS      Inode 10 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #11
+YFS      Search inode is done for #11
+YFS      Inode 11 is not in the cache. Insert it.
+YFS      Enough space to insert inode #11!!
+YFS      1. Inode#11
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#10
+YFS      5. Inode#9
+YFS      6. Inode#8
+YFS      7. Inode#7
+YFS      8. Inode#6
+YFS      9. Inode#5
+YFS      10. Inode#4
+YFS      11. Inode#3
+YFS      ===================== accessInode called for inode #11
+YFS      Search inode is done for #11
+YFS      Inode 11 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #11
+YFS      Search inode is done for #11
+YFS      Inode 11 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #12
+YFS      Search inode is done for #12
+YFS      Inode 12 is not in the cache. Insert it.
+YFS      Enough space to insert inode #12!!
+YFS      1. Inode#12
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#11
+YFS      5. Inode#10
+YFS      6. Inode#9
+YFS      7. Inode#8
+YFS      8. Inode#7
+YFS      9. Inode#6
+YFS      10. Inode#5
+YFS      11. Inode#4
+YFS      12. Inode#3
+YFS      ===================== accessInode called for inode #12
+YFS      Search inode is done for #12
+YFS      Inode 12 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #12
+YFS      Search inode is done for #12
+YFS      Inode 12 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #13
+YFS      Search inode is done for #13
+YFS      Inode 13 is not in the cache. Insert it.
+YFS      Enough space to insert inode #13!!
+YFS      1. Inode#13
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#12
+YFS      5. Inode#11
+YFS      6. Inode#10
+YFS      7. Inode#9
+YFS      8. Inode#8
+YFS      9. Inode#7
+YFS      10. Inode#6
+YFS      11. Inode#5
+YFS      12. Inode#4
+YFS      13. Inode#3
+YFS      ===================== accessInode called for inode #13
+YFS      Search inode is done for #13
+YFS      Inode 13 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #13
+YFS      Search inode is done for #13
+YFS      Inode 13 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #14
+YFS      Search inode is done for #14
+YFS      Inode 14 is not in the cache. Insert it.
+YFS      Enough space to insert inode #14!!
+YFS      1. Inode#14
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#13
+YFS      5. Inode#12
+YFS      6. Inode#11
+YFS      7. Inode#10
+YFS      8. Inode#9
+YFS      9. Inode#8
+YFS      10. Inode#7
+YFS      11. Inode#6
+YFS      12. Inode#5
+YFS      13. Inode#4
+YFS      14. Inode#3
+YFS      ===================== accessInode called for inode #14
+YFS      Search inode is done for #14
+YFS      Inode 14 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #14
+YFS      Search inode is done for #14
+YFS      Inode 14 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #15
+YFS      Search inode is done for #15
+YFS      Inode 15 is not in the cache. Insert it.
+YFS      Enough space to insert inode #15!!
+YFS      1. Inode#15
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#14
+YFS      5. Inode#13
+YFS      6. Inode#12
+YFS      7. Inode#11
+YFS      8. Inode#10
+YFS      9. Inode#9
+YFS      10. Inode#8
+YFS      11. Inode#7
+YFS      12. Inode#6
+YFS      13. Inode#5
+YFS      14. Inode#4
+YFS      15. Inode#3
+YFS      ===================== accessInode called for inode #15
+YFS      Search inode is done for #15
+YFS      Inode 15 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #15
+YFS      Search inode is done for #15
+YFS      Inode 15 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #16
+YFS      Search inode is done for #16
+YFS      Inode 16 is not in the cache. Insert it.
+YFS      Enough space to insert inode #16!!
+YFS      1. Inode#16
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#15
+YFS      5. Inode#14
+YFS      6. Inode#13
+YFS      7. Inode#12
+YFS      8. Inode#11
+YFS      9. Inode#10
+YFS      10. Inode#9
+YFS      11. Inode#8
+YFS      12. Inode#7
+YFS      13. Inode#6
+YFS      14. Inode#5
+YFS      15. Inode#4
+YFS      16. Inode#3
+YFS      ===================== accessInode called for inode #16
+YFS      Search inode is done for #16
+YFS      Inode 16 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #16
+YFS      Search inode is done for #16
+YFS      Inode 16 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #17
+YFS      Search inode is done for #17
+YFS      Inode 17 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #17!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#16
+YFS      4. Inode#15
+YFS      5. Inode#14
+YFS      6. Inode#13
+YFS      7. Inode#12
+YFS      8. Inode#11
+YFS      9. Inode#10
+YFS      10. Inode#9
+YFS      11. Inode#8
+YFS      12. Inode#7
+YFS      13. Inode#6
+YFS      14. Inode#5
+YFS      15. Inode#4
+YFS      16. Inode#3
+YFS      Victim has inum = 3
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#16
+YFS      4. Inode#15
+YFS      5. Inode#14
+YFS      6. Inode#13
+YFS      7. Inode#12
+YFS      8. Inode#11
+YFS      9. Inode#10
+YFS      10. Inode#9
+YFS      11. Inode#8
+YFS      12. Inode#7
+YFS      13. Inode#6
+YFS      14. Inode#5
+YFS      15. Inode#4
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#17
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#16
+YFS      5. Inode#15
+YFS      6. Inode#14
+YFS      7. Inode#13
+YFS      8. Inode#12
+YFS      9. Inode#11
+YFS      10. Inode#10
+YFS      11. Inode#9
+YFS      12. Inode#8
+YFS      13. Inode#7
+YFS      14. Inode#6
+YFS      15. Inode#5
+YFS      16. Inode#4
+YFS      ===================== accessInode called for inode #17
+YFS      Search inode is done for #17
+YFS      Inode 17 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #17
+YFS      Search inode is done for #17
+YFS      Inode 17 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #18
+YFS      Search inode is done for #18
+YFS      Inode 18 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #18!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#17
+YFS      4. Inode#16
+YFS      5. Inode#15
+YFS      6. Inode#14
+YFS      7. Inode#13
+YFS      8. Inode#12
+YFS      9. Inode#11
+YFS      10. Inode#10
+YFS      11. Inode#9
+YFS      12. Inode#8
+YFS      13. Inode#7
+YFS      14. Inode#6
+YFS      15. Inode#5
+YFS      16. Inode#4
+YFS      Victim has inum = 4
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#17
+YFS      4. Inode#16
+YFS      5. Inode#15
+YFS      6. Inode#14
+YFS      7. Inode#13
+YFS      8. Inode#12
+YFS      9. Inode#11
+YFS      10. Inode#10
+YFS      11. Inode#9
+YFS      12. Inode#8
+YFS      13. Inode#7
+YFS      14. Inode#6
+YFS      15. Inode#5
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#17
+YFS      5. Inode#16
+YFS      6. Inode#15
+YFS      7. Inode#14
+YFS      8. Inode#13
+YFS      9. Inode#12
+YFS      10. Inode#11
+YFS      11. Inode#10
+YFS      12. Inode#9
+YFS      13. Inode#8
+YFS      14. Inode#7
+YFS      15. Inode#6
+YFS      16. Inode#5
+YFS      ===================== accessInode called for inode #18
+YFS      Search inode is done for #18
+YFS      Inode 18 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #18
+YFS      Search inode is done for #18
+YFS      Inode 18 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #19
+YFS      Search inode is done for #19
+YFS      Inode 19 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #19!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#18
+YFS      4. Inode#17
+YFS      5. Inode#16
+YFS      6. Inode#15
+YFS      7. Inode#14
+YFS      8. Inode#13
+YFS      9. Inode#12
+YFS      10. Inode#11
+YFS      11. Inode#10
+YFS      12. Inode#9
+YFS      13. Inode#8
+YFS      14. Inode#7
+YFS      15. Inode#6
+YFS      16. Inode#5
+YFS      Victim has inum = 5
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#18
+YFS      4. Inode#17
+YFS      5. Inode#16
+YFS      6. Inode#15
+YFS      7. Inode#14
+YFS      8. Inode#13
+YFS      9. Inode#12
+YFS      10. Inode#11
+YFS      11. Inode#10
+YFS      12. Inode#9
+YFS      13. Inode#8
+YFS      14. Inode#7
+YFS      15. Inode#6
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#19
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#18
+YFS      5. Inode#17
+YFS      6. Inode#16
+YFS      7. Inode#15
+YFS      8. Inode#14
+YFS      9. Inode#13
+YFS      10. Inode#12
+YFS      11. Inode#11
+YFS      12. Inode#10
+YFS      13. Inode#9
+YFS      14. Inode#8
+YFS      15. Inode#7
+YFS      16. Inode#6
+YFS      ===================== accessInode called for inode #19
+YFS      Search inode is done for #19
+YFS      Inode 19 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #19
+YFS      Search inode is done for #19
+YFS      Inode 19 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #20
+YFS      Search inode is done for #20
+YFS      Inode 20 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #20!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#19
+YFS      4. Inode#18
+YFS      5. Inode#17
+YFS      6. Inode#16
+YFS      7. Inode#15
+YFS      8. Inode#14
+YFS      9. Inode#13
+YFS      10. Inode#12
+YFS      11. Inode#11
+YFS      12. Inode#10
+YFS      13. Inode#9
+YFS      14. Inode#8
+YFS      15. Inode#7
+YFS      16. Inode#6
+YFS      Victim has inum = 6
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#19
+YFS      4. Inode#18
+YFS      5. Inode#17
+YFS      6. Inode#16
+YFS      7. Inode#15
+YFS      8. Inode#14
+YFS      9. Inode#13
+YFS      10. Inode#12
+YFS      11. Inode#11
+YFS      12. Inode#10
+YFS      13. Inode#9
+YFS      14. Inode#8
+YFS      15. Inode#7
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#20
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#19
+YFS      5. Inode#18
+YFS      6. Inode#17
+YFS      7. Inode#16
+YFS      8. Inode#15
+YFS      9. Inode#14
+YFS      10. Inode#13
+YFS      11. Inode#12
+YFS      12. Inode#11
+YFS      13. Inode#10
+YFS      14. Inode#9
+YFS      15. Inode#8
+YFS      16. Inode#7
+YFS      ===================== accessInode called for inode #20
+YFS      Search inode is done for #20
+YFS      Inode 20 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #20
+YFS      Search inode is done for #20
+YFS      Inode 20 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #21
+YFS      Search inode is done for #21
+YFS      Inode 21 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #21!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#20
+YFS      4. Inode#19
+YFS      5. Inode#18
+YFS      6. Inode#17
+YFS      7. Inode#16
+YFS      8. Inode#15
+YFS      9. Inode#14
+YFS      10. Inode#13
+YFS      11. Inode#12
+YFS      12. Inode#11
+YFS      13. Inode#10
+YFS      14. Inode#9
+YFS      15. Inode#8
+YFS      16. Inode#7
+YFS      Victim has inum = 7
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#20
+YFS      4. Inode#19
+YFS      5. Inode#18
+YFS      6. Inode#17
+YFS      7. Inode#16
+YFS      8. Inode#15
+YFS      9. Inode#14
+YFS      10. Inode#13
+YFS      11. Inode#12
+YFS      12. Inode#11
+YFS      13. Inode#10
+YFS      14. Inode#9
+YFS      15. Inode#8
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#21
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#20
+YFS      5. Inode#19
+YFS      6. Inode#18
+YFS      7. Inode#17
+YFS      8. Inode#16
+YFS      9. Inode#15
+YFS      10. Inode#14
+YFS      11. Inode#13
+YFS      12. Inode#12
+YFS      13. Inode#11
+YFS      14. Inode#10
+YFS      15. Inode#9
+YFS      16. Inode#8
+YFS      ===================== accessInode called for inode #21
+YFS      Search inode is done for #21
+YFS      Inode 21 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #21
+YFS      Search inode is done for #21
+YFS      Inode 21 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #22
+YFS      Search inode is done for #22
+YFS      Inode 22 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #22!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#21
+YFS      4. Inode#20
+YFS      5. Inode#19
+YFS      6. Inode#18
+YFS      7. Inode#17
+YFS      8. Inode#16
+YFS      9. Inode#15
+YFS      10. Inode#14
+YFS      11. Inode#13
+YFS      12. Inode#12
+YFS      13. Inode#11
+YFS      14. Inode#10
+YFS      15. Inode#9
+YFS      16. Inode#8
+YFS      Victim has inum = 8
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#21
+YFS      4. Inode#20
+YFS      5. Inode#19
+YFS      6. Inode#18
+YFS      7. Inode#17
+YFS      8. Inode#16
+YFS      9. Inode#15
+YFS      10. Inode#14
+YFS      11. Inode#13
+YFS      12. Inode#12
+YFS      13. Inode#11
+YFS      14. Inode#10
+YFS      15. Inode#9
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#22
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#21
+YFS      5. Inode#20
+YFS      6. Inode#19
+YFS      7. Inode#18
+YFS      8. Inode#17
+YFS      9. Inode#16
+YFS      10. Inode#15
+YFS      11. Inode#14
+YFS      12. Inode#13
+YFS      13. Inode#12
+YFS      14. Inode#11
+YFS      15. Inode#10
+YFS      16. Inode#9
+YFS      ===================== accessInode called for inode #22
+YFS      Search inode is done for #22
+YFS      Inode 22 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #22
+YFS      Search inode is done for #22
+YFS      Inode 22 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #23
+YFS      Search inode is done for #23
+YFS      Inode 23 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #23!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#22
+YFS      4. Inode#21
+YFS      5. Inode#20
+YFS      6. Inode#19
+YFS      7. Inode#18
+YFS      8. Inode#17
+YFS      9. Inode#16
+YFS      10. Inode#15
+YFS      11. Inode#14
+YFS      12. Inode#13
+YFS      13. Inode#12
+YFS      14. Inode#11
+YFS      15. Inode#10
+YFS      16. Inode#9
+YFS      Victim has inum = 9
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#22
+YFS      4. Inode#21
+YFS      5. Inode#20
+YFS      6. Inode#19
+YFS      7. Inode#18
+YFS      8. Inode#17
+YFS      9. Inode#16
+YFS      10. Inode#15
+YFS      11. Inode#14
+YFS      12. Inode#13
+YFS      13. Inode#12
+YFS      14. Inode#11
+YFS      15. Inode#10
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#23
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#22
+YFS      5. Inode#21
+YFS      6. Inode#20
+YFS      7. Inode#19
+YFS      8. Inode#18
+YFS      9. Inode#17
+YFS      10. Inode#16
+YFS      11. Inode#15
+YFS      12. Inode#14
+YFS      13. Inode#13
+YFS      14. Inode#12
+YFS      15. Inode#11
+YFS      16. Inode#10
+YFS      ===================== accessInode called for inode #23
+YFS      Search inode is done for #23
+YFS      Inode 23 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #23
+YFS      Search inode is done for #23
+YFS      Inode 23 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #24
+YFS      Search inode is done for #24
+YFS      Inode 24 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #24!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#23
+YFS      4. Inode#22
+YFS      5. Inode#21
+YFS      6. Inode#20
+YFS      7. Inode#19
+YFS      8. Inode#18
+YFS      9. Inode#17
+YFS      10. Inode#16
+YFS      11. Inode#15
+YFS      12. Inode#14
+YFS      13. Inode#13
+YFS      14. Inode#12
+YFS      15. Inode#11
+YFS      16. Inode#10
+YFS      Victim has inum = 10
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#23
+YFS      4. Inode#22
+YFS      5. Inode#21
+YFS      6. Inode#20
+YFS      7. Inode#19
+YFS      8. Inode#18
+YFS      9. Inode#17
+YFS      10. Inode#16
+YFS      11. Inode#15
+YFS      12. Inode#14
+YFS      13. Inode#13
+YFS      14. Inode#12
+YFS      15. Inode#11
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#24
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#23
+YFS      5. Inode#22
+YFS      6. Inode#21
+YFS      7. Inode#20
+YFS      8. Inode#19
+YFS      9. Inode#18
+YFS      10. Inode#17
+YFS      11. Inode#16
+YFS      12. Inode#15
+YFS      13. Inode#14
+YFS      14. Inode#13
+YFS      15. Inode#12
+YFS      16. Inode#11
+YFS      ===================== accessInode called for inode #24
+YFS      Search inode is done for #24
+YFS      Inode 24 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #24
+YFS      Search inode is done for #24
+YFS      Inode 24 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #25
+YFS      Search inode is done for #25
+YFS      Inode 25 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #25!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#24
+YFS      4. Inode#23
+YFS      5. Inode#22
+YFS      6. Inode#21
+YFS      7. Inode#20
+YFS      8. Inode#19
+YFS      9. Inode#18
+YFS      10. Inode#17
+YFS      11. Inode#16
+YFS      12. Inode#15
+YFS      13. Inode#14
+YFS      14. Inode#13
+YFS      15. Inode#12
+YFS      16. Inode#11
+YFS      Victim has inum = 11
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#24
+YFS      4. Inode#23
+YFS      5. Inode#22
+YFS      6. Inode#21
+YFS      7. Inode#20
+YFS      8. Inode#19
+YFS      9. Inode#18
+YFS      10. Inode#17
+YFS      11. Inode#16
+YFS      12. Inode#15
+YFS      13. Inode#14
+YFS      14. Inode#13
+YFS      15. Inode#12
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#25
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#24
+YFS      5. Inode#23
+YFS      6. Inode#22
+YFS      7. Inode#21
+YFS      8. Inode#20
+YFS      9. Inode#19
+YFS      10. Inode#18
+YFS      11. Inode#17
+YFS      12. Inode#16
+YFS      13. Inode#15
+YFS      14. Inode#14
+YFS      15. Inode#13
+YFS      16. Inode#12
+YFS      ===================== accessInode called for inode #25
+YFS      Search inode is done for #25
+YFS      Inode 25 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #25
+YFS      Search inode is done for #25
+YFS      Inode 25 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #26
+YFS      Search inode is done for #26
+YFS      Inode 26 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #26!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#25
+YFS      4. Inode#24
+YFS      5. Inode#23
+YFS      6. Inode#22
+YFS      7. Inode#21
+YFS      8. Inode#20
+YFS      9. Inode#19
+YFS      10. Inode#18
+YFS      11. Inode#17
+YFS      12. Inode#16
+YFS      13. Inode#15
+YFS      14. Inode#14
+YFS      15. Inode#13
+YFS      16. Inode#12
+YFS      Victim has inum = 12
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#25
+YFS      4. Inode#24
+YFS      5. Inode#23
+YFS      6. Inode#22
+YFS      7. Inode#21
+YFS      8. Inode#20
+YFS      9. Inode#19
+YFS      10. Inode#18
+YFS      11. Inode#17
+YFS      12. Inode#16
+YFS      13. Inode#15
+YFS      14. Inode#14
+YFS      15. Inode#13
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#26
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#25
+YFS      5. Inode#24
+YFS      6. Inode#23
+YFS      7. Inode#22
+YFS      8. Inode#21
+YFS      9. Inode#20
+YFS      10. Inode#19
+YFS      11. Inode#18
+YFS      12. Inode#17
+YFS      13. Inode#16
+YFS      14. Inode#15
+YFS      15. Inode#14
+YFS      16. Inode#13
+YFS      ===================== accessInode called for inode #26
+YFS      Search inode is done for #26
+YFS      Inode 26 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #26
+YFS      Search inode is done for #26
+YFS      Inode 26 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #27
+YFS      Search inode is done for #27
+YFS      Inode 27 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #27!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#26
+YFS      4. Inode#25
+YFS      5. Inode#24
+YFS      6. Inode#23
+YFS      7. Inode#22
+YFS      8. Inode#21
+YFS      9. Inode#20
+YFS      10. Inode#19
+YFS      11. Inode#18
+YFS      12. Inode#17
+YFS      13. Inode#16
+YFS      14. Inode#15
+YFS      15. Inode#14
+YFS      16. Inode#13
+YFS      Victim has inum = 13
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#26
+YFS      4. Inode#25
+YFS      5. Inode#24
+YFS      6. Inode#23
+YFS      7. Inode#22
+YFS      8. Inode#21
+YFS      9. Inode#20
+YFS      10. Inode#19
+YFS      11. Inode#18
+YFS      12. Inode#17
+YFS      13. Inode#16
+YFS      14. Inode#15
+YFS      15. Inode#14
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#27
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#26
+YFS      5. Inode#25
+YFS      6. Inode#24
+YFS      7. Inode#23
+YFS      8. Inode#22
+YFS      9. Inode#21
+YFS      10. Inode#20
+YFS      11. Inode#19
+YFS      12. Inode#18
+YFS      13. Inode#17
+YFS      14. Inode#16
+YFS      15. Inode#15
+YFS      16. Inode#14
+YFS      ===================== accessInode called for inode #27
+YFS      Search inode is done for #27
+YFS      Inode 27 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #27
+YFS      Search inode is done for #27
+YFS      Inode 27 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #28
+YFS      Search inode is done for #28
+YFS      Inode 28 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #28!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#27
+YFS      4. Inode#26
+YFS      5. Inode#25
+YFS      6. Inode#24
+YFS      7. Inode#23
+YFS      8. Inode#22
+YFS      9. Inode#21
+YFS      10. Inode#20
+YFS      11. Inode#19
+YFS      12. Inode#18
+YFS      13. Inode#17
+YFS      14. Inode#16
+YFS      15. Inode#15
+YFS      16. Inode#14
+YFS      Victim has inum = 14
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#27
+YFS      4. Inode#26
+YFS      5. Inode#25
+YFS      6. Inode#24
+YFS      7. Inode#23
+YFS      8. Inode#22
+YFS      9. Inode#21
+YFS      10. Inode#20
+YFS      11. Inode#19
+YFS      12. Inode#18
+YFS      13. Inode#17
+YFS      14. Inode#16
+YFS      15. Inode#15
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#28
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#27
+YFS      5. Inode#26
+YFS      6. Inode#25
+YFS      7. Inode#24
+YFS      8. Inode#23
+YFS      9. Inode#22
+YFS      10. Inode#21
+YFS      11. Inode#20
+YFS      12. Inode#19
+YFS      13. Inode#18
+YFS      14. Inode#17
+YFS      15. Inode#16
+YFS      16. Inode#15
+YFS      ===================== accessInode called for inode #28
+YFS      Search inode is done for #28
+YFS      Inode 28 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #28
+YFS      Search inode is done for #28
+YFS      Inode 28 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #29
+YFS      Search inode is done for #29
+YFS      Inode 29 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #29!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#28
+YFS      4. Inode#27
+YFS      5. Inode#26
+YFS      6. Inode#25
+YFS      7. Inode#24
+YFS      8. Inode#23
+YFS      9. Inode#22
+YFS      10. Inode#21
+YFS      11. Inode#20
+YFS      12. Inode#19
+YFS      13. Inode#18
+YFS      14. Inode#17
+YFS      15. Inode#16
+YFS      16. Inode#15
+YFS      Victim has inum = 15
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#28
+YFS      4. Inode#27
+YFS      5. Inode#26
+YFS      6. Inode#25
+YFS      7. Inode#24
+YFS      8. Inode#23
+YFS      9. Inode#22
+YFS      10. Inode#21
+YFS      11. Inode#20
+YFS      12. Inode#19
+YFS      13. Inode#18
+YFS      14. Inode#17
+YFS      15. Inode#16
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#29
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#28
+YFS      5. Inode#27
+YFS      6. Inode#26
+YFS      7. Inode#25
+YFS      8. Inode#24
+YFS      9. Inode#23
+YFS      10. Inode#22
+YFS      11. Inode#21
+YFS      12. Inode#20
+YFS      13. Inode#19
+YFS      14. Inode#18
+YFS      15. Inode#17
+YFS      16. Inode#16
+YFS      ===================== accessInode called for inode #29
+YFS      Search inode is done for #29
+YFS      Inode 29 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #29
+YFS      Search inode is done for #29
+YFS      Inode 29 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #30
+YFS      Search inode is done for #30
+YFS      Inode 30 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #30!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#16
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#29
+YFS      4. Inode#28
+YFS      5. Inode#27
+YFS      6. Inode#26
+YFS      7. Inode#25
+YFS      8. Inode#24
+YFS      9. Inode#23
+YFS      10. Inode#22
+YFS      11. Inode#21
+YFS      12. Inode#20
+YFS      13. Inode#19
+YFS      14. Inode#18
+YFS      15. Inode#17
+YFS      16. Inode#16
+YFS      Victim has inum = 16
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#29
+YFS      4. Inode#28
+YFS      5. Inode#27
+YFS      6. Inode#26
+YFS      7. Inode#25
+YFS      8. Inode#24
+YFS      9. Inode#23
+YFS      10. Inode#22
+YFS      11. Inode#21
+YFS      12. Inode#20
+YFS      13. Inode#19
+YFS      14. Inode#18
+YFS      15. Inode#17
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#30
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#29
+YFS      5. Inode#28
+YFS      6. Inode#27
+YFS      7. Inode#26
+YFS      8. Inode#25
+YFS      9. Inode#24
+YFS      10. Inode#23
+YFS      11. Inode#22
+YFS      12. Inode#21
+YFS      13. Inode#20
+YFS      14. Inode#19
+YFS      15. Inode#18
+YFS      16. Inode#17
+YFS      ===================== accessInode called for inode #30
+YFS      Search inode is done for #30
+YFS      Inode 30 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #30
+YFS      Search inode is done for #30
+YFS      Inode 30 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #31
+YFS      Search inode is done for #31
+YFS      Inode 31 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #31!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#17
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#30
+YFS      4. Inode#29
+YFS      5. Inode#28
+YFS      6. Inode#27
+YFS      7. Inode#26
+YFS      8. Inode#25
+YFS      9. Inode#24
+YFS      10. Inode#23
+YFS      11. Inode#22
+YFS      12. Inode#21
+YFS      13. Inode#20
+YFS      14. Inode#19
+YFS      15. Inode#18
+YFS      16. Inode#17
+YFS      Victim has inum = 17
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#30
+YFS      4. Inode#29
+YFS      5. Inode#28
+YFS      6. Inode#27
+YFS      7. Inode#26
+YFS      8. Inode#25
+YFS      9. Inode#24
+YFS      10. Inode#23
+YFS      11. Inode#22
+YFS      12. Inode#21
+YFS      13. Inode#20
+YFS      14. Inode#19
+YFS      15. Inode#18
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#31
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#30
+YFS      5. Inode#29
+YFS      6. Inode#28
+YFS      7. Inode#27
+YFS      8. Inode#26
+YFS      9. Inode#25
+YFS      10. Inode#24
+YFS      11. Inode#23
+YFS      12. Inode#22
+YFS      13. Inode#21
+YFS      14. Inode#20
+YFS      15. Inode#19
+YFS      16. Inode#18
+YFS      ===================== accessInode called for inode #31
+YFS      Search inode is done for #31
+YFS      Inode 31 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #31
+YFS      Search inode is done for #31
+YFS      Inode 31 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #32
+YFS      Search inode is done for #32
+YFS      Inode 32 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #32!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#18
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#31
+YFS      4. Inode#30
+YFS      5. Inode#29
+YFS      6. Inode#28
+YFS      7. Inode#27
+YFS      8. Inode#26
+YFS      9. Inode#25
+YFS      10. Inode#24
+YFS      11. Inode#23
+YFS      12. Inode#22
+YFS      13. Inode#21
+YFS      14. Inode#20
+YFS      15. Inode#19
+YFS      16. Inode#18
+YFS      Victim has inum = 18
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#31
+YFS      4. Inode#30
+YFS      5. Inode#29
+YFS      6. Inode#28
+YFS      7. Inode#27
+YFS      8. Inode#26
+YFS      9. Inode#25
+YFS      10. Inode#24
+YFS      11. Inode#23
+YFS      12. Inode#22
+YFS      13. Inode#21
+YFS      14. Inode#20
+YFS      15. Inode#19
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#32
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#31
+YFS      5. Inode#30
+YFS      6. Inode#29
+YFS      7. Inode#28
+YFS      8. Inode#27
+YFS      9. Inode#26
+YFS      10. Inode#25
+YFS      11. Inode#24
+YFS      12. Inode#23
+YFS      13. Inode#22
+YFS      14. Inode#21
+YFS      15. Inode#20
+YFS      16. Inode#19
+YFS      ===================== accessInode called for inode #32
+YFS      Search inode is done for #32
+YFS      Inode 32 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #32
+YFS      Search inode is done for #32
+YFS      Inode 32 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #33
+YFS      Search inode is done for #33
+YFS      Inode 33 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #33!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#19
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#32
+YFS      4. Inode#31
+YFS      5. Inode#30
+YFS      6. Inode#29
+YFS      7. Inode#28
+YFS      8. Inode#27
+YFS      9. Inode#26
+YFS      10. Inode#25
+YFS      11. Inode#24
+YFS      12. Inode#23
+YFS      13. Inode#22
+YFS      14. Inode#21
+YFS      15. Inode#20
+YFS      16. Inode#19
+YFS      Victim has inum = 19
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#32
+YFS      4. Inode#31
+YFS      5. Inode#30
+YFS      6. Inode#29
+YFS      7. Inode#28
+YFS      8. Inode#27
+YFS      9. Inode#26
+YFS      10. Inode#25
+YFS      11. Inode#24
+YFS      12. Inode#23
+YFS      13. Inode#22
+YFS      14. Inode#21
+YFS      15. Inode#20
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#33
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#32
+YFS      5. Inode#31
+YFS      6. Inode#30
+YFS      7. Inode#29
+YFS      8. Inode#28
+YFS      9. Inode#27
+YFS      10. Inode#26
+YFS      11. Inode#25
+YFS      12. Inode#24
+YFS      13. Inode#23
+YFS      14. Inode#22
+YFS      15. Inode#21
+YFS      16. Inode#20
+YFS      ===================== accessInode called for inode #33
+YFS      Search inode is done for #33
+YFS      Inode 33 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #33
+YFS      Search inode is done for #33
+YFS      Inode 33 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #34
+YFS      Search inode is done for #34
+YFS      Inode 34 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #34!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#20
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#33
+YFS      4. Inode#32
+YFS      5. Inode#31
+YFS      6. Inode#30
+YFS      7. Inode#29
+YFS      8. Inode#28
+YFS      9. Inode#27
+YFS      10. Inode#26
+YFS      11. Inode#25
+YFS      12. Inode#24
+YFS      13. Inode#23
+YFS      14. Inode#22
+YFS      15. Inode#21
+YFS      16. Inode#20
+YFS      Victim has inum = 20
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#33
+YFS      4. Inode#32
+YFS      5. Inode#31
+YFS      6. Inode#30
+YFS      7. Inode#29
+YFS      8. Inode#28
+YFS      9. Inode#27
+YFS      10. Inode#26
+YFS      11. Inode#25
+YFS      12. Inode#24
+YFS      13. Inode#23
+YFS      14. Inode#22
+YFS      15. Inode#21
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#33
+YFS      5. Inode#32
+YFS      6. Inode#31
+YFS      7. Inode#30
+YFS      8. Inode#29
+YFS      9. Inode#28
+YFS      10. Inode#27
+YFS      11. Inode#26
+YFS      12. Inode#25
+YFS      13. Inode#24
+YFS      14. Inode#23
+YFS      15. Inode#22
+YFS      16. Inode#21
+YFS      ===================== accessInode called for inode #34
+YFS      Search inode is done for #34
+YFS      Inode 34 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #34
+YFS      Search inode is done for #34
+YFS      Inode 34 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #35
+YFS      Search inode is done for #35
+YFS      Inode 35 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #35!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#21
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#34
+YFS      4. Inode#33
+YFS      5. Inode#32
+YFS      6. Inode#31
+YFS      7. Inode#30
+YFS      8. Inode#29
+YFS      9. Inode#28
+YFS      10. Inode#27
+YFS      11. Inode#26
+YFS      12. Inode#25
+YFS      13. Inode#24
+YFS      14. Inode#23
+YFS      15. Inode#22
+YFS      16. Inode#21
+YFS      Victim has inum = 21
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#34
+YFS      4. Inode#33
+YFS      5. Inode#32
+YFS      6. Inode#31
+YFS      7. Inode#30
+YFS      8. Inode#29
+YFS      9. Inode#28
+YFS      10. Inode#27
+YFS      11. Inode#26
+YFS      12. Inode#25
+YFS      13. Inode#24
+YFS      14. Inode#23
+YFS      15. Inode#22
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#35
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#34
+YFS      5. Inode#33
+YFS      6. Inode#32
+YFS      7. Inode#31
+YFS      8. Inode#30
+YFS      9. Inode#29
+YFS      10. Inode#28
+YFS      11. Inode#27
+YFS      12. Inode#26
+YFS      13. Inode#25
+YFS      14. Inode#24
+YFS      15. Inode#23
+YFS      16. Inode#22
+YFS      ===================== accessInode called for inode #35
+YFS      Search inode is done for #35
+YFS      Inode 35 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #35
+YFS      Search inode is done for #35
+YFS      Inode 35 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #36
+YFS      Search inode is done for #36
+YFS      Inode 36 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #36!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#22
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#35
+YFS      4. Inode#34
+YFS      5. Inode#33
+YFS      6. Inode#32
+YFS      7. Inode#31
+YFS      8. Inode#30
+YFS      9. Inode#29
+YFS      10. Inode#28
+YFS      11. Inode#27
+YFS      12. Inode#26
+YFS      13. Inode#25
+YFS      14. Inode#24
+YFS      15. Inode#23
+YFS      16. Inode#22
+YFS      Victim has inum = 22
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#35
+YFS      4. Inode#34
+YFS      5. Inode#33
+YFS      6. Inode#32
+YFS      7. Inode#31
+YFS      8. Inode#30
+YFS      9. Inode#29
+YFS      10. Inode#28
+YFS      11. Inode#27
+YFS      12. Inode#26
+YFS      13. Inode#25
+YFS      14. Inode#24
+YFS      15. Inode#23
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#36
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#35
+YFS      5. Inode#34
+YFS      6. Inode#33
+YFS      7. Inode#32
+YFS      8. Inode#31
+YFS      9. Inode#30
+YFS      10. Inode#29
+YFS      11. Inode#28
+YFS      12. Inode#27
+YFS      13. Inode#26
+YFS      14. Inode#25
+YFS      15. Inode#24
+YFS      16. Inode#23
+YFS      ===================== accessInode called for inode #36
+YFS      Search inode is done for #36
+YFS      Inode 36 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #36
+YFS      Search inode is done for #36
+YFS      Inode 36 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #37
+YFS      Search inode is done for #37
+YFS      Inode 37 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #37!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#23
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#36
+YFS      4. Inode#35
+YFS      5. Inode#34
+YFS      6. Inode#33
+YFS      7. Inode#32
+YFS      8. Inode#31
+YFS      9. Inode#30
+YFS      10. Inode#29
+YFS      11. Inode#28
+YFS      12. Inode#27
+YFS      13. Inode#26
+YFS      14. Inode#25
+YFS      15. Inode#24
+YFS      16. Inode#23
+YFS      Victim has inum = 23
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#36
+YFS      4. Inode#35
+YFS      5. Inode#34
+YFS      6. Inode#33
+YFS      7. Inode#32
+YFS      8. Inode#31
+YFS      9. Inode#30
+YFS      10. Inode#29
+YFS      11. Inode#28
+YFS      12. Inode#27
+YFS      13. Inode#26
+YFS      14. Inode#25
+YFS      15. Inode#24
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#37
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#36
+YFS      5. Inode#35
+YFS      6. Inode#34
+YFS      7. Inode#33
+YFS      8. Inode#32
+YFS      9. Inode#31
+YFS      10. Inode#30
+YFS      11. Inode#29
+YFS      12. Inode#28
+YFS      13. Inode#27
+YFS      14. Inode#26
+YFS      15. Inode#25
+YFS      16. Inode#24
+YFS      ===================== accessInode called for inode #37
+YFS      Search inode is done for #37
+YFS      Inode 37 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #37
+YFS      Search inode is done for #37
+YFS      Inode 37 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #38
+YFS      Search inode is done for #38
+YFS      Inode 38 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #38!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#24
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#37
+YFS      4. Inode#36
+YFS      5. Inode#35
+YFS      6. Inode#34
+YFS      7. Inode#33
+YFS      8. Inode#32
+YFS      9. Inode#31
+YFS      10. Inode#30
+YFS      11. Inode#29
+YFS      12. Inode#28
+YFS      13. Inode#27
+YFS      14. Inode#26
+YFS      15. Inode#25
+YFS      16. Inode#24
+YFS      Victim has inum = 24
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#37
+YFS      4. Inode#36
+YFS      5. Inode#35
+YFS      6. Inode#34
+YFS      7. Inode#33
+YFS      8. Inode#32
+YFS      9. Inode#31
+YFS      10. Inode#30
+YFS      11. Inode#29
+YFS      12. Inode#28
+YFS      13. Inode#27
+YFS      14. Inode#26
+YFS      15. Inode#25
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#38
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#37
+YFS      5. Inode#36
+YFS      6. Inode#35
+YFS      7. Inode#34
+YFS      8. Inode#33
+YFS      9. Inode#32
+YFS      10. Inode#31
+YFS      11. Inode#30
+YFS      12. Inode#29
+YFS      13. Inode#28
+YFS      14. Inode#27
+YFS      15. Inode#26
+YFS      16. Inode#25
+YFS      ===================== accessInode called for inode #38
+YFS      Search inode is done for #38
+YFS      Inode 38 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #38
+YFS      Search inode is done for #38
+YFS      Inode 38 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #39
+YFS      Search inode is done for #39
+YFS      Inode 39 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #39!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#25
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#38
+YFS      4. Inode#37
+YFS      5. Inode#36
+YFS      6. Inode#35
+YFS      7. Inode#34
+YFS      8. Inode#33
+YFS      9. Inode#32
+YFS      10. Inode#31
+YFS      11. Inode#30
+YFS      12. Inode#29
+YFS      13. Inode#28
+YFS      14. Inode#27
+YFS      15. Inode#26
+YFS      16. Inode#25
+YFS      Victim has inum = 25
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#38
+YFS      4. Inode#37
+YFS      5. Inode#36
+YFS      6. Inode#35
+YFS      7. Inode#34
+YFS      8. Inode#33
+YFS      9. Inode#32
+YFS      10. Inode#31
+YFS      11. Inode#30
+YFS      12. Inode#29
+YFS      13. Inode#28
+YFS      14. Inode#27
+YFS      15. Inode#26
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#39
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#38
+YFS      5. Inode#37
+YFS      6. Inode#36
+YFS      7. Inode#35
+YFS      8. Inode#34
+YFS      9. Inode#33
+YFS      10. Inode#32
+YFS      11. Inode#31
+YFS      12. Inode#30
+YFS      13. Inode#29
+YFS      14. Inode#28
+YFS      15. Inode#27
+YFS      16. Inode#26
+YFS      ===================== accessInode called for inode #39
+YFS      Search inode is done for #39
+YFS      Inode 39 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #39
+YFS      Search inode is done for #39
+YFS      Inode 39 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #40
+YFS      Search inode is done for #40
+YFS      Inode 40 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #40!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#26
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#39
+YFS      4. Inode#38
+YFS      5. Inode#37
+YFS      6. Inode#36
+YFS      7. Inode#35
+YFS      8. Inode#34
+YFS      9. Inode#33
+YFS      10. Inode#32
+YFS      11. Inode#31
+YFS      12. Inode#30
+YFS      13. Inode#29
+YFS      14. Inode#28
+YFS      15. Inode#27
+YFS      16. Inode#26
+YFS      Victim has inum = 26
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#39
+YFS      4. Inode#38
+YFS      5. Inode#37
+YFS      6. Inode#36
+YFS      7. Inode#35
+YFS      8. Inode#34
+YFS      9. Inode#33
+YFS      10. Inode#32
+YFS      11. Inode#31
+YFS      12. Inode#30
+YFS      13. Inode#29
+YFS      14. Inode#28
+YFS      15. Inode#27
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#40
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#39
+YFS      5. Inode#38
+YFS      6. Inode#37
+YFS      7. Inode#36
+YFS      8. Inode#35
+YFS      9. Inode#34
+YFS      10. Inode#33
+YFS      11. Inode#32
+YFS      12. Inode#31
+YFS      13. Inode#30
+YFS      14. Inode#29
+YFS      15. Inode#28
+YFS      16. Inode#27
+YFS      ===================== accessInode called for inode #40
+YFS      Search inode is done for #40
+YFS      Inode 40 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #40
+YFS      Search inode is done for #40
+YFS      Inode 40 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #41
+YFS      Search inode is done for #41
+YFS      Inode 41 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #41!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#27
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#40
+YFS      4. Inode#39
+YFS      5. Inode#38
+YFS      6. Inode#37
+YFS      7. Inode#36
+YFS      8. Inode#35
+YFS      9. Inode#34
+YFS      10. Inode#33
+YFS      11. Inode#32
+YFS      12. Inode#31
+YFS      13. Inode#30
+YFS      14. Inode#29
+YFS      15. Inode#28
+YFS      16. Inode#27
+YFS      Victim has inum = 27
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#40
+YFS      4. Inode#39
+YFS      5. Inode#38
+YFS      6. Inode#37
+YFS      7. Inode#36
+YFS      8. Inode#35
+YFS      9. Inode#34
+YFS      10. Inode#33
+YFS      11. Inode#32
+YFS      12. Inode#31
+YFS      13. Inode#30
+YFS      14. Inode#29
+YFS      15. Inode#28
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#41
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#40
+YFS      5. Inode#39
+YFS      6. Inode#38
+YFS      7. Inode#37
+YFS      8. Inode#36
+YFS      9. Inode#35
+YFS      10. Inode#34
+YFS      11. Inode#33
+YFS      12. Inode#32
+YFS      13. Inode#31
+YFS      14. Inode#30
+YFS      15. Inode#29
+YFS      16. Inode#28
+YFS      ===================== accessInode called for inode #41
+YFS      Search inode is done for #41
+YFS      Inode 41 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #41
+YFS      Search inode is done for #41
+YFS      Inode 41 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #42
+YFS      Search inode is done for #42
+YFS      Inode 42 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #42!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#28
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#41
+YFS      4. Inode#40
+YFS      5. Inode#39
+YFS      6. Inode#38
+YFS      7. Inode#37
+YFS      8. Inode#36
+YFS      9. Inode#35
+YFS      10. Inode#34
+YFS      11. Inode#33
+YFS      12. Inode#32
+YFS      13. Inode#31
+YFS      14. Inode#30
+YFS      15. Inode#29
+YFS      16. Inode#28
+YFS      Victim has inum = 28
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#41
+YFS      4. Inode#40
+YFS      5. Inode#39
+YFS      6. Inode#38
+YFS      7. Inode#37
+YFS      8. Inode#36
+YFS      9. Inode#35
+YFS      10. Inode#34
+YFS      11. Inode#33
+YFS      12. Inode#32
+YFS      13. Inode#31
+YFS      14. Inode#30
+YFS      15. Inode#29
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#42
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#41
+YFS      5. Inode#40
+YFS      6. Inode#39
+YFS      7. Inode#38
+YFS      8. Inode#37
+YFS      9. Inode#36
+YFS      10. Inode#35
+YFS      11. Inode#34
+YFS      12. Inode#33
+YFS      13. Inode#32
+YFS      14. Inode#31
+YFS      15. Inode#30
+YFS      16. Inode#29
+YFS      ===================== accessInode called for inode #42
+YFS      Search inode is done for #42
+YFS      Inode 42 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #42
+YFS      Search inode is done for #42
+YFS      Inode 42 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #43
+YFS      Search inode is done for #43
+YFS      Inode 43 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #43!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#42
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      1. Inode#29
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#42
+YFS      4. Inode#41
+YFS      5. Inode#40
+YFS      6. Inode#39
+YFS      7. Inode#38
+YFS      8. Inode#37
+YFS      9. Inode#36
+YFS      10. Inode#35
+YFS      11. Inode#34
+YFS      12. Inode#33
+YFS      13. Inode#32
+YFS      14. Inode#31
+YFS      15. Inode#30
+YFS      16. Inode#29
+YFS      Victim has inum = 29
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#42
+YFS      Printing inode hash queue for hashcode = 11
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#42
+YFS      4. Inode#41
+YFS      5. Inode#40
+YFS      6. Inode#39
+YFS      7. Inode#38
+YFS      8. Inode#37
+YFS      9. Inode#36
+YFS      10. Inode#35
+YFS      11. Inode#34
+YFS      12. Inode#33
+YFS      13. Inode#32
+YFS      14. Inode#31
+YFS      15. Inode#30
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#43
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#42
+YFS      5. Inode#41
+YFS      6. Inode#40
+YFS      7. Inode#39
+YFS      8. Inode#38
+YFS      9. Inode#37
+YFS      10. Inode#36
+YFS      11. Inode#35
+YFS      12. Inode#34
+YFS      13. Inode#33
+YFS      14. Inode#32
+YFS      15. Inode#31
+YFS      16. Inode#30
+YFS      ===================== accessInode called for inode #43
+YFS      Search inode is done for #43
+YFS      Inode 43 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #43
+YFS      Search inode is done for #43
+YFS      Inode 43 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #44
+YFS      Search inode is done for #44
+YFS      Inode 44 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #44!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#42
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#43
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      1. Inode#30
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#43
+YFS      4. Inode#42
+YFS      5. Inode#41
+YFS      6. Inode#40
+YFS      7. Inode#39
+YFS      8. Inode#38
+YFS      9. Inode#37
+YFS      10. Inode#36
+YFS      11. Inode#35
+YFS      12. Inode#34
+YFS      13. Inode#33
+YFS      14. Inode#32
+YFS      15. Inode#31
+YFS      16. Inode#30
+YFS      Victim has inum = 30
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#42
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#43
+YFS      Printing inode hash queue for hashcode = 12
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#43
+YFS      4. Inode#42
+YFS      5. Inode#41
+YFS      6. Inode#40
+YFS      7. Inode#39
+YFS      8. Inode#38
+YFS      9. Inode#37
+YFS      10. Inode#36
+YFS      11. Inode#35
+YFS      12. Inode#34
+YFS      13. Inode#33
+YFS      14. Inode#32
+YFS      15. Inode#31
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#44
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#43
+YFS      5. Inode#42
+YFS      6. Inode#41
+YFS      7. Inode#40
+YFS      8. Inode#39
+YFS      9. Inode#38
+YFS      10. Inode#37
+YFS      11. Inode#36
+YFS      12. Inode#35
+YFS      13. Inode#34
+YFS      14. Inode#33
+YFS      15. Inode#32
+YFS      16. Inode#31
+YFS      ===================== accessInode called for inode #44
+YFS      Search inode is done for #44
+YFS      Inode 44 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #44
+YFS      Search inode is done for #44
+YFS      Inode 44 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #45
+YFS      Search inode is done for #45
+YFS      Inode 45 is not in the cache. Insert it.
+YFS      Evict inode when trying to insert inode #45!!
+YFS      I about to evict an inode!!
+YFS      Inode queues before eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#42
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#43
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#44
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      1. Inode#31
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#44
+YFS      4. Inode#43
+YFS      5. Inode#42
+YFS      6. Inode#41
+YFS      7. Inode#40
+YFS      8. Inode#39
+YFS      9. Inode#38
+YFS      10. Inode#37
+YFS      11. Inode#36
+YFS      12. Inode#35
+YFS      13. Inode#34
+YFS      14. Inode#33
+YFS      15. Inode#32
+YFS      16. Inode#31
+YFS      Victim has inum = 31
+YFS      Inode queues after eviction:
+YFS      Printing inode hash queue for hashcode = 0
+YFS      1. Inode#32
+YFS      Printing inode hash queue for hashcode = 1
+YFS      1. Inode#33
+YFS      2. Inode#1
+YFS      Printing inode hash queue for hashcode = 2
+YFS      1. Inode#34
+YFS      2. Inode#2
+YFS      Printing inode hash queue for hashcode = 3
+YFS      1. Inode#35
+YFS      Printing inode hash queue for hashcode = 4
+YFS      1. Inode#36
+YFS      Printing inode hash queue for hashcode = 5
+YFS      1. Inode#37
+YFS      Printing inode hash queue for hashcode = 6
+YFS      1. Inode#38
+YFS      Printing inode hash queue for hashcode = 7
+YFS      1. Inode#39
+YFS      Printing inode hash queue for hashcode = 8
+YFS      1. Inode#40
+YFS      Printing inode hash queue for hashcode = 9
+YFS      1. Inode#41
+YFS      Printing inode hash queue for hashcode = 10
+YFS      1. Inode#42
+YFS      Printing inode hash queue for hashcode = 11
+YFS      1. Inode#43
+YFS      Printing inode hash queue for hashcode = 12
+YFS      1. Inode#44
+YFS      Printing inode hash queue for hashcode = 13
+YFS      Printing inode hash queue for hashcode = 14
+YFS      Printing inode hash queue for hashcode = 15
+YFS      Printing inode lru queue
+YFS      1. Inode#2
+YFS      2. Inode#1
+YFS      3. Inode#44
+YFS      4. Inode#43
+YFS      5. Inode#42
+YFS      6. Inode#41
+YFS      7. Inode#40
+YFS      8. Inode#39
+YFS      9. Inode#38
+YFS      10. Inode#37
+YFS      11. Inode#36
+YFS      12. Inode#35
+YFS      13. Inode#34
+YFS      14. Inode#33
+YFS      15. Inode#32
+YFS      Inode was dirty. Call writeInodeToDisc
+YFS      1. Inode#45
+YFS      2. Inode#2
+YFS      3. Inode#1
+YFS      4. Inode#44
+YFS      5. Inode#43
+YFS      6. Inode#42
+YFS      7. Inode#41
+YFS      8. Inode#40
+YFS      9. Inode#39
+YFS      10. Inode#38
+YFS      11. Inode#37
+YFS      12. Inode#36
+YFS      13. Inode#35
+YFS      14. Inode#34
+YFS      15. Inode#33
+YFS      16. Inode#32
+YFS      ===================== accessInode called for inode #45
+YFS      Search inode is done for #45
+YFS      Inode 45 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #45
+YFS      Search inode is done for #45
+YFS      Inode 45 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+User     pos = 0
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #1
+YFS      Search inode is done for #1
+YFS      Inode 1 is in the cache. Update its LRU position.
 YFS      ===================== accessInode called for inode #2
 YFS      Search inode is done for #2
 YFS      Inode 2 is in the cache. Update its LRU position.
@@ -53,4 +4412,3 @@ User     pos = 0
 YFS      ===================== accessInode called for inode #2
 YFS      Search inode is done for #2
 YFS      Inode 2 is in the cache. Update its LRU position.
-User     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non viverra nulla, in sollicitudin tortor. Curabitur vulputate sit amet enim vel posuere. Nunc consequat pulvinar neque, quis consequat nibh pellentesque sed. Nam maximus sem sed quam scelerisque rutrum. Aliquam vitae volutpat elit. Donec at lorem tincidunt, fermentum erat a, volutpat quam. Nunc gravida consequat egestas. Sed sed sem et ante fringilla faucibus eget ut turpis. Suspendisse id vulputate leo. Donec vel rhoncus nisl, interdum molestie erat. Praesent sagittis purus ut interdum blandit. Pellentesque feugiat tellus libero, in semper ex mattis vitae. Sed fermentum sem ac faucibus porta. Ut finibus gravida ligula, sit amet vulputate ex tempor ac. Aenean maximus lacinia ante et scelerisque. Fusce pretium vitae purus at pellentesque. Cras a eleifend odio. Suspendisse fringilla id odio in auctor. Nulla dignissim porttitor massa ut hendrerit. Curabitur posuere augue et facilisis dictum. Nullam et tempus nisl. Donec nec lobortis sapien. Proin fermentum elit commodo lacus fermentum, in porttitor lectus iaculis. Nullam condimentum turpis ac rutrum finibus. Mauris sodales ut nisi vel rutrum. Duis vel ipsum lacus. Integer efficitur ut ante id blandit. Curabitur luctus lectus eget tortor gravida, in venenatis sem eleifend. Nulla sit amet nisi gravida, posuere nibh nec, ullamcorper neque. Mauris dui erat, semper a nisl vitae, laoreet consectetur ante. Cras sed nulla varius ipsum dapibus placerat id dapibus enim. Nulla tempus erat et leo aliquet, sit amet pulvinar mauris iaculis. Ut vel ornare urna, eu commodo augue. Integer sed venenatis libero, vel posuere nulla. Phasellus non lacus in justo elementum faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id bibendum risus, nec rhoncus velit. Vivamus facilisis elit accumsan odio volutpat, eget feugiat nunc euismod. Nullam vitae libero efficitur, scelerisque mauris non, accumsan libero. Phasellus ut semper leo. Cras ullamcorper, elit tincidunt aliquet dignissim, mauris tellus efficitur urna, id condimentum est libero in neque. Vestibulum laoreet neque eget nibh iaculis, in congue felis molestie. Duis volutpat at turpis id euismod. Phasellus massa augue, tempor quis urna sed, aliquet finibus dolor. Maecenas rhoncus vehicula justo, vel auctor libero lacinia vitae. In diam enim, elementum at enim vel, iaculis consequat nisl. Duis iaculis ligula in urna ultricies dignissim. Proin erat ipsum, elementum at quam id, ullamcorper iaculis nulla. Fusce pharetra turpis in nibh mattis, nec scelerisque elit pretium. Nulla purus nisi, ornare porta viverra ut, aliquam vitae libero. Aenean dolor arcu, varius vitae lorem vitae, dictum hendrerit sapien. Sed id velit sodales, varius tellus a, convallis est. Vestibulum rhoncus at orci luctus tincidunt. Pellentesque id odio aliquam, maximus lorem ac, scelerisque dui. Aliquam tincidunt nibh vel augue rhoncus, et semper purus maximus. Nullam et feugiat est. Nullam sed sollicitudin mi. Integer eleifend aliquam turpis non elementum. Etiam malesuada tellus.
