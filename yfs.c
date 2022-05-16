@@ -925,21 +925,14 @@ static int updateFreeEntryInBlock(int blockNum, char* entry_name, int file_inode
 }
 
 
-static int eraseFile(int curr_num) {
-    int block = (curr_num / INODES_PER_BLOCK) + 1;
-    struct inode inode_buf[INODES_PER_BLOCK];
-    if(ReadSector(block, inode_buf) == ERROR) {
+static int eraseFile(int inum) {
+    struct inode fileInode = findInode(inum);
+    if (changeStateBlocks(&fileInode, true) == ERROR) {
         return ERROR;
     }
-    int index = curr_num % INODES_PER_BLOCK;
-    struct inode *fileInode = &inode_buf[index];
-
-    if (changeStateBlocks(fileInode, true) == ERROR) {
-        return ERROR;
-    }
-    fileInode->size = 0;
-    if(WriteSector(block, inode_buf) == ERROR) {
-        return ERROR;
+    fileInode.size = 0;
+    if(writeInodeToDisc(inum, fileInode) == ERROR) {
+       return ERROR;
     }
     return 0;
 }
@@ -1012,10 +1005,14 @@ static int searchInDirectory(struct inode *curr_inode, char *token) {
     }
     if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
         int block_to_read = curr_inode->indirect;
-        int indirect_buf[BLOCKSIZE/sizeof(int)];
-        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        int *indirect_buf = (int *)accessBlock(block_to_read);
+        if (indirect_buf == NULL) {
             return ERROR;
         }
+        // int indirect_buf[BLOCKSIZE/sizeof(int)];
+        // if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        //     return ERROR;
+        // }
         int j;
         for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
             int out_inode = find_entry_in_block(indirect_buf[j], entry_name, num_entries_left);
@@ -1029,10 +1026,14 @@ static int searchInDirectory(struct inode *curr_inode, char *token) {
 }
 
 static int find_entry_in_block(int block, char *entry_name, int num_entries_left) {
-    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
-    if (ReadSector(block, dir_buf) == ERROR) {
+    struct dir_entry *dir_buf = (struct dir_entry *)accessBlock(block);
+    if (dir_buf == NULL) {
         return ERROR;
     }
+    // struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    // if (ReadSector(block, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     int i;
     for (i = 0; i < MIN(ENTRIES_PER_BLOCK, num_entries_left); i++) {
         if (dir_buf[i].inum != 0 && strncmp(dir_buf[i].name, entry_name, DIRNAMELEN) == 0) {
@@ -1051,10 +1052,14 @@ static int get_num_blocks(int size) {
 }
 
 static int fillFreeEntry(int blockNum, int index, int file_inode_num, char *entry_name) {
-    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
-    if (ReadSector(blockNum, dir_buf) == ERROR) {
+    struct dir_entry *dir_buf = (struct dir_entry *)accessBlock(blockNum);
+    if (dir_buf == NULL) {
         return ERROR;
     }
+    // struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    // if (ReadSector(blockNum, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     dir_buf[index].inum = file_inode_num;
     memcpy(dir_buf[index].name, entry_name, DIRNAMELEN);
     if (WriteSector(blockNum, dir_buf) == ERROR) {
@@ -1201,10 +1206,14 @@ static int removeDirEntry(int dir, char *file_name) {
     }
     if (num_blocks > NUM_DIRECT && removed == false) {//then we need to search in the indirect block
         int block_to_read = curr_dir_inode.indirect;
-        int indirect_buf[BLOCKSIZE/sizeof(int)];
-        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        int *indirect_buf = (int *)accessBlock(block_to_read);
+        if (indirect_buf == NULL) {
             return ERROR;
         }
+        // int indirect_buf[BLOCKSIZE/sizeof(int)];
+        // if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        //     return ERROR;
+        // }
         int j;
         for (j = 0; j < (num_blocks - NUM_DIRECT) && removed == false; j++) {
             int return_val = removeEntryInBlock(indirect_buf[j], file_name, file_inode_num, num_entries_left);
@@ -1230,10 +1239,14 @@ static int removeDirEntry(int dir, char *file_name) {
 
 // Returns 0 if SUCCESS, -1 if ERROR, -2 if not found
 static int removeEntryInBlock(int blockNum, char *entry_name, int file_inode_num, int num_entries_left) {
-    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
-    if (ReadSector(blockNum, dir_buf) == ERROR) {
+    struct dir_entry *dir_buf = (struct dir_entry *)accessBlock(blockNum);
+    if (dir_buf == NULL) {
         return ERROR;
     }
+    // struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    // if (ReadSector(blockNum, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     int i;
     for (i = 0; i < MIN(ENTRIES_PER_BLOCK, num_entries_left); i++) {
         if (dir_buf[i].inum == file_inode_num && strncmp(dir_buf[i].name, entry_name, DIRNAMELEN) == 0) {
@@ -1247,10 +1260,14 @@ static int removeEntryInBlock(int blockNum, char *entry_name, int file_inode_num
 }
 
 static int freeDirEntry(int blockNum, int index) {
-    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
-    if (ReadSector(blockNum, dir_buf) == ERROR) {
+    struct dir_entry *dir_buf = (struct dir_entry *)accessBlock(blockNum);
+    if (dir_buf == NULL) {
         return ERROR;
     }
+    // struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    // if (ReadSector(blockNum, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     dir_buf[index].inum = 0;
     memset(dir_buf[index].name, '\0', DIRNAMELEN);
     if (WriteSector(blockNum, dir_buf) == ERROR) {
@@ -1354,11 +1371,15 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
                 return size_to_write - bytes_left;
             }
         }
-        int indirect_buf[BLOCKSIZE/sizeof(int)];
-        //now we definetely have the indirect block, so we can start writing into it
-        if (ReadSector(inode_to_write.indirect, indirect_buf) == ERROR) {
+        // Now we definetely have the indirect block, so we can start writing into it.
+        int *indirect_buf = (int *)accessBlock(inode_to_write.indirect);
+        if (indirect_buf == NULL) {
             return size_to_write - bytes_left;
         }
+        // int indirect_buf[BLOCKSIZE/sizeof(int)];
+        // if (ReadSector(inode_to_write.indirect, indirect_buf) == ERROR) {
+        //     return size_to_write - bytes_left;
+        // }
         int j;
         for (j = i - NUM_DIRECT; bytes_left > 0; j++) {
             
@@ -1391,10 +1412,14 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
 }
 
 static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write) {
-    char buf[SECTORSIZE];
-    if(ReadSector(block_num, buf) == ERROR) {
+    char *buf = accessBlock(block_num);
+    if(buf == NULL) {
         return ERROR;
     }
+    // char buf[SECTORSIZE];
+    // if(ReadSector(block_num, buf) == ERROR) {
+    //     return ERROR;
+    // }
     int bytes_to_write = MIN(bytes_left, SECTORSIZE - start_within_block);
     memcpy(buf + start_within_block, buf_to_write, bytes_to_write);
     // Advance a buffer by bytes_to_read bytes.
@@ -1589,10 +1614,14 @@ static bool dirIsEmpty(struct inode curr_dir_inode) {
     }
     if (num_blocks > NUM_DIRECT) {//then we need to search in the indirect block
         int block_to_read = curr_dir_inode.indirect;
-        int indirect_buf[BLOCKSIZE/sizeof(int)];
-        if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        int *indirect_buf = (int *)accessBlock(block_to_read);
+        if (indirect_buf == NULL) {
             return ERROR;
         }
+        // int indirect_buf[BLOCKSIZE/sizeof(int)];
+        // if (ReadSector(block_to_read, indirect_buf) == ERROR) {
+        //     return ERROR;
+        // }
         int j;
         for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
             if (dirBlockIsEmpty(indirect_buf[j], num_entries_left, start_dir_entry) == false) {
@@ -1605,10 +1634,14 @@ static bool dirIsEmpty(struct inode curr_dir_inode) {
 }
 
 static bool dirBlockIsEmpty(int blockNum, int num_entries_left, int start_dir_entry) {
-    struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
-    if (ReadSector(blockNum, dir_buf) == ERROR) {
+    struct dir_entry *dir_buf = (struct dir_entry *)accessBlock(blockNum);
+    if (dir_buf == NULL) {
         return ERROR;
     }
+    // struct dir_entry dir_buf[ENTRIES_PER_BLOCK];
+    // if (ReadSector(blockNum, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     int i;
     for (i = start_dir_entry; i < MIN(ENTRIES_PER_BLOCK, num_entries_left); i++) {
         if (dir_buf[i].inum != 0) {
