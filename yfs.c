@@ -87,7 +87,7 @@ static int insertBlock(int num);
 // static struct inode_cache_entry *searchInode(int num);
 static struct block_cache_entry *searchBlock(int num);
 static char * accessBlock(int num);
-// static int modifyBlock(int num, char *block_buf);
+static int modifyBlock(int num, char *block_buf);
 static void printBlockHashQueue(int hashcode);
 static void printBlockLRUQueue();
 static void printBlockQueues();
@@ -724,10 +724,14 @@ static int writeInodeToDisc(int inode_num, struct inode inode_struct) {
     // if(ReadSector(block_num, buf) == ERROR) {
     //     return ERROR;
     // }
+    // TODO: will remove this modify!!!
     buf[index] = inode_struct;
-    if(WriteSector(block_num, buf) == ERROR) {
+    if(modifyBlock(block_num, (char *)buf) == ERROR) {
         return ERROR;
     }
+    // if(WriteSector(block_num, buf) == ERROR) {
+    //     return ERROR;
+    // }
     // Make sure that this inode is "occupied" and won't ve overwritten.
     inodemap[inode_num] = false;
     return 0;
@@ -832,10 +836,12 @@ static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_n
             //     return ERROR;
             // }
             indirect_buf[num_blocks - NUM_DIRECT] = free_block_num;
-
-            if(WriteSector(curr_dir_inode.indirect, indirect_buf) == ERROR) {
+            if(modifyBlock(curr_dir_inode.indirect, (char *)indirect_buf) == ERROR) {
                 return ERROR;
             }
+            // if(WriteSector(curr_dir_inode.indirect, indirect_buf) == ERROR) {
+            //     return ERROR;
+            // }
         }
         // After all error-checkings, can finally change bitmap for new block and (possibly) new indirect block.
         blockmap[free_block_num] = false;
@@ -1062,9 +1068,12 @@ static int fillFreeEntry(int blockNum, int index, int file_inode_num, char *entr
     // }
     dir_buf[index].inum = file_inode_num;
     memcpy(dir_buf[index].name, entry_name, DIRNAMELEN);
-    if (WriteSector(blockNum, dir_buf) == ERROR) {
+    if (modifyBlock(blockNum, (char *)dir_buf) == ERROR) {
         return ERROR;
     }
+    // if (WriteSector(blockNum, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     return 0;
 }
 
@@ -1270,9 +1279,12 @@ static int freeDirEntry(int blockNum, int index) {
     // }
     dir_buf[index].inum = 0;
     memset(dir_buf[index].name, '\0', DIRNAMELEN);
-    if (WriteSector(blockNum, dir_buf) == ERROR) {
+    if (modifyBlock(blockNum, (char *)dir_buf) == ERROR) {
         return ERROR;
     }
+    // if (WriteSector(blockNum, dir_buf) == ERROR) {
+    //     return ERROR;
+    // }
     return 0;
 }
 
@@ -1401,9 +1413,12 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
             start_within_block = 0;
             inode_to_write.size += bytes_written;
             writeInodeToDisc(inode_num, inode_to_write);
-            if (WriteSector(inode_to_write.indirect, indirect_buf) == ERROR) {
+            if (modifyBlock(inode_to_write.indirect, (char *)indirect_buf) == ERROR) {
                 return size_to_write - bytes_left;
             }
+            // if (WriteSector(inode_to_write.indirect, indirect_buf) == ERROR) {
+            //     return size_to_write - bytes_left;
+            // }
             blockmap[indirect_buf[j]] = false;
             blockmap[inode_to_write.indirect] = false;
         }
@@ -1423,9 +1438,12 @@ static int WriteBlock(int block_num, int start_within_block, int bytes_left, cha
     int bytes_to_write = MIN(bytes_left, SECTORSIZE - start_within_block);
     memcpy(buf + start_within_block, buf_to_write, bytes_to_write);
     // Advance a buffer by bytes_to_read bytes.
-    if(WriteSector(block_num, buf) == ERROR) {
+    if(modifyBlock(block_num, buf) == ERROR) {
         return ERROR;
     }
+    // if(WriteSector(block_num, buf) == ERROR) {
+    //     return ERROR;
+    // }
     //char buffer[bytes_to_write + 1];
     // snprintf(buffer, bytes_to_write, "%s", buf + start_within_block);
     // buffer[bytes_to_write] = '\0';
@@ -1858,18 +1876,13 @@ static char * accessBlock(int num) {
     TracePrintf(0, "===================== accessBlock called for block #%i\n", num);
     struct block_cache_entry *block_entry = searchBlock(num);
     if (block_entry == NULL) {
-        TracePrintf(0, "Block is not found in cache\n");
+        TracePrintf(0, "Block is not in the cache. Insert it.\n");
         if (insertBlock(num) == ERROR) {
             return NULL;
         }
         block_entry = searchBlock(num);
-        if (block_entry == NULL) { 
-            TracePrintf(0, "Insert doesn't work!!!\n");
-            return NULL;
-        } else {
-            TracePrintf(0, "Block is inserted with num=%i\n", block_entry->num);
-        }
     } else {
+        TracePrintf(0, "Block is in the cache. Update its LRU position.\n");
         updateBlockLRU(block_entry);
         TracePrintf(0, "Print updated LRU queue after update\n");
         printBlockLRUQueue();
@@ -1879,18 +1892,23 @@ static char * accessBlock(int num) {
     return block_entry->data;
 }
 
-// static int modifyBlock(int num, char *block_buf) {
-//     struct block_cache_entry *block_entry = searchBlock(num);
-//     if (block_entry == NULL) {
-//         if (insertBlock(num) == ERROR) {
-//             return ERROR;
-//         }
-//         block_entry = searchBlock(num);
-//     }
-//     memcpy(block_entry->data, block_buf, BLOCKSIZE);
-//     block_entry->dirty = true;
-//     return 0;
-// }
+static int modifyBlock(int num, char *block_buf) {
+    TracePrintf(0, "===================== modifyBlock called for block #%i\n", num);
+    struct block_cache_entry *block_entry = searchBlock(num);
+    if (block_entry == NULL) {
+        TracePrintf(0, "Block is not in the cache. Insert it.\n");
+        if (insertBlock(num) == ERROR) {
+            return ERROR;
+        }
+        block_entry = searchBlock(num);
+        // Now block_entry is in the cache with malloced buffer for data.
+        memcpy(block_entry->data, block_buf, BLOCKSIZE);
+    }
+    // No need to do memcpy if block was already in the cache 
+    // (the pointers of dest and src would be the same)
+    block_entry->dirty = true;
+    return 0;
+}
 
 static void removeBlockFromHash(struct block_cache_entry *block) {
     block->hash_next->hash_prev = block->hash_prev;
