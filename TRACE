@@ -495,7 +495,7 @@ YFS      4. Block#5
 YFS      5. Block#4
 YFS      6. Block#3
 YFS      7. Block#2
-YFS      Inode 3 is not in the cache. Insert it.
+YFS      Inode 2 is not in the cache. Insert it.
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
 YFS      1. Block#1
@@ -552,7 +552,7 @@ YFS      4. Block#5
 YFS      5. Block#4
 YFS      6. Block#3
 YFS      7. Block#2
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      Inode 1 is in the cache. Update its LRU position.
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
@@ -666,15 +666,15 @@ YFS      4. Block#5
 YFS      5. Block#4
 YFS      6. Block#3
 YFS      7. Block#2
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      max number of blocks is 140
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      In fillAndWrite
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      Block is not in the cache. Insert it.
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
-YFS      1. Block#9
+YFS      1. Block#8
 YFS      2. Block#7
 YFS      3. Block#1
 YFS      4. Block#6
@@ -698,8 +698,8 @@ YFS      1. Block#6
 YFS      Printing block hash queue for hashcode = 7
 YFS      1. Block#7
 YFS      Printing block hash queue for hashcode = 8
+YFS      1. Block#8
 YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
 YFS      Printing block hash queue for hashcode = 10
 YFS      Printing block hash queue for hashcode = 11
 YFS      Printing block hash queue for hashcode = 12
@@ -723,7 +723,7 @@ YFS      Printing block hash queue for hashcode = 29
 YFS      Printing block hash queue for hashcode = 30
 YFS      Printing block hash queue for hashcode = 31
 YFS      Printing block lru queue
-YFS      1. Block#9
+YFS      1. Block#8
 YFS      2. Block#7
 YFS      3. Block#1
 YFS      4. Block#6
@@ -731,18 +731,22 @@ YFS      5. Block#5
 YFS      6. Block#4
 YFS      7. Block#3
 YFS      8. Block#2
-YFS      Block is not in the cache. Insert it.
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      max number of blocks is 140
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      In fillAndWrite
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
-YFS      1. Block#10
-YFS      2. Block#9
-YFS      3. Block#7
-YFS      4. Block#1
-YFS      5. Block#6
-YFS      6. Block#5
-YFS      7. Block#4
-YFS      8. Block#3
-YFS      9. Block#2
+YFS      1. Block#8
+YFS      2. Block#7
+YFS      3. Block#1
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Printing block hash queue for hashcode = 0
 YFS      Printing block hash queue for hashcode = 1
 YFS      1. Block#1
@@ -759,10 +763,9 @@ YFS      1. Block#6
 YFS      Printing block hash queue for hashcode = 7
 YFS      1. Block#7
 YFS      Printing block hash queue for hashcode = 8
+YFS      1. Block#8
 YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
 YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
 YFS      Printing block hash queue for hashcode = 11
 YFS      Printing block hash queue for hashcode = 12
 YFS      Printing block hash queue for hashcode = 13
@@ -785,28 +788,29 @@ YFS      Printing block hash queue for hashcode = 29
 YFS      Printing block hash queue for hashcode = 30
 YFS      Printing block hash queue for hashcode = 31
 YFS      Printing block lru queue
-YFS      1. Block#10
-YFS      2. Block#9
-YFS      3. Block#7
-YFS      4. Block#1
-YFS      5. Block#6
-YFS      6. Block#5
-YFS      7. Block#4
-YFS      8. Block#3
-YFS      9. Block#2
-YFS      Block is not in the cache. Insert it.
+YFS      1. Block#8
+YFS      2. Block#7
+YFS      3. Block#1
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      max number of blocks is 140
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      In fillAndWrite
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
-YFS      1. Block#11
-YFS      2. Block#10
-YFS      3. Block#9
-YFS      4. Block#7
-YFS      5. Block#1
-YFS      6. Block#6
-YFS      7. Block#5
-YFS      8. Block#4
-YFS      9. Block#3
-YFS      10. Block#2
+YFS      1. Block#8
+YFS      2. Block#7
+YFS      3. Block#1
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Printing block hash queue for hashcode = 0
 YFS      Printing block hash queue for hashcode = 1
 YFS      1. Block#1
@@ -823,12 +827,10 @@ YFS      1. Block#6
 YFS      Printing block hash queue for hashcode = 7
 YFS      1. Block#7
 YFS      Printing block hash queue for hashcode = 8
+YFS      1. Block#8
 YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
 YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
 YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
 YFS      Printing block hash queue for hashcode = 12
 YFS      Printing block hash queue for hashcode = 13
 YFS      Printing block hash queue for hashcode = 14
@@ -850,325 +852,27 @@ YFS      Printing block hash queue for hashcode = 29
 YFS      Printing block hash queue for hashcode = 30
 YFS      Printing block hash queue for hashcode = 31
 YFS      Printing block lru queue
-YFS      1. Block#11
-YFS      2. Block#10
-YFS      3. Block#9
-YFS      4. Block#7
-YFS      5. Block#1
-YFS      6. Block#6
-YFS      7. Block#5
-YFS      8. Block#4
-YFS      9. Block#3
-YFS      10. Block#2
-YFS      Block is not in the cache. Insert it.
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#12
-YFS      2. Block#11
-YFS      3. Block#10
-YFS      4. Block#9
-YFS      5. Block#7
-YFS      6. Block#1
-YFS      7. Block#6
-YFS      8. Block#5
-YFS      9. Block#4
-YFS      10. Block#3
-YFS      11. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
-YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      Printing block hash queue for hashcode = 14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#12
-YFS      2. Block#11
-YFS      3. Block#10
-YFS      4. Block#9
-YFS      5. Block#7
-YFS      6. Block#1
-YFS      7. Block#6
-YFS      8. Block#5
-YFS      9. Block#4
-YFS      10. Block#3
-YFS      11. Block#2
-YFS      Block is not in the cache. Insert it.
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#13
-YFS      2. Block#12
-YFS      3. Block#11
-YFS      4. Block#10
-YFS      5. Block#9
-YFS      6. Block#7
-YFS      7. Block#1
-YFS      8. Block#6
-YFS      9. Block#5
-YFS      10. Block#4
-YFS      11. Block#3
-YFS      12. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
-YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
-YFS      Printing block hash queue for hashcode = 14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#13
-YFS      2. Block#12
-YFS      3. Block#11
-YFS      4. Block#10
-YFS      5. Block#9
-YFS      6. Block#7
-YFS      7. Block#1
-YFS      8. Block#6
-YFS      9. Block#5
-YFS      10. Block#4
-YFS      11. Block#3
-YFS      12. Block#2
-YFS      Block is not in the cache. Insert it.
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#14
-YFS      2. Block#13
-YFS      3. Block#12
-YFS      4. Block#11
-YFS      5. Block#10
-YFS      6. Block#9
-YFS      7. Block#7
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
-YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
-YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#14
-YFS      2. Block#13
-YFS      3. Block#12
-YFS      4. Block#11
-YFS      5. Block#10
-YFS      6. Block#9
-YFS      7. Block#7
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Inode 1 is in the cache. Update its LRU position.
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#7
-YFS      2. Block#14
-YFS      3. Block#13
-YFS      4. Block#12
-YFS      5. Block#11
-YFS      6. Block#10
-YFS      7. Block#9
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
-YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
-YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#7
-YFS      2. Block#14
-YFS      3. Block#13
-YFS      4. Block#12
-YFS      5. Block#11
-YFS      6. Block#10
-YFS      7. Block#9
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      1. Block#8
+YFS      2. Block#7
+YFS      3. Block#1
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
+YFS      Inode 2 is in the cache. Update its LRU position.
 User     pos = 0
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
-YFS      1. Block#9
+YFS      1. Block#8
 YFS      2. Block#7
-YFS      3. Block#14
-YFS      4. Block#13
-YFS      5. Block#12
-YFS      6. Block#11
-YFS      7. Block#10
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
+YFS      3. Block#1
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Printing block hash queue for hashcode = 0
 YFS      Printing block hash queue for hashcode = 1
 YFS      1. Block#1
@@ -1185,18 +889,13 @@ YFS      1. Block#6
 YFS      Printing block hash queue for hashcode = 7
 YFS      1. Block#7
 YFS      Printing block hash queue for hashcode = 8
+YFS      1. Block#8
 YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
 YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
 YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
 YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
 YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
 YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
 YFS      Printing block hash queue for hashcode = 15
 YFS      Printing block hash queue for hashcode = 16
 YFS      Printing block hash queue for hashcode = 17
@@ -1215,34 +914,24 @@ YFS      Printing block hash queue for hashcode = 29
 YFS      Printing block hash queue for hashcode = 30
 YFS      Printing block hash queue for hashcode = 31
 YFS      Printing block lru queue
-YFS      1. Block#9
+YFS      1. Block#8
 YFS      2. Block#7
-YFS      3. Block#14
-YFS      4. Block#13
-YFS      5. Block#12
-YFS      6. Block#11
-YFS      7. Block#10
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
+YFS      3. Block#1
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
-YFS      1. Block#10
-YFS      2. Block#9
+YFS      1. Block#1
+YFS      2. Block#8
 YFS      3. Block#7
-YFS      4. Block#14
-YFS      5. Block#13
-YFS      6. Block#12
-YFS      7. Block#11
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Printing block hash queue for hashcode = 0
 YFS      Printing block hash queue for hashcode = 1
 YFS      1. Block#1
@@ -1259,18 +948,13 @@ YFS      1. Block#6
 YFS      Printing block hash queue for hashcode = 7
 YFS      1. Block#7
 YFS      Printing block hash queue for hashcode = 8
+YFS      1. Block#8
 YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
 YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
 YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
 YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
 YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
 YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
 YFS      Printing block hash queue for hashcode = 15
 YFS      Printing block hash queue for hashcode = 16
 YFS      Printing block hash queue for hashcode = 17
@@ -1289,34 +973,24 @@ YFS      Printing block hash queue for hashcode = 29
 YFS      Printing block hash queue for hashcode = 30
 YFS      Printing block hash queue for hashcode = 31
 YFS      Printing block lru queue
-YFS      1. Block#10
-YFS      2. Block#9
+YFS      1. Block#1
+YFS      2. Block#8
 YFS      3. Block#7
-YFS      4. Block#14
-YFS      5. Block#13
-YFS      6. Block#12
-YFS      7. Block#11
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Block is in the cache. Update its LRU position.
 YFS      Print updated LRU queue after update
-YFS      1. Block#11
-YFS      2. Block#10
-YFS      3. Block#9
-YFS      4. Block#7
-YFS      5. Block#14
-YFS      6. Block#13
-YFS      7. Block#12
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
+YFS      1. Block#1
+YFS      2. Block#8
+YFS      3. Block#7
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2
 YFS      Printing block hash queue for hashcode = 0
 YFS      Printing block hash queue for hashcode = 1
 YFS      1. Block#1
@@ -1333,18 +1007,13 @@ YFS      1. Block#6
 YFS      Printing block hash queue for hashcode = 7
 YFS      1. Block#7
 YFS      Printing block hash queue for hashcode = 8
+YFS      1. Block#8
 YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
 YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
 YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
 YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
 YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
 YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
 YFS      Printing block hash queue for hashcode = 15
 YFS      Printing block hash queue for hashcode = 16
 YFS      Printing block hash queue for hashcode = 17
@@ -1363,239 +1032,11 @@ YFS      Printing block hash queue for hashcode = 29
 YFS      Printing block hash queue for hashcode = 30
 YFS      Printing block hash queue for hashcode = 31
 YFS      Printing block lru queue
-YFS      1. Block#11
-YFS      2. Block#10
-YFS      3. Block#9
-YFS      4. Block#7
-YFS      5. Block#14
-YFS      6. Block#13
-YFS      7. Block#12
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#12
-YFS      2. Block#11
-YFS      3. Block#10
-YFS      4. Block#9
-YFS      5. Block#7
-YFS      6. Block#14
-YFS      7. Block#13
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
 YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
-YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#12
-YFS      2. Block#11
-YFS      3. Block#10
-YFS      4. Block#9
-YFS      5. Block#7
-YFS      6. Block#14
-YFS      7. Block#13
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#13
-YFS      2. Block#12
-YFS      3. Block#11
-YFS      4. Block#10
-YFS      5. Block#9
-YFS      6. Block#7
-YFS      7. Block#14
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
-YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
-YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#13
-YFS      2. Block#12
-YFS      3. Block#11
-YFS      4. Block#10
-YFS      5. Block#9
-YFS      6. Block#7
-YFS      7. Block#14
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Block is in the cache. Update its LRU position.
-YFS      Print updated LRU queue after update
-YFS      1. Block#14
-YFS      2. Block#13
-YFS      3. Block#12
-YFS      4. Block#11
-YFS      5. Block#10
-YFS      6. Block#9
-YFS      7. Block#7
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-YFS      Printing block hash queue for hashcode = 0
-YFS      Printing block hash queue for hashcode = 1
-YFS      1. Block#1
-YFS      Printing block hash queue for hashcode = 2
-YFS      1. Block#2
-YFS      Printing block hash queue for hashcode = 3
-YFS      1. Block#3
-YFS      Printing block hash queue for hashcode = 4
-YFS      1. Block#4
-YFS      Printing block hash queue for hashcode = 5
-YFS      1. Block#5
-YFS      Printing block hash queue for hashcode = 6
-YFS      1. Block#6
-YFS      Printing block hash queue for hashcode = 7
-YFS      1. Block#7
-YFS      Printing block hash queue for hashcode = 8
-YFS      Printing block hash queue for hashcode = 9
-YFS      1. Block#9
-YFS      Printing block hash queue for hashcode = 10
-YFS      1. Block#10
-YFS      Printing block hash queue for hashcode = 11
-YFS      1. Block#11
-YFS      Printing block hash queue for hashcode = 12
-YFS      1. Block#12
-YFS      Printing block hash queue for hashcode = 13
-YFS      1. Block#13
-YFS      Printing block hash queue for hashcode = 14
-YFS      1. Block#14
-YFS      Printing block hash queue for hashcode = 15
-YFS      Printing block hash queue for hashcode = 16
-YFS      Printing block hash queue for hashcode = 17
-YFS      Printing block hash queue for hashcode = 18
-YFS      Printing block hash queue for hashcode = 19
-YFS      Printing block hash queue for hashcode = 20
-YFS      Printing block hash queue for hashcode = 21
-YFS      Printing block hash queue for hashcode = 22
-YFS      Printing block hash queue for hashcode = 23
-YFS      Printing block hash queue for hashcode = 24
-YFS      Printing block hash queue for hashcode = 25
-YFS      Printing block hash queue for hashcode = 26
-YFS      Printing block hash queue for hashcode = 27
-YFS      Printing block hash queue for hashcode = 28
-YFS      Printing block hash queue for hashcode = 29
-YFS      Printing block hash queue for hashcode = 30
-YFS      Printing block hash queue for hashcode = 31
-YFS      Printing block lru queue
-YFS      1. Block#14
-YFS      2. Block#13
-YFS      3. Block#12
-YFS      4. Block#11
-YFS      5. Block#10
-YFS      6. Block#9
-YFS      7. Block#7
-YFS      8. Block#1
-YFS      9. Block#6
-YFS      10. Block#5
-YFS      11. Block#4
-YFS      12. Block#3
-YFS      13. Block#2
-User     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non viverra nulla, in sollicitudin tortor. Curabitur vulputate sit amet enim vel posuere. Nunc consequat pulvinar neque, quis consequat nibh pellentesque sed. Nam maximus sem sed quam scelerisque rutrum. Aliquam vitae volutpat elit. Donec at lorem tincidunt, fermentum erat a, volutpat quam. Nunc gravida consequat egestas. Sed sed sem et ante fringilla faucibus eget ut turpis. Suspendisse id vulputate leo. Donec vel rhoncus nisl, interdum molestie erat. Praesent sagittis purus ut interdum blandit. Pellentesque feugiat tellus libero, in semper ex mattis vitae. Sed fermentum sem ac faucibus porta. Ut finibus gravida ligula, sit amet vulputate ex tempor ac. Aenean maximus lacinia ante et scelerisque. Fusce pretium vitae purus at pellentesque. Cras a eleifend odio. Suspendisse fringilla id odio in auctor. Nulla dignissim porttitor massa ut hendrerit. Curabitur posuere augue et facilisis dictum. Nullam et tempus nisl. Donec nec lobortis sapien. Proin fermentum elit commodo lacus fermentum, in porttitor lectus iaculis. Nullam condimentum turpis ac rutrum finibus. Mauris sodales ut nisi vel rutrum. Duis vel ipsum lacus. Integer efficitur ut ante id blandit. Curabitur luctus lectus eget tortor gravida, in venenatis sem eleifend. Nulla sit amet nisi gravida, posuere nibh nec, ullamcorper neque. Mauris dui erat, semper a nisl vitae, laoreet consectetur ante. Cras sed nulla varius ipsum dapibus placerat id dapibus enim. Nulla tempus erat et leo aliquet, sit amet pulvinar mauris iaculis. Ut vel ornare urna, eu commodo augue. Integer sed venenatis libero, vel posuere nulla. Phasellus non lacus in justo elementum faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id bibendum risus, nec rhoncus velit. Vivamus facilisis elit accumsan odio volutpat, eget feugiat nunc euismod. Nullam vitae libero efficitur, scelerisque mauris non, accumsan libero. Phasellus ut semper leo. Cras ullamcorper, elit tincidunt aliquet dignissim, mauris tellus efficitur urna, id condimentum est libero in neque. Vestibulum laoreet neque eget nibh iaculis, in congue felis molestie. Duis volutpat at turpis id euismod. Phasellus massa augue, tempor quis urna sed, aliquet finibus dolor. Maecenas rhoncus vehicula justo, vel auctor libero lacinia vitae. In diam enim, elementum at enim vel, iaculis consequat nisl. Duis iaculis ligula in urna ultricies dignissim. Proin erat ipsum, elementum at quam id, ullamcorper iaculis nulla. Fusce pharetra turpis in nibh mattis, nec scelerisque elit pretium. Nulla purus nisi, ornare porta viverra ut, aliquam vitae libero. Aenean dolor arcu, varius vitae lorem vitae, dictum hendrerit sapien. Sed id velit sodales, varius tellus a, convallis est. Vestibulum rhoncus at orci luctus tincidunt. Pellentesque id odio aliquam, maximus lorem ac, scelerisque dui. Aliquam tincidunt nibh vel augue rhoncus, et semper purus maximus. Nullam et feugiat est. Nullam sed sollicitudin mi. Integer eleifend aliquam turpis non elementum. Etiam malesuada tellus.
+YFS      2. Block#8
+YFS      3. Block#7
+YFS      4. Block#6
+YFS      5. Block#5
+YFS      6. Block#4
+YFS      7. Block#3
+YFS      8. Block#2

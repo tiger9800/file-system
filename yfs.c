@@ -594,7 +594,7 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
     for (i = starting_block; i < MIN(NUM_DIRECT, num_blocks) && bytes_left > 0; i++) {
         buf_to_read = ReadBlock(inode_to_read.direct[i], start_within_block, bytes_left, buf_to_read);
         if(buf_to_read == NULL){
-            return ERROR;
+            return size_to_read - bytes_left;
         }
         bytes_left -= (BLOCKSIZE - start_within_block);
         start_within_block = 0;
@@ -605,13 +605,13 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
         int block_to_read = inode_to_read.indirect;
         int *indirect_buf = (int *)accessBlock(block_to_read);
         if (indirect_buf == NULL) {
-            return ERROR;
+            return size_to_read - bytes_left;
         }
         int j;
         for (j = i - NUM_DIRECT; j < (num_blocks - NUM_DIRECT) && bytes_left > 0; j++) {
             buf_to_read = ReadBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_read);
             if(buf_to_read == NULL) {
-                return ERROR;
+                return size_to_read - bytes_left;
             }
             bytes_left -= (BLOCKSIZE - start_within_block);
             start_within_block = 0;
