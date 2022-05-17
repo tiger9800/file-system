@@ -73,7 +73,6 @@ static int freeDirEntry(int blockNum, int index);
 static int deleteInode(int inode_num);
 static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_write);
 static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write);
-static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write);
 static int createDirectory(int parent_inum);
 static int removeDirectory(int curr_dir, char *pathname);
 static bool dirIsEmpty(struct inode curr_dir_inode);
@@ -97,7 +96,7 @@ static void removeBlockFromLRU(struct block_cache_entry *block);
 static void insertBlockToLRU(struct block_cache_entry *block);
 static void insertBlockToHash(struct block_cache_entry *block, int hashcode);
 static void updateBlockLRU(struct block_cache_entry *block);
-
+static int fillHoles(int inode_num, int pos);
 static void printInodeHashQueue(int hashcode);
 static void printInodeLRUQueue();
 static void printInodeQueues();
@@ -110,7 +109,7 @@ static int modifyInode(int num, struct inode new_inode_struct);
 static void writeDirtyInodes();
 static void writeDirtyBlocks();
 static void cleanBlocks(struct inode *inode_struct);
-
+static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write);
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
     printf("# dir_entries per block: %i\n", BLOCKSIZE/(int)sizeof(struct dir_entry));
@@ -348,7 +347,7 @@ static void stat(struct stat_msg *msg, int pid) {
     }
 
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->pathname, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->pathname, msg->size) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }
@@ -406,14 +405,12 @@ static void seek(struct my_msg *msg, int pid) {
         rel_pos = curr_pos;
     }
     else {
-        rel_pos = MAX(size, curr_pos);//the position may be further than then size because of a previous seek
+        rel_pos = size;
     }
-    
     if(rel_pos + offset < 0) {
         msg->numeric1 = ERROR;
         return;
     }
-    
     msg->numeric1 = rel_pos + offset;
 }
 
@@ -429,7 +426,7 @@ static void open(struct my_msg *msg, int pid) {
         return;
     }
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->ptr, msg->numeric5) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }
@@ -455,7 +452,7 @@ static void chdir(struct my_msg *msg, int pid) {
         return;
     }
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->ptr, msg->numeric5) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }
@@ -484,7 +481,7 @@ static void create(struct my_msg *msg, int pid) {
         return;
     }
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->ptr, msg->numeric5) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }
@@ -585,6 +582,9 @@ static void read(struct my_msg *msg, int pid) {
 //returns how much was actually read from the file
 static int readFromInode(struct inode inode_to_read, int size, int start_pos, char* buf_to_read) {
     //What if start_pos > inode_to_read.size?
+    if (start_pos >= inode_to_read.size) {
+        return 0;
+    }
     int size_to_read = MIN(inode_to_read.size - start_pos, size);
 
     if (size_to_read <= 0) {
@@ -630,16 +630,18 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
 }
 
 static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read) {
-    char *buf = accessBlock(block_num);
-    if (buf == NULL) {
-        return NULL;
-    }
-    // char buf[SECTORSIZE];
-    // if(ReadSector(block_num, buf)) {
-    //     return NULL;
-    // }
     int bytes_to_read = MIN(bytes_left, SECTORSIZE - start_pos);
-    memcpy(buf_to_read, buf+start_pos, bytes_to_read);
+    if (block_num == 0) {
+        char zero_buf[BLOCKSIZE];
+        memset(zero_buf, '\0', BLOCKSIZE);
+        memcpy(buf_to_read, zero_buf+start_pos, bytes_to_read);
+    } else {
+        char *buf = accessBlock(block_num);
+        if (buf == NULL) {
+            return NULL;
+        }
+        memcpy(buf_to_read, buf+start_pos, bytes_to_read);
+    }
     // Advance a buffer by bytes_to_read bytes.
     return buf_to_read + bytes_to_read;
 }
@@ -906,8 +908,10 @@ static int find_free_block() {
     int i;
     for(i = 0; i < NUM_BLOCKS; i++) {
         if(blockmap[i]) {
-            // Will do it later in a function after all error-checkings.
-            // blockmap[i] = false;
+            // Always fill a new block with zeros!
+            char zero_buf[BLOCKSIZE];
+            memset(zero_buf, '\0', BLOCKSIZE);
+            modifyBlock(i, zero_buf);
             return i;
         }
     }
@@ -1089,7 +1093,7 @@ static void link(struct link_msg *msg, int pid) {
     }
     char old[MAXPATHNAMELEN];
     char new[MAXPATHNAMELEN];
-    if (CopyFrom(pid, old, msg->oldname, MAXPATHNAMELEN) == ERROR || CopyFrom(pid, new, msg->newname, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, old, msg->oldname, msg->oldsize) == ERROR || CopyFrom(pid, new, msg->newname, msg->newsize) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }
@@ -1144,7 +1148,7 @@ static void unlink(struct my_msg *msg, int pid) {
         return;
     }
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->ptr, msg->numeric5) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }
@@ -1308,6 +1312,7 @@ static int deleteInode(int inode_num) {
 }
 
 static void write(struct my_msg *msg, int pid) {
+    TracePrintf(0, "max number of blocks is %i\n", (NUM_DIRECT + BLOCKSIZE/sizeof(int)));
     if (msg->ptr == NULL) {
         msg->numeric1 = ERROR;
         return;
@@ -1343,8 +1348,11 @@ static void write(struct my_msg *msg, int pid) {
 
 static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_write) {
 
-    struct inode inode_to_write = accessInode(inode_num);
     int max_size = (NUM_DIRECT + BLOCKSIZE/(sizeof(int)))*BLOCKSIZE;
+    if (start_pos + size > max_size) {
+        return ERROR;
+    }
+    struct inode inode_to_write = accessInode(inode_num);
     //determine how much we can write by subtracting what we have written from what we can write
     int left_to_write = max_size - inode_to_write.size;
 
@@ -1360,7 +1368,7 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
     int i;
     for (i = starting_block; i < NUM_DIRECT && bytes_left > 0; i++) {
 
-        if (i >= num_blocks) {//then we do not need to allocate a new block
+        if (i >= num_blocks || inode_to_write.direct[i] == 0) {//then we do need to allocate a new block
             int free_block_num = find_free_block();
             if(free_block_num == ERROR) {
                 return size_to_write - bytes_left;
@@ -1402,7 +1410,7 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
         int j;
         for (j = i - NUM_DIRECT; bytes_left > 0; j++) {
             
-            if(j + NUM_DIRECT >= num_blocks) {
+            if(j + NUM_DIRECT >= num_blocks || indirect_buf[j] == 0) {
                 //we need to allocate a new block
                 //and put it into indirect_buf[j]
                 int free_block_num = find_free_block();
@@ -1436,43 +1444,96 @@ static int writeToInode(int inode_num, int size, int start_pos, char* buf_to_wri
     return size_to_write;
 }
 
+
+static int fillHoles(int inode_num, int pos) {
+    TracePrintf(0, "In fillHoles for inum=%i and pos = %i\n", inode_num , pos);
+    struct inode inode_to_write = accessInode(inode_num);
+    int max_size = (NUM_DIRECT + BLOCKSIZE/(sizeof(int)))*BLOCKSIZE;
+    //determine how much we can write by subtracting what we have written from what we can write
+
+    int end = MIN(max_size, pos);
+    // Find an index of first block that is partially in hole.
+    int first_partial_block = get_num_blocks(inode_to_write.size) - 1;
+    int last_partial_block = get_num_blocks(end) - 1;
+    // Fill the first partial block with 0s.
+    // int left_for_first = BLOCKSIZE - (inode_to_write.size % BLOCKSIZE);
+    // if (left_for_first != 0) {
+    //     int block_num;
+    //     char zero_buf[left_for_first];
+    //     memset(zero_buf, '\0', left_for_first);
+    //     if (first_partial_block < NUM_DIRECT) {
+    //         block_num = inode_to_write.direct[first_partial_block];
+    //     } else {
+    //         // Indirect block was already allocated.
+    //         int *indirect_buf = (int *)accessBlock(inode_to_write.indirect);
+    //         if (indirect_buf == NULL) {
+    //             return ERROR;
+    //         }
+    //         block_num = indirect_buf[first_partial_block - NUM_DIRECT];
+    //     }
+    //     int bytes_written = WriteBlock(block_num, inode_to_write.size % BLOCKSIZE, left_for_first, zero_buf);
+    //     if (bytes_written != left_for_first) {
+    //         return ERROR;
+    //     }
+    // }
+    TracePrintf(0, "first_partial_block=%i and last_partial_block = %i\n", first_partial_block , last_partial_block);
+    // Fill all non-allocated blocks with zeros.
+    int i;
+    for (i = first_partial_block + 1; i < NUM_DIRECT && i <= last_partial_block; i++) {
+        inode_to_write.direct[i] = 0;
+    }
+    if (last_partial_block >= NUM_DIRECT) {
+        if(first_partial_block < NUM_DIRECT) {
+            // Allocate an indirect block.
+            inode_to_write.indirect = find_free_block();
+            if (inode_to_write.indirect == ERROR) {
+                return ERROR;
+            }
+            blockmap[inode_to_write.indirect] = false;
+        }
+        int *indirect_buf = (int *)accessBlock(inode_to_write.indirect);
+        if (indirect_buf == NULL) {
+            return ERROR;
+        }
+        int j;
+        for (j = i - NUM_DIRECT; j <= last_partial_block - NUM_DIRECT; j++) {
+            indirect_buf[j] = 0;
+        }
+        if (modifyBlock(inode_to_write.indirect, (char *)indirect_buf) == ERROR) {
+            return ERROR;
+        }
+    }
+    inode_to_write.size = pos;
+    if (modifyInode(inode_num, inode_to_write) == ERROR) {
+        return ERROR;
+    }
+    return 0;
+}
+
 static int WriteBlock(int block_num, int start_within_block, int bytes_left, char* buf_to_write) {
     char *buf = accessBlock(block_num);
     if(buf == NULL) {
         return ERROR;
     }
-    // char buf[SECTORSIZE];
-    // if(ReadSector(block_num, buf) == ERROR) {
-    //     return ERROR;
-    // }
     int bytes_to_write = MIN(bytes_left, SECTORSIZE - start_within_block);
     memcpy(buf + start_within_block, buf_to_write, bytes_to_write);
     // Advance a buffer by bytes_to_read bytes.
     if(modifyBlock(block_num, buf) == ERROR) {
         return ERROR;
     }
-    // if(WriteSector(block_num, buf) == ERROR) {
-    //     return ERROR;
-    // }
-    //char buffer[bytes_to_write + 1];
-    // snprintf(buffer, bytes_to_write, "%s", buf + start_within_block);
-    // buffer[bytes_to_write] = '\0';
-    // // TracePrintf(0, "Block#%i ==================\n", block_num);
-    // // TracePrintf(0, "%s\n", buffer);
     return bytes_to_write;
 }
 
 
-
 //returns how much was actually write to the file or ERROR
 static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write) {
+    TracePrintf(0, "In fillAndWrite\n");
     // Fill the holes.
     int bytes_to_fill = start_pos - inode_to_write.size;
     if (bytes_to_fill > 0) {
-        char hole_buf[bytes_to_fill];
-        memset(hole_buf, '\0', bytes_to_fill);
-        int bytes_filled = writeToInode(inode_num, bytes_to_fill, inode_to_write.size, hole_buf);
-        if (bytes_filled != bytes_to_fill) {
+        // char hole_buf[bytes_to_fill];
+        // memset(hole_buf, '\0', bytes_to_fill);
+        if (fillHoles(inode_num, start_pos) == ERROR) {
             return ERROR;
         }
     }
@@ -1492,11 +1553,13 @@ static void mkdir(struct my_msg *msg, int pid) {
     int curr_dir = msg->numeric1;
     if (inodemap[curr_dir]) {
         // This inode number is free.
+        TracePrintf(0, "Inode is not valid\n");
         msg->numeric1 = ERROR;
         return;
     }
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->ptr, msg->numeric5) == ERROR) {
+        TracePrintf(0, "Couldn't copy a pathname\n");
         msg->numeric1 = ERROR;
         return;
     }
@@ -1579,7 +1642,7 @@ static void rmdir(struct my_msg *msg, int pid) {
         return;
     }
     char pathname[MAXPATHNAMELEN];
-    if (CopyFrom(pid, pathname, msg->ptr, MAXPATHNAMELEN) == ERROR) {
+    if (CopyFrom(pid, pathname, msg->ptr, msg->numeric5) == ERROR) {
         msg->numeric1 = ERROR;
         return;
     }

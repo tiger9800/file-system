@@ -30,7 +30,7 @@ int Open(char *pathname) {
     if(curr_fd == ERROR) {
         return ERROR;
     }
-    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, 0, 0, "", pathname};
+    struct my_msg new_msg = {OPEN, curr_dir_inode, 0, 0, 0, strlen(pathname) + 1, pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -70,7 +70,7 @@ int Create(char *pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {CREATE, curr_dir_inode, 0, 0, 0, "", pathname};
+    struct my_msg new_msg = {CREATE, curr_dir_inode, 0, 0, 0, strlen(pathname) + 1, pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -104,7 +104,7 @@ int Read(int fd, void * buf, int size) {
         return 0;
     }
     TracePrintf(0, "pos = %i\n", file_to_read.pos);
-    struct my_msg new_msg = {READ, file_to_read.inode_num, file_to_read.pos, file_to_read.reuse, size, "", buf};
+    struct my_msg new_msg = {READ, file_to_read.inode_num, file_to_read.pos, file_to_read.reuse, size, 0, buf};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -136,7 +136,7 @@ int Write(int fd, void * buf, int size) {
         return 0;
     }
 
-    struct my_msg new_msg = {WRITE, file_to_write.inode_num, file_to_write.pos, file_to_write.reuse, size, "", buf};
+    struct my_msg new_msg = {WRITE, file_to_write.inode_num, file_to_write.pos, file_to_write.reuse, size, 0, buf};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -163,7 +163,7 @@ int Seek(int fd, int offset, int whence) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {SEEK, file_to_seek.inode_num, file_to_seek.pos, whence, offset, "", NULL};
+    struct my_msg new_msg = {SEEK, file_to_seek.inode_num, file_to_seek.pos, whence, offset, 0, NULL};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -186,7 +186,7 @@ int Link(char * oldname, char * newname) {
         return ERROR;
     }
 
-    struct link_msg new_msg = {LINK, curr_dir_inode, "", oldname, newname};
+    struct link_msg new_msg = {LINK, curr_dir_inode, strlen(oldname) + 1, strlen(newname) + 1, oldname, newname};
     assert(sizeof(struct link_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -200,7 +200,7 @@ int Unlink(char * pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {UNLINK, curr_dir_inode, 0, 0, 0, "", pathname};
+    struct my_msg new_msg = {UNLINK, curr_dir_inode, 0, 0, 0, strlen(pathname) + 1, pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -221,7 +221,7 @@ int MkDir(char * pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {MKDIR, curr_dir_inode, 0, 0, 0, "", pathname};
+    struct my_msg new_msg = {MKDIR, curr_dir_inode, 0, 0, 0, strlen(pathname) + 1, pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -235,7 +235,7 @@ int RmDir(char * pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {RMDIR, curr_dir_inode, 0, 0, 0, "", pathname};
+    struct my_msg new_msg = {RMDIR, curr_dir_inode, 0, 0, 0, strlen(pathname) + 1, pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -250,7 +250,7 @@ int ChDir(char * pathname) {
         return ERROR;
     }
 
-    struct my_msg new_msg = {CHDIR, curr_dir_inode, 0, 0, 0, "", pathname};
+    struct my_msg new_msg = {CHDIR, curr_dir_inode, 0, 0, 0, strlen(pathname) + 1, pathname};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -267,8 +267,8 @@ int Stat(char * pathname, struct Stat * statbuf) {
      if(pathname == NULL || strlen(pathname) == 0 || strlen(pathname) > MAXPATHNAMELEN - 1) {
         return ERROR;
     }
-    struct stat_msg new_msg = {STAT, curr_dir_inode, "", pathname, statbuf};
-    assert(sizeof(struct my_msg) == 32);
+    struct stat_msg new_msg = {STAT, curr_dir_inode, strlen(pathname) + 1,"", pathname, statbuf};
+    assert(sizeof(struct stat_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
     }
@@ -278,7 +278,7 @@ int Stat(char * pathname, struct Stat * statbuf) {
 }
 
 int Sync() {
-    struct my_msg new_msg = {SYNC, 0, 0, 0, 0, "", NULL};
+    struct my_msg new_msg = {SYNC, 0, 0, 0, 0, 0, NULL};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;
@@ -287,7 +287,7 @@ int Sync() {
 }
 
 int Shutdown() {
-    struct my_msg new_msg = {SHUTDOWN, 0, 0, 0, 0, "", NULL};
+    struct my_msg new_msg = {SHUTDOWN, 0, 0, 0, 0, 0, NULL};
     assert(sizeof(struct my_msg) == 32);
     if (Send((void*)&new_msg, -FILE_SERVER) == ERROR) {
         return ERROR;

@@ -37,7 +37,7 @@ main()
     printf("Inum is %i\n", statBuf.inum);
     printf("Size is %i\n", statBuf.size);
 
-
+    Shutdown();
 
 
     return 0;

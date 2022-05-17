@@ -49,5 +49,7 @@ main()
 	printf("Here is fd %d\n", fd);
     fd = Create("abc2");
 	printf("Here is fd %d\n", fd);
+
+    Shutdown();
     return (0);
 }

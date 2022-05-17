@@ -25,5 +25,6 @@ main()
 
     status = Link("/", "/xyz");
     printf("Return status is %i\n", status);
+    Shutdown();
     return (0);
 }

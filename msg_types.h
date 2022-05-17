@@ -4,14 +4,15 @@ struct my_msg {
     int numeric2;
     int numeric3;
     int numeric4;
-    char padding[4]; 
+    int numeric5;
     void *ptr; 
 };
 
 struct link_msg { 
     int type; 
     int numeric1; 
-    char padding[8]; 
+    int oldsize; 
+    int newsize;
     void *oldname;
     void *newname; 
 };
@@ -19,7 +20,8 @@ struct link_msg {
 struct stat_msg {
     int type;
     int numeric1;
-    char padding[8]; 
+    int size;
+    char padding[4]; 
     void *pathname;
     void *statbuf; 
 };

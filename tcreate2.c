@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 #include <comp421/yalnix.h>
 #include <comp421/iolib.h>
@@ -15,6 +13,7 @@ main()
 	printf("\n%d\n\n", Create("/foo"));
 	printf("\n%d\n\n", Create("/foo/zzz"));
 
-	// Shutdown();
-	exit(0);
+	Shutdown();
+	return 0;
 }
+
