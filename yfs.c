@@ -158,6 +158,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+/* Function that starts another process */
 static void start_user_program(char *argv[]) {
         int child;
         child = Fork();
@@ -166,6 +167,7 @@ static void start_user_program(char *argv[]) {
         }
 }
 
+/* Function that initializes the inodemap */
 static int getFreeInodes() {
     char *buf = accessBlock(1);
     if (buf == NULL) {
@@ -202,15 +204,12 @@ static int getFreeInodes() {
             printf("Error\n");
             return ERROR;
         }
-        // if (ReadSector(sector, buf) == ERROR) {
-        //     printf("Error\n");
-        //     return ERROR;
-        // }
         currNode = (struct inode *)buf;
     } 
     return 0;    
 }
 
+/* Function that changes the states of all the data blocks */
 static int changeStateBlocks(struct inode *currNode, bool state) {
     int num_blocks = get_num_blocks(currNode->size);
     int i;
@@ -224,10 +223,6 @@ static int changeStateBlocks(struct inode *currNode, bool state) {
         if (indirect_buf == NULL) {
             return ERROR;
         }
-        // int indirect_buf[SECTORSIZE/sizeof(int)];
-        // if (ReadSector(block_to_read, indirect_buf) == ERROR) {
-        //     return ERROR;
-        // }
         int j;
         for (j = 0; j < (num_blocks - NUM_DIRECT); j++) {
             blockmap[indirect_buf[j]] = state;
@@ -239,6 +234,7 @@ static int changeStateBlocks(struct inode *currNode, bool state) {
     return 0;
 }
 
+/* Function that initializes all occupied blocks to false in the blockmap */
 static void getTakenBlocks() {
     // Boot block.
     blockmap[0] = false;
@@ -251,6 +247,7 @@ static void getTakenBlocks() {
     }
 }
 
+/* Function that initializes the file server */
 static int init() {
     initCaches();
     char *buf = accessBlock(1);
@@ -258,11 +255,6 @@ static int init() {
         printf("Error\n");
         return ERROR;
     }
-    // char buf[SECTORSIZE];
-    // if (ReadSector(1, buf) == ERROR) {
-    //     printf("Error\n");
-    //     return ERROR;
-    // }
     struct fs_header *header = (struct fs_header*)buf;
     //Now we can get the number of inodes
     NUM_INODES = header->num_inodes;
@@ -278,11 +270,10 @@ static int init() {
     if (getFreeInodes() == ERROR) {
         return ERROR;
     }
-
-    //initalize root struct
     return 0;
 }
 
+/* Handle the messages of different kinds */
 static void handleMsg(struct my_msg *msg, int pid) {
     switch(msg->type) {
         case OPEN:
@@ -327,6 +318,7 @@ static void handleMsg(struct my_msg *msg, int pid) {
     }
 }
 
+/* Replies to the message of type STAT */
 static void stat(struct stat_msg *msg, int pid) {
     if (msg->pathname == NULL || msg->statbuf == NULL) {
         msg->numeric1 = ERROR;
@@ -359,6 +351,7 @@ static void stat(struct stat_msg *msg, int pid) {
     
 }
 
+/* Returns a Stat struct filled with useful info about inode */
 static struct Stat* getStat(int curr_dir, char * pathname) {
     int inode_num = getInodeNumber(curr_dir, pathname);
     if(inode_num == ERROR) {
@@ -379,6 +372,7 @@ static struct Stat* getStat(int curr_dir, char * pathname) {
     return stats;
 }
 
+/* Replies to the message of type SEEK */
 static void seek(struct my_msg *msg, int pid) {
     (void)pid;
     int file_inode_num = msg->numeric1;
@@ -407,6 +401,7 @@ static void seek(struct my_msg *msg, int pid) {
     msg->numeric1 = rel_pos + offset;
 }
 
+/* Replies to the message of type OPEN */
 static void open(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
         msg->numeric1 = ERROR;
@@ -433,6 +428,7 @@ static void open(struct my_msg *msg, int pid) {
     } 
 }
 
+/* Replies to the message of type CHDIR */
 static void chdir(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
         msg->numeric1 = ERROR;
@@ -462,6 +458,7 @@ static void chdir(struct my_msg *msg, int pid) {
     }
 }
 
+/* Replies to the message of type CREATE */
 static void create(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
         msg->numeric1 = ERROR;
@@ -495,15 +492,16 @@ static void create(struct my_msg *msg, int pid) {
     }
 }
 
+/* Creates a directory entry in the directory with inum = currr_dir.
+   This directory entry contains pathname and pref_inum. 
+   If pref_inum = -1, we want to find a free unique inode number.
+   type tells what type of the inode is about to be created.
+   Possible types are INODE_REGULAR or INODE_DIRECTORY. */
 static int createDirEntry(int curr_dir, char *pathname, int pref_inum, int type) {
-    // TracePrintf(0, "In createDirEntry (before getParent): curr_dir = %i\n", curr_dir);
-    // TracePrintf(0, "In createDirEntry (before getParent): pathname = %s\n", pathname);
     int parent_dir = getParentDir(curr_dir, &pathname);
     if (parent_dir == ERROR) {
         return ERROR;
     }
-    // TracePrintf(0, "In createDirEntry (after getParent): parent_dir = %i\n", parent_dir);
-    // TracePrintf(0, "In createDirEntry (after getParent): pathname = %s\n", pathname);
     int new_file_inode_num = createFileInDir(parent_dir, pathname, pref_inum, type);
     return new_file_inode_num;
 }
@@ -1061,9 +1059,11 @@ static int fillFreeEntry(int blockNum, int index, int file_inode_num, char *entr
     // if (ReadSector(blockNum, dir_buf) == ERROR) {
     //     return ERROR;
     // }
-    // For security.
+
     dir_buf[index].inum = file_inode_num;
-    memcpy(dir_buf[index].name, entry_name, DIRNAMELEN);
+    memset(dir_buf[index].name, '\0', DIRNAMELEN);
+    int size = MIN(strlen(entry_name) + 1, DIRNAMELEN);
+    memcpy(dir_buf[index].name, entry_name, size);
     if (modifyBlock(blockNum, (char *)dir_buf) == ERROR) {
         return ERROR;
     }
