@@ -32,5 +32,6 @@ main()
         }
     }
     printf("String of len=%zu: %s\n", strlen(readBuf), readBuf);
+    Shutdown();
     return 0;
 }
