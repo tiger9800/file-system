@@ -22,39 +22,60 @@ YFS      Search inode is done for #1
 YFS      Inode 1 is not in the cache. Insert it.
 YFS      Enough space to insert inode #1!!
 YFS      1. Inode#1
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is not in the cache. Insert it.
-YFS      Enough space to insert inode #3!!
-YFS      1. Inode#3
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is not in the cache. Insert it.
+YFS      Enough space to insert inode #2!!
+YFS      1. Inode#2
 YFS      2. Inode#1
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
-User     pos = 0
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
-User     pos = 32
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
 YFS      ===================== accessInode called for inode #1
 YFS      Search inode is done for #1
 YFS      Inode 1 is in the cache. Update its LRU position.
-User     pos = 64
-YFS      ===================== accessInode called for inode #3
-YFS      Search inode is done for #3
-YFS      Inode 3 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      max number of blocks is 140
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      In fillAndWrite
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      max number of blocks is 140
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      In fillAndWrite
+YFS      In fillHoles for inum=2 and pos = 309
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      first_partial_block=0 and last_partial_block = 0
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      max number of blocks is 140
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      In fillAndWrite
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.
+User     pos = 0
+YFS      ===================== accessInode called for inode #2
+YFS      Search inode is done for #2
+YFS      Inode 2 is in the cache. Update its LRU position.

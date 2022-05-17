@@ -110,6 +110,8 @@ static void writeDirtyInodes();
 static void writeDirtyBlocks();
 static void cleanBlocks(struct inode *inode_struct);
 static int fillAndWrite(int inode_num, struct inode inode_to_write, int size, int start_pos, char* buf_to_write);
+
+
 int main(int argc, char *argv[]) {
     printf("Blocksize: %i\n", BLOCKSIZE);
     printf("# dir_entries per block: %i\n", BLOCKSIZE/(int)sizeof(struct dir_entry));
@@ -170,20 +172,11 @@ static int getFreeInodes() {
         printf("Error\n");
         return ERROR;
     }
-    // (void)buf2;
-    // char buf[SECTORSIZE];
-    // if (ReadSector(1, buf) == ERROR) {
-    //     printf("Error\n");
-    //     return ERROR;
-    // }
     struct inode *currNode = (struct inode *)buf + 1; //address of the first inode
     // File header is occupied.
     inodemap[0] = false;
     int node_count = 1;
     int sector = 1;
-    //// TracePrintf(0, "Root node type %i\n", currNode->type);
-    //// TracePrintf(0, "Root node size %i\n", currNode->size);
-    //// TracePrintf(0, "sizeof dir_entry %i\n", sizeof(struct dir_entry));
 
     while(node_count <= NUM_INODES) {
         printf("Before second while_loop: node_count is %d\n", node_count);
@@ -1068,6 +1061,7 @@ static int fillFreeEntry(int blockNum, int index, int file_inode_num, char *entr
     // if (ReadSector(blockNum, dir_buf) == ERROR) {
     //     return ERROR;
     // }
+    // For security.
     dir_buf[index].inum = file_inode_num;
     memcpy(dir_buf[index].name, entry_name, DIRNAMELEN);
     if (modifyBlock(blockNum, (char *)dir_buf) == ERROR) {
