@@ -506,6 +506,8 @@ static int createDirEntry(int curr_dir, char *pathname, int pref_inum, int type)
     return new_file_inode_num;
 }
 
+/* Returns an inode number of the parent directory. 
+   pathname becomes a name relative to this parent directory.*/
 static int getParentDir(int curr_dir, char **pathname) {
     int i;
     int last_slash = -1;
@@ -537,6 +539,7 @@ static int getParentDir(int curr_dir, char **pathname) {
     }
 }
 
+/* Replies to the message of type READ */
 static void read(struct my_msg *msg, int pid) {
     if (msg->ptr == NULL) {
         msg->numeric1 = ERROR;
@@ -570,9 +573,9 @@ static void read(struct my_msg *msg, int pid) {
     msg->numeric1 = sizeRead;
 }
 
-//returns how much was actually read from the file
+/* Attempts to read "size" bytes from "inode_to_read".
+   Returns how much was actually read from the file. */
 static int readFromInode(struct inode inode_to_read, int size, int start_pos, char* buf_to_read) {
-    //What if start_pos > inode_to_read.size?
     if (start_pos >= inode_to_read.size) {
         return 0;
     }
@@ -597,16 +600,13 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
         start_within_block = 0;
     }
 
-    if (num_blocks > NUM_DIRECT && bytes_left > 0) {//then we need to search in the indirect block
+    if (num_blocks > NUM_DIRECT && bytes_left > 0) {
+        // Then we need to search in the indirect block.
         int block_to_read = inode_to_read.indirect;
         int *indirect_buf = (int *)accessBlock(block_to_read);
         if (indirect_buf == NULL) {
             return ERROR;
         }
-        // int indirect_buf[BLOCKSIZE/sizeof(int)];
-        // if (ReadSector(block_to_read, indirect_buf) == ERROR) {
-        //     return ERROR;
-        // }
         int j;
         for (j = i - NUM_DIRECT; j < (num_blocks - NUM_DIRECT) && bytes_left > 0; j++) {
             buf_to_read = ReadBlock(indirect_buf[j], start_within_block, bytes_left, buf_to_read);
@@ -620,6 +620,9 @@ static int readFromInode(struct inode inode_to_read, int size, int start_pos, ch
     return size_to_read;
 }
 
+/* Attempts to read "size" bytes from block with block_num.
+   Takes a starting position and # of bytes that are left to read as parameters.
+   Returns how much was actually read from the block. */
 static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_to_read) {
     int bytes_to_read = MIN(bytes_left, SECTORSIZE - start_pos);
     if (block_num == 0) {
@@ -636,8 +639,7 @@ static char* ReadBlock(int block_num, int start_pos, int bytes_left, char* buf_t
     // Advance a buffer by bytes_to_read bytes.
     return buf_to_read + bytes_to_read;
 }
-
-// Returns an inode number of the newly-created or existing file; returns ERROR if failure.
+/* Creates a new directory entry. Returns an inode number of the newly-created or existing file; returns ERROR if failure. */
 static int createFileInDir(int dir_inode_num, char* file_name, int pref_inum, int type) {
     if (strlen(file_name) == 0 || strcmp(file_name, ".") == 0 || strcmp(file_name, "..") == 0) {
         // Can't create such directory entries manually.
@@ -689,24 +691,20 @@ static int createFileInDir(int dir_inode_num, char* file_name, int pref_inum, in
     }
     return inode_num;
 }
-// Returns an inode number of the newly-created file or ERROR.
+
+/* Helper function that creates different types of directory entries.
+   Returns an inode number of the newly-created file or ERROR. */
 static int createNewDirEntry(int dir_inode_num, char* file_name, int pref_inum, int type) {
-    // // Storage for a new inode.
-    // struct inode inode_struct;
     if (pref_inum == -1) {
         // We want to find a new unique inode_num.
         if (type == INODE_REGULAR) {
             // Create a regular file.
-            // TracePrintf(0, "Is about to create a new file!!\n");
             pref_inum = createRegFile();
         } else {
             // Create a directory.
-            // TracePrintf(0, "Is about to create a directory!!\n");
             pref_inum = createDirectory(dir_inode_num);
-            // TracePrintf(0, "pref_inum = %i\n", pref_inum);
         }
         if (pref_inum == ERROR) {
-            // TracePrintf(0, "pref_inum = -1!!\n");
             return ERROR;
         }
     }
@@ -718,17 +716,15 @@ static int createNewDirEntry(int dir_inode_num, char* file_name, int pref_inum, 
     }
     // Increment a number of hard links to this inode_struct.
     inode_struct.nlink++;
-    // TracePrintf(0, "Number of links is %i\n", inode_struct.nlink);
     // We set inodemap[pref_inum] to false in this function.
     if (modifyInode(pref_inum, inode_struct) == ERROR) {
         return ERROR;
     }
-    // if (writeInodeToDisc(pref_inum, inode_struct) == ERROR) {
-    //     return ERROR;
-    // }
     return pref_inum;
 }
 
+/* Helper function that creates a regular file in the directory.
+   Returns an inode number of the newly-created file or ERROR. */
 static int createRegFile() {
     int free_inode_num = findFreeInodeNum();
     if (free_inode_num == -1) {
@@ -745,14 +741,10 @@ static int createRegFile() {
     if (modifyInode(free_inode_num, inode_struct) == ERROR) {
         return ERROR;
     }
-    // if (writeInodeToDisc(free_inode_num, inode_struct) == ERROR) {
-    //     return ERROR;
-    // }
     inodemap[free_inode_num] = false;
     return free_inode_num;
 }
-
-// Returns a free inode number or ERROR if none exists.
+/* Returns a free inode number or ERROR if none exists. */
 static int findFreeInodeNum() {
     int i;
     for(i = 0; i < NUM_INODES; i++) {
@@ -762,25 +754,23 @@ static int findFreeInodeNum() {
     }
     return ERROR;
 }
-
-// Returns 0 on SUCCESS, -1 on ERROR
+/* Performs an actual writing of a new directory entry to the block.     
+   Returns 0 on SUCCESS, -1 on ERROR. */
 static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_num) {
-    // TracePrintf(0, "Start of writeNewDirEntry\n");
     struct inode curr_dir_inode = accessInode(dir_inode_num);
     if (curr_dir_inode.type != INODE_DIRECTORY) {
-        // TracePrintf(0, "The wrong type of parent directory.\n");
+        fprintf(stderr, "The wrong type of parent directory.\n");
         return ERROR;
     }
 
     int last_block;
     if ((last_block = updateFreeEntry(&curr_dir_inode, file_name, file_inode_num)) < 0) {
-        // TracePrintf(0, "Update an existing free entry for filename=%s of directory#%i.\n", file_name, dir_inode_num);
-        // Either SUCCESS (-2) (we found a free entry and modified it) or ERROR (-1).
+        // Returns either SUCCESS (-2) or ERROR (-1).
         if (last_block == -2) {
             // We found a free entry and successfully updated it.
             return 0;
         } else {
-            // We failed to update it.
+            // We found a free entry but failed to update it.
             return ERROR;
         }
     }
@@ -789,34 +779,33 @@ static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_n
     int max_size = (NUM_DIRECT + BLOCKSIZE/sizeof(int)) * BLOCKSIZE;
     if (max_size == curr_dir_inode.size) {
         // Directory reached its maximum size.
-        // TracePrintf(0, "Directory reached its maximum size.\n");
+        fprintf(stderr, "Directory reached its maximum size.\n");
         return ERROR;
     } else if(curr_dir_inode.size % BLOCKSIZE != 0){
-        // TracePrintf(0, "Creating a new entry for filename=%s in existing block of directory#%i.\n", file_name, dir_inode_num);
         // There is still space in the last block that we can use.
         int index = (curr_dir_inode.size % BLOCKSIZE)/(sizeof(struct dir_entry));
         if (fillFreeEntry(last_block, index, file_inode_num, file_name) == ERROR) {
-            // TracePrintf(0, "fillFreeEntry failed.\n");
+            fprintf(stderr, "fillFreeEntry failed.\n");
             return ERROR;
         }
     } else {
-        // TracePrintf(0, "Allocate a new block and create anb entry for filename=%s of directory#%i.\n", file_name, dir_inode_num);
         // Allocate a new block.
         int free_block_num = find_free_block();
         if(free_block_num == ERROR) {
-            // TracePrintf(0, "No enough free blocks\n");
+            fprintf(stderr, "No enough free blocks\n");
             return ERROR;
         }
         // Fill the first entry in this newly-allocated block.
         if (fillFreeEntry(free_block_num, 0, file_inode_num, file_name) == ERROR) {
-            // TracePrintf(0, "fillFreeEntry failed.\n");
+            fprintf(stderr, "fillFreeEntry failed.\n");
             return ERROR;
         }
         int num_blocks = get_num_blocks(curr_dir_inode.size);
+        // Look for a place where we can put this newly-allocated block.
         if(num_blocks < NUM_DIRECT) {
-            //then, we can put in the last direct block
-            curr_dir_inode.direct[num_blocks] = free_block_num; //this is where we put the new block
-        } else {//num_blocks >= NUM_DIRECT
+            // We can put free_block_num in the last direct block.
+            curr_dir_inode.direct[num_blocks] = free_block_num; 
+        } else {
             if(num_blocks == NUM_DIRECT) {
                 curr_dir_inode.indirect = find_free_block();
                 if (curr_dir_inode.indirect == ERROR) {
@@ -827,30 +816,20 @@ static int writeNewDirEntry(char* file_name, int file_inode_num, int dir_inode_n
             if(indirect_buf == NULL) {
                 return ERROR;
             }
-            // int indirect_buf[BLOCKSIZE/sizeof(int)];
-            // if(ReadSector(curr_dir_inode.indirect, indirect_buf) == ERROR) {
-            //     return ERROR;
-            // }
             indirect_buf[num_blocks - NUM_DIRECT] = free_block_num;
             if(modifyBlock(curr_dir_inode.indirect, (char *)indirect_buf) == ERROR) {
                 return ERROR;
             }
-            // if(WriteSector(curr_dir_inode.indirect, indirect_buf) == ERROR) {
-            //     return ERROR;
-            // }
         }
         // After all error-checkings, can finally change bitmap for new block and (possibly) new indirect block.
         blockmap[free_block_num] = false;
         if (num_blocks == NUM_DIRECT) blockmap[curr_dir_inode.indirect] = false;
     }
     // Must increment a size of the directory.
-    curr_dir_inode.size += sizeof(struct dir_entry);//we should have existed if we reused the old free dir_entry
+    curr_dir_inode.size += sizeof(struct dir_entry);
     if (modifyInode(dir_inode_num, curr_dir_inode) == ERROR) {
         return ERROR;
     }
-    // if (writeInodeToDisc(dir_inode_num, curr_dir_inode) == ERROR) {
-    //     return ERROR;
-    // }
     return 0;
 }
 
